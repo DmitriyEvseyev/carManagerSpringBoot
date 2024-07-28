@@ -41,7 +41,7 @@ public class ConverterEntity {
 //        return carDTOList;
 //    }
 //
-    public List<CarDealership> convertDealerEntityToDealer(List<CarDealershipEntity> dealerListEntity) {
+    public List<CarDealership> convertDealerEntityLisToDealerList(List<CarDealershipEntity> dealerListEntity) {
         List<CarDealership> dealerList = new ArrayList<>();
         for (CarDealershipEntity dealerEntity : dealerListEntity) {
             CarDealership dealer = CarDealership.builder().
@@ -51,6 +51,14 @@ public class ConverterEntity {
             dealerList.add(dealer);
         }
         return dealerList;
+    }
+
+    public CarDealership convertDealerEntityToDealer(CarDealershipEntity dealerEntity) {
+        return CarDealership.builder().
+                id(dealerEntity.getId()).
+                name(dealerEntity.getName()).
+                address(dealerEntity.getAddress()).
+                build();
     }
 
     public CarDealershipEntity convertDealerToDealerEntity(CarDealership dealer) {

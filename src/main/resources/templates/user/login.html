@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="log.css">
+    <link th:href="@{/log.css}" rel="stylesheet"/>
     <!-- ===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
@@ -17,7 +17,6 @@
     <div class="forms">
         <div class="form login">
             <span class="title">Login</span>
-
             <form action="/log" method="post">
                 <div class="input-field">
                     <input type="text" name="name" placeholder="Enter your name" required>

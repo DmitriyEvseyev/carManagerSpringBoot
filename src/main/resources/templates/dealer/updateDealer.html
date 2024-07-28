@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Edit dealer</title>
+        <link th:href="@{/dealercss/editDealer.css}" rel="stylesheet"/>
+    </head>
+<body>
+<h2> Edit dealer </h2>
+<form th:method="POST" th:action="@{/dealer/edit}" th:object="${dealer}">
+    <input type="hidden" th:field="*{id}">
+    <table class="tab">
+        <tr>
+            <td> Name</td>
+            <td><input name="name" id="name" type="text" th:field="*{name}" required/></td>
+        </tr>
+        <tr>
+            <td> Adress</td>
+            <td><input name="address" type="text" th:field="*{address}" required/></td>
+        </tr>
+    </table>
+    <br/>
+    <div class="but">
+        <input type="submit" value="Ok"/>
+        <input type="reset" value="Cancel"/>
+    </div>
+</form>
+</body>
+</html>

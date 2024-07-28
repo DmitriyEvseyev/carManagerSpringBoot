@@ -56,6 +56,23 @@ public class DealerController {
         return "redirect:/dealer/getAllDealer";
     }
 
+    @GetMapping("/edit")
+    public String editDealer(@RequestParam("idDealer") String idDealerString, Model model) {
+
+        System.out.println("idDealer edit - " + idDealerString);
+
+        model.addAttribute("dealer", dealerService.getDealer(Integer.parseInt(idDealerString)));
+        return "dealer/updateDealer";
+    }
+
+    @PostMapping("/edit")
+    public String updateDealer(@ModelAttribute("dealer") CarDealership dealer) {
+
+        System.out.println("DDD -  " + dealer);
+        dealerService.updateDealer(dealer);
+
+        return "redirect:/dealer/getAllDealer";
+    }
 //    public void addDealer(CarDealership dealer) throws AddDealerExeption {
 //        dealerDAO.createDealer(dealer);
 //    }

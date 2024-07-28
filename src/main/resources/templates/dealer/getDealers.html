@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CarDealership</title>
-    <link rel="stylesheet" href="dealer.css">
+    <link th:href="@{/dealercss/dealer.css}" rel="stylesheet"/>
 </head>
 <body>
 <div>
@@ -130,7 +130,7 @@
         <input type="submit" formmethod="get" formaction="/dealer/del" id="sel" disabled value="Select"/>
         <input type="submit" formmethod="get" formaction="/dealer/del" id="del" disabled value="Delete"
                onclick="return delCar()"/>
-        <input type="submit" formmethod="get" formaction="editDealerServlet" id="edit" disabled value="Edit"/>
+        <input type="submit" formmethod="get" formaction="/dealer/edit" id="edit" disabled value="Edit"/>
         <input type="submit" formmethod="get" formaction="/dealer/new" id="add" value="Add"/>
         <input type="submit" formmethod="get" formaction="dealershipServlet" value="Reset"/>
     </div>

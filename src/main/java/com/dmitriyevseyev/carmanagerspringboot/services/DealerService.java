@@ -7,10 +7,10 @@ import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,7 +21,7 @@ public class DealerService {
 
     public List<CarDealership> getAllDealer() {
         List<CarDealership> dealerList;
-        dealerList = converterEntity.convertDealerEntityToDealer(dealerRepository.findAll());
+        dealerList = converterEntity.convertDealerEntityLisToDealerList(dealerRepository.findAll());
         return dealerList;
     }
 
@@ -45,6 +45,19 @@ public class DealerService {
         for (Integer idDealer : idDealerList) {
             dealerRepository.deleteById(idDealer);
         }
+    }
+
+    public CarDealership getDealer(Integer id) {
+        Optional<CarDealershipEntity> dealerEntity = dealerRepository.findById(id);
+        return converterEntity.convertDealerEntityToDealer(dealerEntity.orElse(null));
+    }
+
+    @Transactional
+    public void updateDealer (CarDealership dealer) {
+
+        System.out.println("CarDealership dealer update - " + dealer);
+
+    dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
     }
 }
 
