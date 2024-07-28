@@ -1,5 +1,6 @@
 package com.dmitriyevseyev.carmanagerspringboot.services;
 
+import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
@@ -37,11 +38,6 @@ public class DealerService {
         for (int i = 0; i < idDealerArr.length; i++) {
             idDealerList.add(Integer.parseInt(idDealerArr[i]));
         }
-
-        System.out.println("delDealer - " + idDealerList);
-        System.out.println(idDealerList.get(0));
-
-
         for (Integer idDealer : idDealerList) {
             dealerRepository.deleteById(idDealer);
         }
@@ -53,11 +49,20 @@ public class DealerService {
     }
 
     @Transactional
-    public void updateDealer (CarDealership dealer) {
+    public void updateDealer(CarDealership dealer) {
+        dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
+    }
 
-        System.out.println("CarDealership dealer update - " + dealer);
+    public List<Car> getAllCars(String idDealer) {
 
-    dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));
+        CarDealershipEntity dealer = dealerOptional.orElse(null);
+        List<Car> carList = converterEntity.convertCarEntityToCar(dealer.getCarEntities());
+
+        System.out.println("CARLIST service - " + carList);
+
+
+        return carList;
     }
 }
 

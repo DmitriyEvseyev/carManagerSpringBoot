@@ -1,8 +1,10 @@
 package com.dmitriyevseyev.carmanagerspringboot.utils;
 
+import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.models.User;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
+import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
@@ -69,7 +71,39 @@ public class ConverterEntity {
         return dealerEntity;
     }
 
-//
+    public List<Car> convertCarEntityToCar(List<CarEntity> carEntityList) {
+        List<Car> carList = new ArrayList<>();
+
+        for (CarEntity carEntity : carEntityList) {
+            Car car = Car.builder().
+                    id(carEntity.getId()).
+                    idDealer(carEntity.getDealer().getId()).
+                    name(carEntity.getName()).
+                    date(carEntity.getDate()).
+                    color(carEntity.getColor()).
+                    isAfterCrash(carEntity.isAfterCrash()).
+                    build();
+            carList.add(car);
+        }
+
+
+        System.out.println("convertCarEntityToCar - " + carList);
+
+        return carList;
+    }
+
+    public CarEntity converterCarToCarEntity (Car car, CarDealershipEntity dealerEntity) {
+        CarEntity carEntity = CarEntity.builder().
+                id(car.getId()).
+                dealer(dealerEntity).
+                name(car.getName()).
+                date(car.getDate()).
+                color(car.getColor()).
+                isAfterCrash(car.isAfterCrash()).
+                build();
+        return carEntity;
+    }
+
 //    public List<CarDealership> convertetDealerDTOToDealer(List<CarDealershipDTO> dealerDTOList) {
 //        List<CarDealership> dealerList = new ArrayList<>();
 //        for (CarDealershipDTO dealerDTO : dealerDTOList) {

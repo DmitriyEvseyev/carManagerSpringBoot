@@ -3,6 +3,7 @@ package com.dmitriyevseyev.carmanagerspringboot.models.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 import java.io.Serializable;
@@ -26,6 +27,8 @@ public class CarEntity implements Serializable {
     @Column(name = "car_name")
     private String name;
     @Column(name = "car_date")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     @Column(name = "car_color")
     private String color;
@@ -43,6 +46,7 @@ public class CarEntity implements Serializable {
                 ", isAfterCrash=" + isAfterCrash +
                 '}';
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,6 +91,7 @@ public class CarEntity implements Serializable {
 
             return this;
         }
+
         public Builder name(String name) {
             this.name = name;
 

@@ -1,5 +1,6 @@
 package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
+import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
 import lombok.AllArgsConstructor;
@@ -20,58 +21,50 @@ public class DealerController {
     @RequestMapping(value = "/getAllDealer", method = {RequestMethod.GET, RequestMethod.POST})
     public String getAllDealer(Model model) {
         List<CarDealership> dealerList = dealerService.getAllDealer();
-
-
-        System.out.println("dealerList+DealerController - " + dealerList);
-
-
         model.addAttribute("carDealerships", dealerList);
         return "dealer/getDealers";
     }
 
     @GetMapping("/new")
-    public String newDdealer(Model model) {
+    public String newDealer(Model model) {
         model.addAttribute("dealer", new CarDealership());
         return "dealer/newDealer";
     }
 
     @PostMapping("/create")
     public String addDealer(@ModelAttribute("dealer") CarDealership dealer) {
-
-
-        System.out.println("NEW - " + dealer);
-
-
         dealerService.addDealer(dealer);
-        return "forward:/dealer/getAllDealer";
-    }
-
-    @GetMapping("/del")
-    public String delDealer(@RequestParam("idDealer") String idDealerString) {
-
-        System.out.println("LLLL - " + idDealerString);
-
-
-        dealerService.delDealer(idDealerString);
         return "redirect:/dealer/getAllDealer";
     }
 
     @GetMapping("/edit")
     public String editDealer(@RequestParam("idDealer") String idDealerString, Model model) {
-
-        System.out.println("idDealer edit - " + idDealerString);
-
         model.addAttribute("dealer", dealerService.getDealer(Integer.parseInt(idDealerString)));
         return "dealer/updateDealer";
     }
 
     @PostMapping("/edit")
     public String updateDealer(@ModelAttribute("dealer") CarDealership dealer) {
-
-        System.out.println("DDD -  " + dealer);
         dealerService.updateDealer(dealer);
-
         return "redirect:/dealer/getAllDealer";
+    }
+
+    @GetMapping("/del")
+    public String delDealer(@RequestParam("idDealer") String idDealerString) {
+        dealerService.delDealer(idDealerString);
+        return "redirect:/dealer/getAllDealer";
+    }
+
+    @GetMapping("/select")
+    public String getAllCars(@RequestParam("idDealer") String idDealerString, Model model) {
+        List<Car> carList = dealerService.getAllCars(idDealerString);
+
+        System.out.println("CaRLIST - " + carList);
+
+
+        model.addAttribute("carList", carList);
+        model.addAttribute("dealer", dealerService.getDealer(Integer.parseInt(idDealerString)));
+        return "car/cars";
     }
 //    public void addDealer(CarDealership dealer) throws AddDealerExeption {
 //        dealerDAO.createDealer(dealer);

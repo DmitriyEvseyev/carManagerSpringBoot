@@ -1,13 +1,60 @@
 package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
 
+import com.dmitriyevseyev.carmanagerspringboot.models.Car;
+import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
+import com.dmitriyevseyev.carmanagerspringboot.services.CarService;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+@Controller
+@AllArgsConstructor
+@RequestMapping("/car")
 public class CarController {
+    private CarService carService;
+
+    public void getCars (Car car, Model model) {
+        List<Car> carList = carService.getCarList(car.getIdDealer());
+        CarDealership dealer = carService.getDealer(car.getIdDealer());
+        model.addAttribute("carList", carList);
+        model.addAttribute("dealer", dealer);
+    }
+    @GetMapping("/new")
+    public String newCar(@RequestParam("idDealerM") String idDealerString,
+                         Model model) {
+        model.addAttribute("car", new Car());
+        model.addAttribute("idDealer", Integer.parseInt(idDealerString));
+        return "car/newCar";
+    }
+
+    @PostMapping("/create")
+    public String addDealer(@ModelAttribute("car") Car car, Model model) {
+
+        System.out.println("CAR NEW - " + car);
+
+        carService.addCar(car);
+
+        getCars(car, model);
+        return "car/cars";
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
 //    private static CarController instance;
 //    private CarDAO carDAO;
 //

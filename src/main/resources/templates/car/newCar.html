@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AddCar</title>
+    <link th:href="@{/carcss/addC.css}" rel="stylesheet"/>
+</head>
+<body>
+<h2> Add car </h2>
+<form th:method="POST" th:action="@{/car/create}" th:object="${car}">
+    <input type="hidden" name="idDealer" th:value="${idDealer}"/>
+    <table class="tab">
+        <tr>
+            <td> Name</td>
+            <td><input name="name" type="text" th:field="*{name}" required/></td>
+        </tr>
+        <tr>
+            <td> Date</td>
+            <td><input type="date"   th:field="*{date}" id="d" required/></td>
+        </tr>
+        <tr>
+            <td> Color</td>
+            <td><input name="color" type="text" th:field="*{color}" required/></td>
+        </tr>
+        <tr>
+            <td> isAfterCrash</td>
+            <td><input type="checkbox" name="isAfterCrash" th:checked="*{isAfterCrash}"/></td>
+        </tr>
+    </table>
+    <br/>
+    <div class="but">
+        <input type="submit" value="Ok"/>
+        <input type="reset" value="Cancel"/>
+    </div>
+</form>
+<script>
+    document.getElementById("d").addEventListener("change", function () {
+        d = this.value;
+        console.log(d);
+
+    });
+</script>
+</body>
+</html>
