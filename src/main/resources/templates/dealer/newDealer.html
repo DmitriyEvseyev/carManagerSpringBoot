@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AddDealer</title>
+    <link rel="stylesheet" href="css/dealercss/addDealer.css">
+</head>
+<body>
+<h2> Add dealer </h2>
+<form th:method="POST" th:action="@{/dealer/create}" th:object="${dealer}">
+    <table class="tab">
+        <tr>
+            <td> Name</td>
+            <td><input type="text" th:field="*{name}" required/></td>
+        </tr>
+        <tr>
+            <td> Address</td>
+            <td><input type="text" th:field="*{address}" required/></td>
+        </tr>
+    </table>
+    <br/>
+    <div class="but">
+        <input type="submit"  value="Ok"/>
+        <input type="reset" value="Cancel"/>
+    </div>
+</form>
+</body>
+</html>
+
