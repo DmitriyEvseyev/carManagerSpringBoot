@@ -45,4 +45,15 @@ public class CarService {
 
         carRepository.save(converterEntity.converterCarToCarEntity(car, dealer));
     }
+    @Transactional
+    public void delCar(String idCarString) {
+        List<Integer> idCarsList = new ArrayList<>();
+        String idCarsArr[] = idCarString.split(",");
+        for (int i = 0; i < idCarsArr.length; i++) {
+            idCarsList.add(Integer.parseInt(idCarsArr[i]));
+        }
+        for (Integer idCar : idCarsList) {
+            carRepository.deleteById(idCar);
+        }
+    }
 }

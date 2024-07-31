@@ -23,9 +23,9 @@ import java.util.List;
 public class CarController {
     private CarService carService;
 
-    public void getCars (Car car, Model model) {
-        List<Car> carList = carService.getCarList(car.getIdDealer());
-        CarDealership dealer = carService.getDealer(car.getIdDealer());
+    public void getCars (Integer idDealer, Model model) {
+        List<Car> carList = carService.getCarList(idDealer);
+        CarDealership dealer = carService.getDealer(idDealer);
         model.addAttribute("carList", carList);
         model.addAttribute("dealer", dealer);
     }
@@ -44,10 +44,21 @@ public class CarController {
 
         carService.addCar(car);
 
-        getCars(car, model);
+        getCars(car.getIdDealer(), model);
         return "car/cars";
     }
 
+    @GetMapping("/del")
+    public String delCar(@RequestParam("idDealerM") String idDealer,
+                         @RequestParam("check") String idCar, Model model) {
+
+        System.out.println("idCar del - " + idCar);
+
+
+        carService.delCar(idCar);
+        getCars(Integer.parseInt(idDealer), model);
+        return "car/cars";
+    }
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
