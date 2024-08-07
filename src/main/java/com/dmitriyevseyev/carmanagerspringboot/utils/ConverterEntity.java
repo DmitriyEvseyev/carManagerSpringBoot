@@ -71,7 +71,7 @@ public class ConverterEntity {
         return dealerEntity;
     }
 
-    public List<Car> convertCarEntityToCar(List<CarEntity> carEntityList) {
+    public List<Car> convertCarListEntityToCarList(List<CarEntity> carEntityList) {
         List<Car> carList = new ArrayList<>();
 
         for (CarEntity carEntity : carEntityList) {
@@ -101,7 +101,19 @@ public class ConverterEntity {
                 color(car.getColor()).
                 isAfterCrash(car.isAfterCrash()).
                 build();
+        System.out.println("converterCarToCarEntity - " + carEntity);
         return carEntity;
+    }
+    public Car converterCarEntityToCar (CarEntity carEntity) {
+        Car car = Car.builder().
+                id(carEntity.getId()).
+                idDealer(carEntity.getDealer().getId()).
+                name(carEntity.getName()).
+                date(carEntity.getDate()).
+                color(carEntity.getColor()).
+                isAfterCrash(carEntity.isAfterCrash()).
+                build();
+        return car;
     }
 
 //    public List<CarDealership> convertetDealerDTOToDealer(List<CarDealershipDTO> dealerDTOList) {

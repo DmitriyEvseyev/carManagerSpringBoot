@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,12 +24,16 @@ import java.util.List;
 public class CarController {
     private CarService carService;
 
-    public void getCars (Integer idDealer, Model model) {
+    public void getCars(Integer idDealer, Model model) {
         List<Car> carList = carService.getCarList(idDealer);
         CarDealership dealer = carService.getDealer(idDealer);
-        model.addAttribute("carList", carList);
         model.addAttribute("dealer", dealer);
+        model.addAttribute("carList", carList);
+
+        System.out.println("carList - " + carList);
+
     }
+
     @GetMapping("/new")
     public String newCar(@RequestParam("idDealerM") String idDealerString,
                          Model model) {
@@ -38,9 +43,25 @@ public class CarController {
     }
 
     @PostMapping("/create")
-    public String addDealer(@ModelAttribute("car") Car car, Model model) {
+    public String addDealer(@ModelAttribute("car") Car car,
+                            @RequestParam(value = "isAfterCrash", required = false) String isAfterCrashString,
+                            Model model) {
+        System.out.println(111);
+        Boolean isAfterCrash;
+        if (isAfterCrashString == null) {
+            System.out.println(7777777);
+            isAfterCrash = false;
+        } else {
+            isAfterCrash = true;
+            System.out.println(00000000);
+        }
+        System.out.println("isAfterCrash new - " + isAfterCrash);
 
-        System.out.println("CAR NEW - " + car);
+        System.out.println("CAR NEW 1111 - " + car);
+
+        car.setAfterCrash(isAfterCrash);
+
+        System.out.println("CAR NEW 222 - " + car);
 
         carService.addCar(car);
 
@@ -48,9 +69,59 @@ public class CarController {
         return "car/cars";
     }
 
+
+    @GetMapping("/edit")
+    public String editCar(@RequestParam("check") String idCar,
+                          Model model) {
+        System.out.println("EDIT");
+        System.out.println("check - " + idCar);
+
+        model.addAttribute("car", carService.getCar(Integer.parseInt(idCar)));
+        return "car/updateCar";
+    }
+
+    @PostMapping("/edit")
+    public String updateDealer(@ModelAttribute("car") Car car,
+                               @RequestParam("idDealer") Integer idDealer,
+                               @RequestParam(value = "isAfterCrash", required = false) String isAfterCrashString,
+                               Model model) {
+//
+
+        System.out.println(11111);
+        System.out.println("idDealer - " + idDealer);
+        System.out.println("isAfterCrashString - " + isAfterCrashString);
+
+        Boolean isAfterCrash;
+        if (isAfterCrashString == null) {
+            System.out.println("7777777");
+            isAfterCrash = false;
+        } else {
+            isAfterCrash = true;
+            System.out.println("00000000");
+        }
+        System.out.println("isAfterCrash new - " + isAfterCrash);
+
+        System.out.println("CAR EDIT 1111 - " + car);
+
+        car.setAfterCrash(isAfterCrash);
+
+        System.out.println("CAR EDIT 222 - " + car);
+
+
+        System.out.println("EDIT car = Car.builder(). - " + car);
+
+
+        carService.updateCar(car);
+        System.out.println("33333");
+
+        getCars(car.getIdDealer(), model);
+        return "car/cars";
+    }
+
     @GetMapping("/del")
     public String delCar(@RequestParam("idDealerM") String idDealer,
-                         @RequestParam("check") String idCar, Model model) {
+                         @RequestParam("check") String idCar,
+                         Model model) {
 
         System.out.println("idCar del - " + idCar);
 
@@ -59,6 +130,7 @@ public class CarController {
         getCars(Integer.parseInt(idDealer), model);
         return "car/cars";
     }
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

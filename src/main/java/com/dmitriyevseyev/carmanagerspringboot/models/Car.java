@@ -1,6 +1,9 @@
 package com.dmitriyevseyev.carmanagerspringboot.models;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -45,6 +48,9 @@ public class Car implements Serializable {
         private Integer id;
         private Integer idDealer;
         private String name;
+
+        @Temporal(TemporalType.DATE)
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private Date date;
         private String color;
         private boolean isAfterCrash;
@@ -52,32 +58,32 @@ public class Car implements Serializable {
         Builder() {
         }
 
-        public Car.Builder id(Integer id) {
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }
 
-        public Car.Builder idDealer(Integer idDealer) {
+        public Builder idDealer(Integer idDealer) {
             this.idDealer = idDealer;
             return this;
         }
 
-        public Car.Builder name(String name) {
+        public Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Car.Builder date(Date date) {
+        public Builder date(Date date) {
             this.date = date;
             return this;
         }
 
-        public Car.Builder color(String color) {
+        public Builder color(String color) {
             this.color = color;
             return this;
         }
 
-        public Car.Builder isAfterCrash(boolean isAfterCrash) {
+        public Builder isAfterCrash(boolean isAfterCrash) {
             this.isAfterCrash = isAfterCrash;
             return this;
         }

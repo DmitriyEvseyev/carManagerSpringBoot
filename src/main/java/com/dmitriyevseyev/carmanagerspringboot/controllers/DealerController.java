@@ -45,6 +45,8 @@ public class DealerController {
 
     @PostMapping("/edit")
     public String updateDealer(@ModelAttribute("dealer") CarDealership dealer) {
+        System.out.println("dealer EDIT - "+ dealer);
+
         dealerService.updateDealer(dealer);
         return "redirect:/dealer/getAllDealer";
     }

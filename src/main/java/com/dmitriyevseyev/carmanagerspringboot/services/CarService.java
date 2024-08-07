@@ -3,6 +3,7 @@ package com.dmitriyevseyev.carmanagerspringboot.services;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
+import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.CarRepository;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterEntity;
@@ -25,9 +26,14 @@ public class CarService {
     public List<Car> getCarList (Integer idDealer) {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(idDealer);
         CarDealershipEntity dealerEntity = dealerOptional.orElse(null);
-        List<Car> carList = converterEntity.convertCarEntityToCar(carRepository.getCarEntitiesByDealer(dealerEntity));
+        List<Car> carList = converterEntity.convertCarListEntityToCarList(carRepository.getCarEntitiesByDealer(dealerEntity));
 
         return carList;
+    }
+
+    public Car getCar (Integer idCar) {
+        Optional<CarEntity> carEntity =  carRepository.findById(idCar);
+        return converterEntity.converterCarEntityToCar(carEntity.orElse(null));
     }
 
     public CarDealership getDealer (Integer idDealer) {
@@ -45,6 +51,26 @@ public class CarService {
 
         carRepository.save(converterEntity.converterCarToCarEntity(car, dealer));
     }
+
+
+    @Transactional
+    public void updateCar (Car car) {
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(car.getIdDealer());
+        CarDealershipEntity dealer = dealerOptional.orElse(null);
+
+
+        System.out.println("public void updateCar service - " + car);
+
+
+        System.out.println(dealer);
+        CarEntity carEntity = converterEntity.converterCarToCarEntity(car, dealer);
+
+
+        System.out.println("carEntity EDIT + " + carEntity);
+
+        carRepository.save(carEntity);
+    }
+
     @Transactional
     public void delCar(String idCarString) {
         List<Integer> idCarsList = new ArrayList<>();

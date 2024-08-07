@@ -57,7 +57,7 @@ public class DealerService {
 
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));
         CarDealershipEntity dealer = dealerOptional.orElse(null);
-        List<Car> carList = converterEntity.convertCarEntityToCar(dealer.getCarEntities());
+        List<Car> carList = converterEntity.convertCarListEntityToCarList(dealer.getCarEntities());
 
         System.out.println("CARLIST service - " + carList);
 

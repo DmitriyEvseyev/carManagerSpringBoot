@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit car</title>
+    <link th:href="@{/carcss/editC.css}" rel="stylesheet"/>
+</head>
+<body>
+<h2> Edit car </h2>
+<form th:method="POST" th:action="@{/car/edit}" th:object="${car}">
+    <input type="hidden" name="id" th:value="${car.id}"/>
+    <input type="hidden" name="idDealer" th:field="*{idDealer}"/>
+    <table class="tab">
+        <tr>
+            <td> Name</td>
+            <td><input name="name" id="name" type="text" th:field="*{name}" required/></td>
+        </tr>
+        <tr>
+            <td> Date</td>
+            <td><input type="date" name="date" id="dt" th:field="*{date}" required/></td>
+        </tr>
+        <tr>
+            <td> Color</td>
+            <td><input name="color" type="text" th:field="*{color}" required/></td>
+        </tr>
+        <tr>
+            <td> isAfterCrash</td>
+            <td><input type="checkbox" name="isAfterCrash" th:checked="*{isAfterCrash}" id="isAC"/></td>
+        </tr>
+    </table>
+    <br/>
+    <div class="but">
+        <input type="submit" value="Ok"/>
+        <input type="reset" value="Cancel"/>
+    </div>
+</form>
+</body>
+</html>
