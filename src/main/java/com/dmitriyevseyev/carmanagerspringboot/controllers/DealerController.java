@@ -2,6 +2,7 @@ package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
+import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -45,7 +46,7 @@ public class DealerController {
 
     @PostMapping("/edit")
     public String updateDealer(@ModelAttribute("dealer") CarDealership dealer) {
-        System.out.println("dealer EDIT - "+ dealer);
+        System.out.println("dealer EDIT - " + dealer);
 
         dealerService.updateDealer(dealer);
         return "redirect:/dealer/getAllDealer";
@@ -68,6 +69,26 @@ public class DealerController {
         model.addAttribute("dealer", dealerService.getDealer(Integer.parseInt(idDealerString)));
         return "car/cars";
     }
+
+    @GetMapping("/search")
+    public String searchDealer(@RequestParam("column") String column,
+                               @RequestParam("pattern") String pattern,
+                               Model model) {
+        List<CarDealership> dealerList = new ArrayList<>();
+
+        if (column.equals("name")) {
+            dealerList = dealerService.findCarDealershipEntitiesByName(pattern);
+        } else if (column.equals("address")) {
+            dealerList = dealerService.findCarDealershipEntitiesByAddress(pattern);
+        }
+
+        System.out.println("SEARCH - " + dealerList);
+
+        model.addAttribute("carDealerships", dealerList);
+        return "dealer/getDealers";
+    }
+
+
 //    public void addDealer(CarDealership dealer) throws AddDealerExeption {
 //        dealerDAO.createDealer(dealer);
 //    }

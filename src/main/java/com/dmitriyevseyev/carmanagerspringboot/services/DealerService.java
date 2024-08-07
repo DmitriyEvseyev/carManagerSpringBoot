@@ -64,5 +64,15 @@ public class DealerService {
 
         return carList;
     }
+
+    public List<CarDealership> findCarDealershipEntitiesByName (String dealerName) {
+        return converterEntity.convertDealerEntityLisToDealerList
+                (dealerRepository.findCarDealershipEntitiesByName(dealerName));
+    }
+
+    public List<CarDealership> findCarDealershipEntitiesByAddress (String dealerAddress) {
+        return converterEntity.convertDealerEntityLisToDealerList
+                (dealerRepository.findCarDealershipEntitiesByAddress(dealerAddress));
+    }
 }
 
