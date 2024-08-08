@@ -88,6 +88,18 @@ public class DealerController {
         return "dealer/getDealers";
     }
 
+    @GetMapping("/sort")
+    public String sortDealers(@RequestParam("sort") String criteria,
+                              Model model) {
+        List<CarDealership> dealerList = dealerService.sortDealer(criteria);
+
+
+        System.out.println("SORT - " + dealerList);
+
+
+        model.addAttribute("carDealerships", dealerList);
+        return "dealer/getDealers";
+    }
 
 //    public void addDealer(CarDealership dealer) throws AddDealerExeption {
 //        dealerDAO.createDealer(dealer);

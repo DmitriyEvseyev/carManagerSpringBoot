@@ -65,14 +65,33 @@ public class DealerService {
         return carList;
     }
 
-    public List<CarDealership> findCarDealershipEntitiesByName (String dealerName) {
+    public List<CarDealership> findCarDealershipEntitiesByName(String dealerName) {
         return converterEntity.convertDealerEntityLisToDealerList
-                (dealerRepository.findCarDealershipEntitiesByName(dealerName));
+                (dealerRepository.findByNameStartingWith(dealerName));
     }
 
-    public List<CarDealership> findCarDealershipEntitiesByAddress (String dealerAddress) {
+    public List<CarDealership> findCarDealershipEntitiesByAddress(String dealerAddress) {
         return converterEntity.convertDealerEntityLisToDealerList
-                (dealerRepository.findCarDealershipEntitiesByAddress(dealerAddress));
+                (dealerRepository.findByAddressStartingWith(dealerAddress));
+    }
+
+    public List<CarDealership> sortDealer(String criteria) {
+        List<CarDealership> dealerList = new ArrayList<>();
+        switch (criteria) {
+            case ("nameDesc"):
+                dealerList = converterEntity.convertDealerEntityLisToDealerList(dealerRepository.findByOrderByNameDesc());
+                break;
+            case ("nameAsc"):
+                dealerList = converterEntity.convertDealerEntityLisToDealerList(dealerRepository.findByOrderByNameAsc());
+                break;
+            case ("addressDesc"):
+                dealerList = converterEntity.convertDealerEntityLisToDealerList(dealerRepository.findByOrderByAddressDesc());
+                break;
+            case ("addressAsc"):
+                dealerList = converterEntity.convertDealerEntityLisToDealerList(dealerRepository.findByOrderByAddressAsc());
+                break;
+        }
+        return dealerList;
     }
 }
 
