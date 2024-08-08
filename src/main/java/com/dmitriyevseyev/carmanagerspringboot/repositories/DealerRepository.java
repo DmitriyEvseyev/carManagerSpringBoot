@@ -16,6 +16,8 @@ public interface DealerRepository extends JpaRepository<CarDealershipEntity, Int
 
     List<CarDealershipEntity> findByOrderByNameDesc();
 
-    List<CarDealershipEntity> findByOrderByAddressAsc ();
-    List<CarDealershipEntity> findByOrderByAddressDesc ();
+    List<CarDealershipEntity> findByOrderByAddressAsc();
+
+    List<CarDealershipEntity> findByOrderByAddressDesc();
+
 }

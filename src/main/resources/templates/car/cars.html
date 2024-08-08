@@ -33,7 +33,7 @@
 <h1 th:text=" 'Cars / Dealer - ' + ${dealer.name}"></h1>
 
 <form class="select">
-    <input type="hidden" name="idDealer" th:field="${dealer.id}"/>
+    <input type="hidden" name="idDealer" th:value="${dealer.id}"/>
     Filter by: <select name="column" id="mySelect" onChange="check(this);">
     <option>name</option>
     <option>date</option>
@@ -42,14 +42,14 @@
 </select>
     <div id="div" style="display:block;" >
         <input type="text"  name="pattern"/>
-        <button type="submit" formmethod="get" formaction="searchCarServlet">
+        <button type="submit" formmethod="get" formaction="/car/search">
             <span>&#128269</span>
         </button>
     </div>
     <div id="date" style="display:none;">
         <input type="date" name="startDate"/>
         <input type="date" name="endDate"/>
-        <button type="submit" formmethod="get" formaction="searchCarServlet">
+        <button type="submit" formmethod="get" formaction="/car/search">
             <span>&#128269</span>
         </button>
     </div>

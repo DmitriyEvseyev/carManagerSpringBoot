@@ -75,12 +75,7 @@ public class DealerController {
                                @RequestParam("pattern") String pattern,
                                Model model) {
         List<CarDealership> dealerList = new ArrayList<>();
-
-        if (column.equals("name")) {
-            dealerList = dealerService.findCarDealershipEntitiesByName(pattern);
-        } else if (column.equals("address")) {
-            dealerList = dealerService.findCarDealershipEntitiesByAddress(pattern);
-        }
+        dealerList =  dealerService.findCarDealershipEntities (column, pattern);
 
         System.out.println("SEARCH - " + dealerList);
 

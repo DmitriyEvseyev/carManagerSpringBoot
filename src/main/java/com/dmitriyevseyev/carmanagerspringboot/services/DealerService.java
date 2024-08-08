@@ -65,14 +65,16 @@ public class DealerService {
         return carList;
     }
 
-    public List<CarDealership> findCarDealershipEntitiesByName(String dealerName) {
-        return converterEntity.convertDealerEntityLisToDealerList
-                (dealerRepository.findByNameStartingWith(dealerName));
-    }
-
-    public List<CarDealership> findCarDealershipEntitiesByAddress(String dealerAddress) {
-        return converterEntity.convertDealerEntityLisToDealerList
-                (dealerRepository.findByAddressStartingWith(dealerAddress));
+    public List<CarDealership> findCarDealershipEntities(String column, String pattern) {
+        List<CarDealership> dealerList = new ArrayList<>();
+        if (column.equals("name")) {
+            dealerList = converterEntity.convertDealerEntityLisToDealerList
+                    (dealerRepository.findByNameStartingWith(pattern));
+        } else if (column.equals("address")) {
+            dealerList = converterEntity.convertDealerEntityLisToDealerList
+                    (dealerRepository.findByAddressStartingWith(pattern));
+        }
+        return dealerList;
     }
 
     public List<CarDealership> sortDealer(String criteria) {

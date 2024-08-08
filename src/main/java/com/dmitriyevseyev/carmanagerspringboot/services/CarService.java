@@ -23,7 +23,7 @@ public class CarService {
     private DealerRepository dealerRepository;
     private ConverterEntity converterEntity;
 
-    public List<Car> getCarList (Integer idDealer) {
+    public List<Car> getCarList(Integer idDealer) {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(idDealer);
         CarDealershipEntity dealerEntity = dealerOptional.orElse(null);
         List<Car> carList = converterEntity.convertCarListEntityToCarList(carRepository.getCarEntitiesByDealer(dealerEntity));
@@ -31,19 +31,19 @@ public class CarService {
         return carList;
     }
 
-    public Car getCar (Integer idCar) {
-        Optional<CarEntity> carEntity =  carRepository.findById(idCar);
+    public Car getCar(Integer idCar) {
+        Optional<CarEntity> carEntity = carRepository.findById(idCar);
         return converterEntity.converterCarEntityToCar(carEntity.orElse(null));
     }
 
-    public CarDealership getDealer (Integer idDealer) {
+    public CarDealership getDealer(Integer idDealer) {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(idDealer);
         CarDealershipEntity dealerEntity = dealerOptional.orElse(null);
         return converterEntity.convertDealerEntityToDealer(dealerEntity);
     }
 
     @Transactional
-    public void addCar (Car car) {
+    public void addCar(Car car) {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(car.getIdDealer());
         CarDealershipEntity dealer = dealerOptional.orElse(null);
 
@@ -54,7 +54,7 @@ public class CarService {
 
 
     @Transactional
-    public void updateCar (Car car) {
+    public void updateCar(Car car) {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(car.getIdDealer());
         CarDealershipEntity dealer = dealerOptional.orElse(null);
 
@@ -82,4 +82,25 @@ public class CarService {
             carRepository.deleteById(idCar);
         }
     }
+
+    public List<Car> searchCar(Integer IdDealer, String column, String pattern) {
+        List<Car> carList = new ArrayList<>();
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(IdDealer);
+        CarDealershipEntity dealer = dealerOptional.orElse(null);
+
+        switch (column) {
+            case ("name"):
+                carList = converterEntity.convertCarListEntityToCarList
+                        (carRepository.findByDealerAndNameStartingWith(dealer, pattern));
+                break;
+            case ("color"):
+                carList = converterEntity.convertCarListEntityToCarList
+                        (carRepository.findByDealerAndColorStartingWith(dealer, pattern));
+                break;
+        }
+
+
+        return carList;
+    }
+
 }

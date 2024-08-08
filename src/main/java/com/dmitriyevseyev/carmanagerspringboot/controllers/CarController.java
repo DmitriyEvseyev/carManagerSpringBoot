@@ -131,6 +131,27 @@ public class CarController {
         return "car/cars";
     }
 
+    @GetMapping("/search")
+    public String searchCar(@RequestParam("column") String column,
+                            @RequestParam("pattern") String pattern,
+                            @RequestParam("idDealer") String idDealer,
+                            Model model) {
+        System.out.println("111");
+        System.out.println("idDealer - " + idDealer);
+
+
+        List<Car> carList = new ArrayList<>();
+        carList = carService. searchCar(Integer.parseInt(idDealer), column, pattern);
+
+
+        System.out.println("SEARCH CAR - " + carList);
+
+
+        model.addAttribute("carList", carList);
+        model.addAttribute("dealer", carService.getDealer(Integer.parseInt(idDealer)));
+        return "car/cars";
+    }
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -138,21 +159,7 @@ public class CarController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
-//    private static CarController instance;
-//    private CarDAO carDAO;
-//
-//    public static CarController getInstance() throws DAOFactoryActionException {
-//        if (instance == null) {
-//            instance = new CarController();
-//        }
-//        return instance;
-//    }
-//
-//    private CarController() {
-//        ManagerDAO managerDAO = HibernateManagerDAO.getInstance();
-//        this.carDAO = managerDAO.getCarDAO();
-//    }
-//
+
 //
 //    public void addCar(Car car) throws AddCarExeption {
 //        carDAO.createCar(car);
