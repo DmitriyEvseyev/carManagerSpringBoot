@@ -73,16 +73,16 @@
             <td>
                 <h3> Name
                     <form>
-                        <input type="hidden" value="1" name="sort"/>
+                        <input type="hidden" value="nameAsc" name="sort"/>
                         <input type="hidden" name="idDealer" th:value="${dealer.id}"/>
-                        <button class="button1" type="submit" formmethod="get" formaction="sortCarServlet">
+                        <button class="button1" type="submit" formmethod="get" formaction="/car/sort">
                             <span>▲</span>
                         </button>
                     </form>
                     <form>
-                        <input type="hidden" value="2" name="sort"/>
+                        <input type="hidden" value="nameDesc" name="sort"/>
                         <input type="hidden" name="idDealer" th:value="${dealer.id}"/>
-                        <button class="button2" type="submit" formmethod="get" formaction="sortCarServlet">
+                        <button class="button2" type="submit" formmethod="get" formaction="/car/sort">
                             <span>▼</span>
                         </button>
                     </form>
@@ -91,16 +91,16 @@
             <td>
                 <h3> Date
                     <form>
-                        <input type="hidden" value="3" name="sort"/>
+                        <input type="hidden" value="dateAsc" name="sort"/>
                         <input type="hidden" name="idDealer" th:value="${dealer.id}"/>
-                        <button class="button3" type="submit" formmethod="get" formaction="sortCarServlet">
+                        <button class="button3" type="submit" formmethod="get" formaction="/car/sort">
                             <span>▲</span>
                         </button>
                     </form>
                     <form>
-                        <input type="hidden" value="4" name="sort"/>
+                        <input type="hidden" value="dateDesc" name="sort"/>
                         <input type="hidden" name="idDealer" th:value="${dealer.id}"/>
-                        <button class="button4" type="submit" formmethod="get" formaction="sortCarServlet">
+                        <button class="button4" type="submit" formmethod="get" formaction="/car/sort">
                             <span>▼</span>
                         </button>
                     </form>
@@ -109,16 +109,16 @@
             <td>
                 <h3> Color
                     <form>
-                        <input type="hidden" value="5" name="sort"/>
+                        <input type="hidden" value="colorAsc" name="sort"/>
                         <input type="hidden" name="idDealer" th:value="${dealer.id}"/>
-                        <button class="button5" type="submit" formmethod="get" formaction="sortCarServlet">
+                        <button class="button5" type="submit" formmethod="get" formaction="/car/sort">
                             <span>▲</span>
                         </button>
                     </form>
                     <form>
-                        <input type="hidden" value="6" name="sort"/>
+                        <input type="hidden" value="colorDesc" name="sort"/>
                         <input type="hidden" name="idDealer" th:value="${dealer.id}"/>
-                        <button class="button6" type="submit" formmethod="get" formaction="sortCarServlet">
+                        <button class="button6" type="submit" formmethod="get" formaction="/car/sort">
                             <span>▼</span>
                         </button>
                     </form>
@@ -127,16 +127,16 @@
             <td>
                 <h3> Crash
                     <form>
-                        <input type="hidden" value="7" name="sort"/>
+                        <input type="hidden" value="crashAsc" name="sort"/>
                         <input type="hidden" name="idDealer" th:value="${dealer.id}"/>
-                        <button class="button7" type="submit" formmethod="get" formaction="sortCarServlet">
+                        <button class="button7" type="submit" formmethod="get" formaction="/car/sort">
                             <span>▲</span>
                         </button>
                     </form>
                     <form>
-                        <input type="hidden" value="8" name="sort"/>
+                        <input type="hidden" value="crashDesc" name="sort"/>
                         <input type="hidden" name="idDealer" th:value="${dealer.id}"/>
-                        <button class="button8" type="submit" formmethod="get" formaction="sortCarServlet">
+                        <button class="button8" type="submit" formmethod="get" formaction="/car/sort">
                             <span>▼</span>
                         </button>
                     </form>

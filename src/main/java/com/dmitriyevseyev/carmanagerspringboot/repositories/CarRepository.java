@@ -16,7 +16,30 @@ public interface CarRepository extends JpaRepository<CarEntity, Integer> {
 
     List<CarEntity> findByDealerAndColorStartingWith(CarDealershipEntity dealerEntity, String carColor);
 
-    // List<CarEntity> findByDealerAndAfterCrashStartingWith(CarDealershipEntity dealerEntity, boolean carAfterCrash);
+    List<CarEntity> getCarEntitiesByDealerAndIsAfterCrash(CarDealershipEntity dealerEntity, boolean isAfterCrash);
 
-    List<CarEntity> findByDealerAndDateBetween(CarDealershipEntity dealerEntity, Date date1, Date date2);
+    List<CarEntity> findByDealerAndDateBetween(CarDealershipEntity dealerEntity, Date startDate, Date endDate);
+
+    List<CarEntity> findByDealerOrderByNameAsc(CarDealershipEntity dealer);
+
+    List<CarEntity> findByDealerOrderByNameDesc(CarDealershipEntity dealer);
+
+    List<CarEntity> findByDealerOrderByDateAsc(CarDealershipEntity dealer);
+
+    List<CarEntity> findByDealerOrderByDateDesc(CarDealershipEntity dealer);
+
+    List<CarEntity> findByDealerOrderByColorAsc(CarDealershipEntity dealer);
+
+    List<CarEntity> findByDealerOrderByColorDesc(CarDealershipEntity dealer);
+
+    List<CarEntity> findByDealerOrderByIsAfterCrashAsc(CarDealershipEntity dealer);
+
+    List<CarEntity> findByDealerOrderByIsAfterCrashDesc(CarDealershipEntity dealer);
+
+
+
+
+
+
+
 }

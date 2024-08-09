@@ -138,7 +138,8 @@ public class CarController {
                             Model model) {
         System.out.println("111");
         System.out.println("idDealer - " + idDealer);
-
+        System.out.println("String column - " + column);
+        System.out.println("String pattern - " + pattern);
 
         List<Car> carList = new ArrayList<>();
         carList = carService. searchCar(idDealer, column, pattern);
@@ -166,6 +167,25 @@ public class CarController {
 
 
         System.out.println("SEARCH CAR DATE - " + carList);
+
+
+        model.addAttribute("carList", carList);
+        model.addAttribute("dealer", carService.getDealer(Integer.parseInt(idDealer)));
+        return "car/cars";
+    }
+
+    @GetMapping("/sort")
+    public String sortCars (@RequestParam("sort") String criteria,
+                            @RequestParam("idDealer") String idDealer,
+                            Model model) {
+        List<Car> carList = new ArrayList<>();
+        System.out.println("111");
+        System.out.println("idDealer - " + idDealer);
+        System.out.println("String criteria - " + criteria);
+
+        carList = carService.sortCars(idDealer, criteria);
+
+        System.out.println("SORT CARS - " + carList);
 
 
         model.addAttribute("carList", carList);

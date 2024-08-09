@@ -100,10 +100,10 @@ public class CarService {
                 carList = converterEntity.convertCarListEntityToCarList
                         (carRepository.findByDealerAndColorStartingWith(dealer, pattern));
                 break;
-//            case ("isAfterCrash"):
-//                carList = converterEntity.convertCarListEntityToCarList
-//                        (carRepository.findByDealerAndAfterCrashStartingWith(dealer, Boolean.parseBoolean(pattern)));
-//                break;
+            case ("isAfterCrash"):
+                carList = converterEntity.convertCarListEntityToCarList
+                        (carRepository.getCarEntitiesByDealerAndIsAfterCrash(dealer, Boolean.parseBoolean(pattern)));
+                break;
         }
         return carList;
     }
@@ -126,6 +126,40 @@ public class CarService {
         carList = converterEntity.convertCarListEntityToCarList
                 (carRepository.findByDealerAndDateBetween(dealer, startD, endD));
 
+        return carList;
+    }
+
+    public List<Car> sortCars(String idDealer, String criteria) {
+        List<Car> carList = new ArrayList<>();
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));
+        CarDealershipEntity dealer = dealerOptional.orElse(null);
+
+        switch (criteria) {
+            case ("nameAsc"):
+                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByNameAsc(dealer));
+                break;
+            case ("nameDesc"):
+                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByNameDesc(dealer));
+                break;
+            case ("dateAsc"):
+                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByDateAsc(dealer));
+                break;
+            case ("dateDesc"):
+                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByDateDesc(dealer));
+                break;
+            case ("colorAsc"):
+                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByColorAsc(dealer));
+                break;
+            case ("colorDesc"):
+                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByColorDesc(dealer));
+                break;
+            case ("crashAsc"):
+                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByIsAfterCrashAsc(dealer));
+                break;
+            case ("crashDesc"):
+                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByIsAfterCrashDesc(dealer));
+                break;
+        }
         return carList;
     }
 }
