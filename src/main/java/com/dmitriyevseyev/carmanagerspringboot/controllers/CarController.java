@@ -141,7 +141,7 @@ public class CarController {
 
 
         List<Car> carList = new ArrayList<>();
-        carList = carService. searchCar(Integer.parseInt(idDealer), column, pattern);
+        carList = carService. searchCar(idDealer, column, pattern);
 
 
         System.out.println("SEARCH CAR - " + carList);
@@ -151,7 +151,27 @@ public class CarController {
         model.addAttribute("dealer", carService.getDealer(Integer.parseInt(idDealer)));
         return "car/cars";
     }
+    @GetMapping("/searchDate")
+    public String searchDateCar(@RequestParam("startDate") String startDate,
+                            @RequestParam("endDate") String endDate,
+                            @RequestParam("idDealer") String idDealer,
+                            Model model) {
+        System.out.println("111");
+        System.out.println("idDealer - " + idDealer);
+        System.out.println("startDate - " + startDate);
+        System.out.println("endDate - " + endDate);
 
+        List<Car> carList = new ArrayList<>();
+        carList = carService. searchDateCar(idDealer, startDate, endDate);
+
+
+        System.out.println("SEARCH CAR DATE - " + carList);
+
+
+        model.addAttribute("carList", carList);
+        model.addAttribute("dealer", carService.getDealer(Integer.parseInt(idDealer)));
+        return "car/cars";
+    }
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

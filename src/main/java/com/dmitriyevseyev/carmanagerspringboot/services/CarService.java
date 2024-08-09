@@ -11,7 +11,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,9 +86,9 @@ public class CarService {
         }
     }
 
-    public List<Car> searchCar(Integer IdDealer, String column, String pattern) {
+    public List<Car> searchCar(String idDealer, String column, String pattern) {
         List<Car> carList = new ArrayList<>();
-        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(IdDealer);
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));
         CarDealershipEntity dealer = dealerOptional.orElse(null);
 
         switch (column) {
@@ -97,10 +100,32 @@ public class CarService {
                 carList = converterEntity.convertCarListEntityToCarList
                         (carRepository.findByDealerAndColorStartingWith(dealer, pattern));
                 break;
+//            case ("isAfterCrash"):
+//                carList = converterEntity.convertCarListEntityToCarList
+//                        (carRepository.findByDealerAndAfterCrashStartingWith(dealer, Boolean.parseBoolean(pattern)));
+//                break;
         }
-
-
         return carList;
     }
 
+    public List<Car> searchDateCar(String idDealer, String startDate, String endDate) {
+        List<Car> carList = new ArrayList<>();
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));
+        CarDealershipEntity dealer = dealerOptional.orElse(null);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date startD = null;
+        Date endD = null;
+        try {
+            startD = formatter.parse(startDate);
+            endD = formatter.parse(endDate);
+        } catch (ParseException e) {
+            System.out.println(" formatter.parse. " + e.getMessage());
+        }
+
+        carList = converterEntity.convertCarListEntityToCarList
+                (carRepository.findByDealerAndDateBetween(dealer, startD, endD));
+
+        return carList;
+    }
 }
