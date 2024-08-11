@@ -2,14 +2,20 @@ package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
-import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
+import com.dmitriyevseyev.carmanagerspringboot.services.ExportService;
+import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +24,7 @@ import java.util.List;
 @RequestMapping("/dealer")
 public class DealerController {
     private DealerService dealerService;
+    private ExportService exportService;
 
     @RequestMapping(value = "/getAllDealer", method = {RequestMethod.GET, RequestMethod.POST})
     public String getAllDealer(Model model) {
@@ -75,7 +82,7 @@ public class DealerController {
                                @RequestParam("pattern") String pattern,
                                Model model) {
         List<CarDealership> dealerList = new ArrayList<>();
-        dealerList =  dealerService.findCarDealershipEntities (column, pattern);
+        dealerList = dealerService.findCarDealershipEntities(column, pattern);
 
         System.out.println("SEARCH - " + dealerList);
 
@@ -94,6 +101,20 @@ public class DealerController {
 
         model.addAttribute("carDealerships", dealerList);
         return "dealer/getDealers";
+    }
+
+    @GetMapping("/export")
+    public @ResponseBody ResponseEntity<ExportDTO> exportDealer
+            (@RequestParam("idDealer") String idDealerString,
+             @RequestParam("fileName") String fileName) throws ExportExeption, StrategyNotFoundException {
+
+        String idCarsString = null;
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename= " + fileName + ".json")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(exportService.create(idDealerString, idCarsString));
     }
 
 //    public void addDealer(CarDealership dealer) throws AddDealerExeption {

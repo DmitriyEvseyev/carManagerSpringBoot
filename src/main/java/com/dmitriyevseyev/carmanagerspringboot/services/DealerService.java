@@ -48,6 +48,10 @@ public class DealerService {
         return converterEntity.convertDealerEntityToDealer(dealerEntity.orElse(null));
     }
 
+    public CarDealershipEntity getDealerEntity(Integer id) {
+        return dealerRepository.findById(id).orElse(null);
+    }
+
     @Transactional
     public void updateDealer(CarDealership dealer) {
         dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
@@ -95,5 +99,7 @@ public class DealerService {
         }
         return dealerList;
     }
+
+
 }
 

@@ -33,6 +33,14 @@ public class CarService {
 
         return carList;
     }
+    public List<CarEntity> getCarEntityList(Integer idDealer) {
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(idDealer);
+        CarDealershipEntity dealerEntity = dealerOptional.orElse(null);
+
+        List<CarEntity> carEntityList = carRepository.getCarEntitiesByDealer(dealerEntity);
+
+        return carEntityList;
+    }
 
     public Car getCar(Integer idCar) {
         Optional<CarEntity> carEntity = carRepository.findById(idCar);
