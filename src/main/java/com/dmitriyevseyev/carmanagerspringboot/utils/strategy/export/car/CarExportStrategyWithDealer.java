@@ -1,44 +1,41 @@
 package com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.car;
 
-
-import com.dmitriyevseyev.carmanagerspringboot.controllers.CarController;
-import com.dmitriyevseyev.carmanagerspringboot.controllers.DealerController;
-import com.dmitriyevseyev.carmanagerspringboot.exceptions.DAOFactoryActionException;
-import com.dmitriyevseyev.carmanagerspringboot.exceptions.car.NotFoundException;
-import com.dmitriyevseyev.carmanagerspringboot.models.Car;
-import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
+import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
+import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
+import com.dmitriyevseyev.carmanagerspringboot.services.CarService;
+import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
+import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterDTO;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportStrategy;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
+@AllArgsConstructor
 public class CarExportStrategyWithDealer implements ExportStrategy {
+    private ConverterDTO converterDTO;
+    private CarService carService;
+    private DealerService dealerService;
+
     @Override
     public void collectExportIds(ExportDTO exportList, List<Integer> ids) throws ExportExeption {
-//        ConverterDTO converterDTO = ConverterDTO.getInstance();
-//        List<Car> carList = new ArrayList<>();
-//        try {
-//            CarController carController = CarController.getInstance();
-//            carList = carController.getCars(ids);
-//        } catch (NotFoundException | DAOFactoryActionException e) {
-//            throw new ExportExeption(e.getMessage());
-//        }
-//
-//        exportList.addCars(converterDTO.convertCarToCarDTO(carList));
-//
-//        List<CarDealership> dealerList = new ArrayList<>();
-//        try {
-//            DealerController controllerDealer = DealerController.getInstance();
-//            dealerList.add(controllerDealer.getDealer(carList.get(0).getDealer().getId()));
-//        } catch (NotFoundException | DAOFactoryActionException e) {
-//            throw new ExportExeption(e.getMessage());
-//        }
-//        exportList.addDelers(converterDTO.convertDealerToDealerDTO(dealerList));
-//
-//
-//        System.out.println("CarExportStrategyWithDealer - " + exportList);
-//
-   }
+        List<CarEntity> carListEntity = new ArrayList<>();
+        for (Integer id : ids) {
+            carListEntity.add(carService.getCarEntity(id));
+        }
+        exportList.addCars(converterDTO.convertCarEntityListToCarDTOList(carListEntity));
+
+        List<CarDealershipEntity> dealerListEntity = new ArrayList<>();
+        dealerListEntity.add(dealerService.getDealerEntity(carListEntity.get(0).getDealer().getId()));
+
+        exportList.addDelers(converterDTO.convertDealerEntityListToDealerDTOList(dealerListEntity));
+
+
+        System.out.println("CarExportStrategyWithDealer - " + exportList);
+
+    }
 }

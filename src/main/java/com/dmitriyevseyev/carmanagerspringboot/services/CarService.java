@@ -33,6 +33,7 @@ public class CarService {
 
         return carList;
     }
+
     public List<CarEntity> getCarEntityList(Integer idDealer) {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(idDealer);
         CarDealershipEntity dealerEntity = dealerOptional.orElse(null);
@@ -46,6 +47,11 @@ public class CarService {
         Optional<CarEntity> carEntity = carRepository.findById(idCar);
         return converterEntity.converterCarEntityToCar(carEntity.orElse(null));
     }
+
+    public CarEntity getCarEntity(Integer idCar) {
+        return carRepository.findById(idCar).orElse(null);
+    }
+
 
     public CarDealership getDealer(Integer idDealer) {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(idDealer);

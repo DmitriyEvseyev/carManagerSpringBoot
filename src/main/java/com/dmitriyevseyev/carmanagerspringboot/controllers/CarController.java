@@ -1,20 +1,24 @@
 package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
-
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.services.CarService;
+import com.dmitriyevseyev.carmanagerspringboot.services.ExportService;
+import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +27,7 @@ import java.util.List;
 @RequestMapping("/car")
 public class CarController {
     private CarService carService;
+    private ExportService exportService;
 
     public void getCars(Integer idDealer, Model model) {
         List<Car> carList = carService.getCarList(idDealer);
@@ -142,7 +147,7 @@ public class CarController {
         System.out.println("String pattern - " + pattern);
 
         List<Car> carList = new ArrayList<>();
-        carList = carService. searchCar(idDealer, column, pattern);
+        carList = carService.searchCar(idDealer, column, pattern);
 
 
         System.out.println("SEARCH CAR - " + carList);
@@ -152,18 +157,19 @@ public class CarController {
         model.addAttribute("dealer", carService.getDealer(Integer.parseInt(idDealer)));
         return "car/cars";
     }
+
     @GetMapping("/searchDate")
     public String searchDateCar(@RequestParam("startDate") String startDate,
-                            @RequestParam("endDate") String endDate,
-                            @RequestParam("idDealer") String idDealer,
-                            Model model) {
+                                @RequestParam("endDate") String endDate,
+                                @RequestParam("idDealer") String idDealer,
+                                Model model) {
         System.out.println("111");
         System.out.println("idDealer - " + idDealer);
         System.out.println("startDate - " + startDate);
         System.out.println("endDate - " + endDate);
 
         List<Car> carList = new ArrayList<>();
-        carList = carService. searchDateCar(idDealer, startDate, endDate);
+        carList = carService.searchDateCar(idDealer, startDate, endDate);
 
 
         System.out.println("SEARCH CAR DATE - " + carList);
@@ -175,9 +181,9 @@ public class CarController {
     }
 
     @GetMapping("/sort")
-    public String sortCars (@RequestParam("sort") String criteria,
-                            @RequestParam("idDealer") String idDealer,
-                            Model model) {
+    public String sortCars(@RequestParam("sort") String criteria,
+                           @RequestParam("idDealer") String idDealer,
+                           Model model) {
         List<Car> carList = new ArrayList<>();
         System.out.println("111");
         System.out.println("idDealer - " + idDealer);
@@ -192,6 +198,7 @@ public class CarController {
         model.addAttribute("dealer", carService.getDealer(Integer.parseInt(idDealer)));
         return "car/cars";
     }
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -199,6 +206,24 @@ public class CarController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
+    @GetMapping("/export")
+    public @ResponseBody ResponseEntity<ExportDTO> exportCar
+            (@RequestParam("idDealer") String idDealer,
+             @RequestParam("check") String idCarsString,
+             @RequestParam("fileName") String fileName) throws ExportExeption, StrategyNotFoundException {
+
+        String idDealerString = null;
+
+
+        System.out.println("idDealer - " + idDealer);
+        System.out.println("check - " + idCarsString);
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename= " + fileName + ".json")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(exportService.create(idDealerString, idCarsString));
+    }
 
 //
 //    public void addCar(Car car) throws AddCarExeption {

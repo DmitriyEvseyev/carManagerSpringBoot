@@ -14,25 +14,22 @@ import java.util.Map;
 @Component
 @AllArgsConstructor
 public class ExportStrategyHelper {
-    private Map<Integer, ExportStrategy> dealerStrategies;
-    private Map<Integer, ExportStrategy> carStrategies;
     private DealerExportStrategy dealerExportStrategy;
     private DealerExportStrategyWithCar dealerExportStrategyWithCar;
+    private CarExportStrategy carExportStrategy;
+    private CarExportStrategyWithDealer carExportStrategyWithDealer;
 
     public ExportStrategy resolveDealerStrategy(int strategyID) {
-        dealerStrategies = new HashMap<>();
+        Map<Integer, ExportStrategy> dealerStrategies = new HashMap<>();
         dealerStrategies.put(StrategyConstants.DEALER_EXPORT_WITHOUT_CARS_NUMBER_STRATEGY, dealerExportStrategy);
         dealerStrategies.put(StrategyConstants.DEALER_EXPORT_WITH_CARS_NUMBER_STRATEGY, dealerExportStrategyWithCar);
-//
-//        this.carStrategies = new HashMap<>();
-//        carStrategies.put(StrategyConstants.CAR_EXPORT_WITHOUT_DEALER_NUMBER_STRATEGY, new CarExportStrategy());
-//        carStrategies.put(StrategyConstants.CAR_EXPORT_WITH_DEALER_NUMBER_STRATEGY, new CarExportStrategyWithDealer());
-
-
         return dealerStrategies.get(strategyID);
     }
 
-//    public ExportStrategy resolveCarStrategy(int strategyId) {
-//        return this.carStrategies.get(strategyId);
-//    }
+    public ExportStrategy resolveCarStrategy(int strategyId) {
+        Map<Integer, ExportStrategy> carStrategies = new HashMap<>();
+        carStrategies.put(StrategyConstants.CAR_EXPORT_WITHOUT_DEALER_NUMBER_STRATEGY, carExportStrategy);
+        carStrategies.put(StrategyConstants.CAR_EXPORT_WITH_DEALER_NUMBER_STRATEGY, carExportStrategyWithDealer);
+        return carStrategies.get(strategyId);
+    }
 }
