@@ -5,6 +5,7 @@ import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
 import com.dmitriyevseyev.carmanagerspringboot.services.ExportService;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
+import com.dmitriyevseyev.carmanagerspringboot.utils.JsonValidator;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -127,13 +128,16 @@ public class DealerController {
     }
 
     @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<HttpStatus> importDealer(@RequestParam("importFile") MultipartFile importFile) throws IOException, ClassNotFoundException {
+    public ResponseEntity<HttpStatus> importDealer(@RequestParam("importFile") MultipartFile importFile) throws IOException {
         String json = new String(importFile.getBytes());
         System.out.println(json);
 
         ObjectMapper objectMapper = new ObjectMapper();
         ExportDTO exportDTO = objectMapper.readValue(json, ExportDTO.class);
         System.out.println("exportDTO - " + exportDTO);
+
+        JsonValidator jsonValidator = JsonValidator.getInstance();
+        jsonValidator.isValidImport(json);
 
         return ResponseEntity.ok(HttpStatus.OK);
     }
