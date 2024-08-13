@@ -4,11 +4,12 @@ package com.dmitriyevseyev.carmanagerspringboot.utils;
 import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDTO;
 import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDealershipDTO;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ExportDTO {
+public class ExportDTO implements Serializable {
     private List<CarDealershipDTO> dealers;
     private List<CarDTO> cars;
 

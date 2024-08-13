@@ -11,12 +11,12 @@
 <div>
     <input type="submit" class="import" id="open" value="Import"/>
     <dialog>
-        <form enctype="multipart/form-data">
+        <form  enctype="multipart/form-data">
             <input type="file" id="file" name="importFile" value="Import" accept=".txt, .json" required/>
             <br/>
             <br/>
             <input type="submit" id="close" value="Close"/>
-            <input type="submit" class="imtBut" value="Upload file" formmethod="post" formaction="importDealerServlet"/>
+            <input type="submit" class="imtBut" value="Upload file" formmethod="post" formaction="/dealer/import"/>
         </form>
     </dialog>
     <script>

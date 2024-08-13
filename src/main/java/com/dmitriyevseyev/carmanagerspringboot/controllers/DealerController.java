@@ -7,6 +7,7 @@ import com.dmitriyevseyev.carmanagerspringboot.services.ExportService;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.SerializationUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -116,6 +125,24 @@ public class DealerController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(exportService.create(idDealerString, idCarsString));
     }
+
+    @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<HttpStatus> importDealer(@RequestParam("importFile") MultipartFile importFile) throws IOException, ClassNotFoundException {
+        String json = new String(importFile.getBytes());
+        System.out.println(json);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ExportDTO exportDTO = objectMapper.readValue(json, ExportDTO.class);
+        System.out.println("exportDTO - " + exportDTO);
+
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+
+
+
+
+
 
 //    public void addDealer(CarDealership dealer) throws AddDealerExeption {
 //        dealerDAO.createDealer(dealer);
