@@ -51,6 +51,9 @@ public class DealerService {
     public CarDealershipEntity getDealerEntity(Integer id) {
         return dealerRepository.findById(id).orElse(null);
     }
+    public CarDealershipEntity getDealerEntityByName (String dealerName){
+        return dealerRepository.getCarDealershipEntityByName(dealerName);
+    }
 
     @Transactional
     public void updateDealer(CarDealership dealer) {

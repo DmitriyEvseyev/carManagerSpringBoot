@@ -47,7 +47,7 @@ public class ConverterDTO {
         return dealerDTOList;
     }
 
-    public List<CarDealershipEntity> convertetDealerDTOToDealerEntity(List<CarDealershipDTO> dealerDTOList) {
+    public List<CarDealershipEntity> convertetDealerDTOListToDealerEntityList(List<CarDealershipDTO> dealerDTOList) {
         List<CarDealershipEntity> dealerEntityList = new ArrayList<>();
         for (CarDealershipDTO dealerDTO : dealerDTOList) {
             CarDealershipEntity dealerEntity = CarDealershipEntity.builder().

@@ -4,6 +4,7 @@ import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
 import com.dmitriyevseyev.carmanagerspringboot.services.ExportService;
+import com.dmitriyevseyev.carmanagerspringboot.services.ImportService;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
 import com.dmitriyevseyev.carmanagerspringboot.utils.JsonValidator;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
@@ -35,6 +36,7 @@ import java.util.stream.Collectors;
 public class DealerController {
     private DealerService dealerService;
     private ExportService exportService;
+    private ImportService importService;
 
     @RequestMapping(value = "/getAllDealer", method = {RequestMethod.GET, RequestMethod.POST})
     public String getAllDealer(Model model) {
@@ -139,52 +141,8 @@ public class DealerController {
         JsonValidator jsonValidator = JsonValidator.getInstance();
         jsonValidator.isValidImport(json);
 
+        importService.importFile(json);
+
         return ResponseEntity.ok(HttpStatus.OK);
     }
-
-
-
-
-
-
-
-//    public void addDealer(CarDealership dealer) throws AddDealerExeption {
-//        dealerDAO.createDealer(dealer);
-//    }
-//
-//    public CarDealership getDealer(Integer id) throws NotFoundException {
-//        return dealerDAO.getDealer(id);
-//    }
-//
-//    public CarDealership getDealerByName(String name) throws NotFoundException {
-//        return dealerDAO.getDealerByName(name);
-//    }
-//
-//    public List<CarDealership> getAllDealers() throws GetAllDealerExeption {
-//        return Collections.unmodifiableList(new ArrayList<>(dealerDAO.getAll()));
-//    }
-//
-//    public void updateDealer(CarDealership dealer) throws UpdateDealerException {
-//        dealerDAO.update(dealer);
-//    }
-//
-//    public void removeDealer(Integer id) throws DeleteDealerExeption {
-//        dealerDAO.delete(id);
-//    }
-//
-//    public List<CarDealership> getDealers(List<Integer> ids) throws NotFoundException {
-//        List<CarDealership> dealersList = new ArrayList<>();
-//        for (Integer id : ids) {
-//            dealersList.add(getDealer(id));
-//        }
-//        return Collections.unmodifiableList(dealersList);
-//    }
-//
-//    public List<CarDealership> getSortedByCriteria(String column, String criteria) throws GetAllDealerExeption {
-//        return Collections.unmodifiableList(new ArrayList<>(dealerDAO.getSortedByCriteria(column, criteria)));
-//    }
-//
-//    public List<CarDealership> getFilteredByPattern(String column, String pattern, String criteria) throws GetAllDealerExeption {
-//        return Collections.unmodifiableList(new ArrayList<>(dealerDAO.getFilteredByPattern(column, pattern, criteria)));
-//    }
 }

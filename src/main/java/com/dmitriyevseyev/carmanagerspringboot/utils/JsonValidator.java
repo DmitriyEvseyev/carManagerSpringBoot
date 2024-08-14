@@ -27,7 +27,7 @@ public class JsonValidator {
     public String isValidImport(String json) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V4);
-        String schema = Files.readString(Path.of("C:\\Users\\VivoB\\IdeaProjects\\carWeb\\src\\main\\resources\\schema.json"));
+        String schema = Files.readString(Path.of(Constants.PATH_TO_SCHEMA_JSON));
 
         System.out.println("SCHEMA - " + schema);
 
