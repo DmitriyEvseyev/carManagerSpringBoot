@@ -9,6 +9,8 @@ import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
 import com.dmitriyevseyev.carmanagerspringboot.utils.JsonValidator;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.JSONValidatorExeption;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -130,7 +132,7 @@ public class DealerController {
     }
 
     @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<HttpStatus> importDealer(@RequestParam("importFile") MultipartFile importFile) throws IOException {
+    public String importDealer(@RequestParam("importFile") MultipartFile importFile) throws IOException, JSONValidatorExeption, ImportExeption {
         String json = new String(importFile.getBytes());
         System.out.println(json);
 
@@ -143,6 +145,6 @@ public class DealerController {
 
         importService.importFile(json);
 
-        return ResponseEntity.ok(HttpStatus.OK);
+        return "redirect:/dealer/getAllDealer";
     }
 }

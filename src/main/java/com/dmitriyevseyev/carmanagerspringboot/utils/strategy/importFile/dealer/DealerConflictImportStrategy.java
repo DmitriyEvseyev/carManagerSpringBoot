@@ -26,13 +26,16 @@ public class DealerConflictImportStrategy implements ImportStrategy<CarDealershi
             } catch (DealerNameAlreadyExistException e) {
                 throw new ImportExeption(e.getMessage());
             }
-        } else if (dealerRepository.findById(dealer.getId()) != null) {
+        } else if (dealerRepository.getCarDealershipEntityById(dealer.getId()) != null) {
             try {
                 throw new DealerIdAlreadyExistException("Dealer with this id already exist: id = " + dealer.getId());
             } catch (DealerIdAlreadyExistException e) {
                 throw new ImportExeption(e.getMessage());
             }
         } else {
+
+            System.out.println("DealerConflictImportStrategy 333 - " + dealer);
+
             dealerRepository.save(dealer);
         }
     }

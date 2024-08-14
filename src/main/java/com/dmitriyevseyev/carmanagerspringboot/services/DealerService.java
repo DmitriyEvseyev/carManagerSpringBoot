@@ -32,6 +32,12 @@ public class DealerService {
     }
 
     @Transactional
+    public void addDealerEntity(CarDealershipEntity dealerEntity) {
+        dealerRepository.save(dealerEntity);
+    }
+
+
+    @Transactional
     public void delDealer(String idDealerString) {
         List<Integer> idDealerList = new ArrayList<>();
         String idDealerArr[] = idDealerString.split(",");

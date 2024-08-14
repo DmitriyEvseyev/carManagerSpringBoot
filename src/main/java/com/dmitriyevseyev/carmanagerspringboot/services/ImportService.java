@@ -32,6 +32,7 @@ public class ImportService {
     private ExportConfigStrategy exportConfigStrategy;
     private ImportStrategyHelper importStrategyHelper;
 
+    @Transactional
     public void importFile(String json) throws IOException, JSONValidatorExeption, ImportExeption {
         JsonValidator jsonValidator = JsonValidator.getInstance();
 
@@ -61,6 +62,7 @@ public class ImportService {
 
         try {
             if (importStrategyHelper.resolveDealerStrategy(dealerImpIdStrategy).equals(null)) {
+                System.out.println("IMPORT_STRATEGY_NOT_FOUND_EXCEPTION_MESSAGE");
                 throw new StrategyNotFoundException(Constants.IMPORT_STRATEGY_NOT_FOUND_EXCEPTION_MESSAGE);
             } else {
                 ImportStrategy<CarDealershipEntity> dealerImportStrategy = importStrategyHelper.resolveDealerStrategy(dealerImpIdStrategy);
