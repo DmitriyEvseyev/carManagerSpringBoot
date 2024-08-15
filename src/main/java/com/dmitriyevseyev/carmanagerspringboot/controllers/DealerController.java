@@ -134,17 +134,12 @@ public class DealerController {
     @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String importDealer(@RequestParam("importFile") MultipartFile importFile) throws IOException, JSONValidatorExeption, ImportExeption {
         String json = new String(importFile.getBytes());
+
+
         System.out.println(json);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        ExportDTO exportDTO = objectMapper.readValue(json, ExportDTO.class);
-        System.out.println("exportDTO - " + exportDTO);
-
-        JsonValidator jsonValidator = JsonValidator.getInstance();
-        jsonValidator.isValidImport(json);
 
         importService.importFile(json);
-
         return "redirect:/dealer/getAllDealer";
     }
 }

@@ -1,30 +1,31 @@
 package com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.car;
 
 
+
 import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDTO;
+import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
+import com.dmitriyevseyev.carmanagerspringboot.repositories.CarRepository;
+import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
+import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterDTO;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportStrategy;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
+@AllArgsConstructor
 public class CarOverwriteImportStrategy implements ImportStrategy<CarDTO> {
+    private CarRepository carRepository;
+    private DealerRepository dealerRepository;
+    private ConverterDTO converterDTO;
     @Override
     public void store(CarDTO carDTO) throws ImportExeption {
-//        ConverterDTO converterDTO = ConverterDTO.getInstance();
-//        Car car = converterDTO.converterCarDTOToCar(carDTO);
-//        CarDealership dealer = null;
-//        Car oldCar = null;
-//        try {
-//            DealerController dealerController = DealerController.getInstance();
-//            CarController carController = CarController.getInstance();
-//            dealer = dealerController.getDealer(carDTO.getIdDealer());
-//            car.setDealer(dealer);
-//            oldCar = carController.getCar(car.getId());
-//            if (oldCar != null) {
-//                carController.updateCar(car);
-//            } else {
-//                carController.addCar(car);
-//            }
-//        } catch (AddCarExeption | UpdateCarException | NotFoundException | DAOFactoryActionException e) {
-//            throw new ImportExeption(e.getMessage());
-//        }
+        CarEntity carEntity = converterDTO.converterCarDTOToCarEntity(carDTO);
+        carEntity.setDealer(dealerRepository.getCarDealershipEntityById(carDTO.getIdDealer()));
+
+
+        System.out.println("CarOverwriteImportStrategy 111 - " + carEntity);
+
+        carRepository.save(carEntity);
     }
 }

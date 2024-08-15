@@ -46,10 +46,10 @@ public class ImportService {
 
     private void importObjects(ExportDTO exportDTO) throws ImportExeption {
         List<CarDealershipEntity> dealerEntityList = new ArrayList<>();
-        List<CarEntity> carEntityList = new ArrayList<>();
+        List<CarDTO> carDTOList = new ArrayList<>();
 
         dealerEntityList.addAll(converterDTO.convertetDealerDTOListToDealerEntityList(exportDTO.getDealers()));
-        // carEntityList.addAll(exportDTO.getCars());
+        carDTOList.addAll(exportDTO.getCars());
 
         int dealerImpIdStrategy;
         int carImpIdStrategy;
@@ -74,18 +74,18 @@ public class ImportService {
             throw new ImportExeption(Constants.IMPORT_EXCEPTION_MESSAGE + e.getMessage());
         }
 
-//        try {
-//            if (importStrategyHelper.resolveCarStrategy(carImpIdStrategy).equals(null)) {
-//                throw new StrategyNotFoundException(Constants.IMPORT_STRATEGY_NOT_FOUND_EXCEPTION_MESSAGE);
-//            } else {
-//                ImportStrategy<CarDTO> carImportStrategy = importStrategyHelper.resolveCarStrategy(carImpIdStrategy);
-//                for (CarDTO carDTO : carList) {
-//                    carImportStrategy.store(carDTO);
-//                }
-//            }
-//        } catch (StrategyNotFoundException e) {
-//            throw new ImportExeption(Constants.IMPORT_EXCEPTION_MESSAGE + e.getMessage());
-//        }
+        try {
+            if (importStrategyHelper.resolveCarStrategy(carImpIdStrategy).equals(null)) {
+                throw new StrategyNotFoundException(Constants.IMPORT_STRATEGY_NOT_FOUND_EXCEPTION_MESSAGE);
+            } else {
+                ImportStrategy<CarDTO> carImportStrategy = importStrategyHelper.resolveCarStrategy(carImpIdStrategy);
+                for (CarDTO carDTO : carDTOList) {
+                    carImportStrategy.store(carDTO);
+                }
+            }
+        } catch (StrategyNotFoundException e) {
+            throw new ImportExeption(Constants.IMPORT_EXCEPTION_MESSAGE + e.getMessage());
+        }
 
     }
 }

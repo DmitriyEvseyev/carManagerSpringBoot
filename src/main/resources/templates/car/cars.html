@@ -15,8 +15,8 @@
             <br/>
             <br/>
             <input type="submit" id="close" value="Close"/>
-            <input type="hidden" name="idDealer" value="${dealer.id}"/>
-            <input type="submit" class="imtBut" value="Upload file" formmethod="post" formaction="importCarServlet"/>
+            <input type="hidden" name="idDealer" th:value="${dealer.id}"/>
+            <input type="submit" class="imtBut" value="Upload file" formmethod="post" formaction="/car/import"/>
         </form>
     </dialog>
     <script>

@@ -4,9 +4,14 @@ import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.services.CarService;
 import com.dmitriyevseyev.carmanagerspringboot.services.ExportService;
+import com.dmitriyevseyev.carmanagerspringboot.services.ImportService;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
+import com.dmitriyevseyev.carmanagerspringboot.utils.JsonValidator;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.JSONValidatorExeption;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpHeaders;
@@ -16,7 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +35,7 @@ import java.util.List;
 public class CarController {
     private CarService carService;
     private ExportService exportService;
+    private ImportService importService;
 
     public void getCars(Integer idDealer, Model model) {
         List<Car> carList = carService.getCarList(idDealer);
@@ -90,8 +98,6 @@ public class CarController {
                                @RequestParam("idDealer") Integer idDealer,
                                @RequestParam(value = "isAfterCrash", required = false) String isAfterCrashString,
                                Model model) {
-//
-
         System.out.println(11111);
         System.out.println("idDealer - " + idDealer);
         System.out.println("isAfterCrashString - " + isAfterCrashString);
@@ -119,7 +125,7 @@ public class CarController {
         carService.updateCar(car);
         System.out.println("33333");
 
-        getCars(car.getIdDealer(), model);
+        getCars(idDealer, model);
         return "car/cars";
     }
 
@@ -225,58 +231,27 @@ public class CarController {
                 .body(exportService.create(idDealerString, idCarsString));
     }
 
-//
-//    public void addCar(Car car) throws AddCarExeption {
-//        carDAO.createCar(car);
-//    }
-//
-//    public Car getCar(Integer id) throws NotFoundException {
-//        return carDAO.getCar(id);
-//    }
-//
-//    public List<Car> getCarList(Integer idDealer) throws GetAllCarExeption {
-//        return Collections.unmodifiableList(new ArrayList<>(carDAO.getCarListDealer(idDealer)));
-//    }
-//
-//    public void updateCar(Car car) throws UpdateCarException {
-//        carDAO.update(car);
-//    }
-//
-//    public void removeCar(Integer id) throws NotFoundException, DeleteCarExeption {
-//        carDAO.delete(id);
-//    }
-//
-//    public List<Car> getSortedByCriteria(Integer idDealer, String column, String criteria) throws GetAllCarExeption {
-//        return Collections.unmodifiableList(new ArrayList<>(carDAO.getSortedByCriteria(idDealer, column, criteria)));
-//    }
-//
-//    public List<Car> getFilteredByPattern(Integer idDealer, String column, String pattern, String criteria) throws GetAllCarExeption {
-//        return Collections.unmodifiableList(new ArrayList<>(carDAO.getFilteredByPattern(idDealer, column, pattern, criteria)));
-//    }
-//
-//    public List<Car> getFilteredByDatePattern(Integer idDealer, String columnDate, Date startDatePattern, Date endDatePattern, String criteria) throws GetAllCarExeption {
-//        return Collections.unmodifiableList(new ArrayList<>(carDAO.getFilteredByDatePattern(idDealer, columnDate, startDatePattern, endDatePattern, criteria)));
-//    }
-//
-//    public List<Car> getFilteredByCrashPattern(Integer idDealer, String column, String pattern, String criteria) throws GetAllCarExeption {
-//        return Collections.unmodifiableList(new ArrayList<>(carDAO.getFilteredByCrashPattern(idDealer, column, pattern, criteria)));
-//    }
-//
-//    public List<Car> getCars(List<Integer> ids) throws NotFoundException {
-//        List<Car> carList = new ArrayList<>();
-//        for (Integer id : ids) {
-//            carList.add(getCar(id));
-//        }
-//        return Collections.unmodifiableList(carList);
-//    }
-//
-//    public List<Car> getCarsByDealersIds(List<Integer> ids) throws GetAllCarExeption {
-//        List<Car> carList = new ArrayList<>();
-//        for (Integer idDealer : ids) {
-//            carList.addAll(carList.size(), getCarList(idDealer));
-//        }
-//        return Collections.unmodifiableList(carList);
-//    }
+    @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public String importCar(@RequestParam("importFile") MultipartFile importFile,
+                            @RequestParam("idDealer") String idDealer,
+                            Model model) throws IOException, JSONValidatorExeption, ImportExeption {
+        String json = new String(importFile.getBytes());
+        System.out.println(json);
+        System.out.println("String idDealer - " + idDealer);
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ExportDTO exportDTO = objectMapper.readValue(json, ExportDTO.class);
+        System.out.println("exportDTO - " + exportDTO);
+
+        JsonValidator jsonValidator = JsonValidator.getInstance();
+        jsonValidator.isValidImport(json);
+
+        importService.importFile(json);
+
+        getCars(Integer.parseInt(idDealer), model);
+        return "car/cars";
+    }
 }
 
 

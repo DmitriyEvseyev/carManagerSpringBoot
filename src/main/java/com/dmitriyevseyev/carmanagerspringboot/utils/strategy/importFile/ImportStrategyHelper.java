@@ -3,6 +3,9 @@ package com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile;
 import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDTO;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.car.CarConflictImportStrategy;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.car.CarIgnoreImportStrategy;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.car.CarOverwriteImportStrategy;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.dealer.DealerConflictImportStrategy;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.dealer.DealerIgnoreImportStrategy;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.dealer.DealerOverwriteImportStrategy;
@@ -19,6 +22,10 @@ public class ImportStrategyHelper {
     private DealerIgnoreImportStrategy dealerIgnoreImportStrategy;
     private DealerConflictImportStrategy dealerConflictImportStrategy;
 
+    private CarOverwriteImportStrategy carOverwriteImportStrategy;
+    private CarIgnoreImportStrategy carIgnoreImportStrategy;
+    private CarConflictImportStrategy carConflictImportStrategy;
+
 
     public ImportStrategy<CarDealershipEntity> resolveDealerStrategy(int strategyID) {
         Map<Integer, ImportStrategy<CarDealershipEntity>> dealerStrategies = new HashMap<>();
@@ -30,9 +37,9 @@ public class ImportStrategyHelper {
 
     public ImportStrategy<CarDTO> resolveCarStrategy(int strategyId) {
         Map<Integer, ImportStrategy<CarDTO>> carStrategies = new HashMap<>();
-//        this.carStrategies.put(Constants.CAR_OVERWRITE_IMPORT_ID, new CarOverwriteImportStrategy());
-//        this.carStrategies.put(Constants.CAR_IGNORE_IMPORT_ID, new CarIgnoreImportStrategy());
-//        this.carStrategies.put(Constants.CAR_CONFLICT_IMPORT_ID, new CarConflictImportStrategy());
+        carStrategies.put(Constants.CAR_OVERWRITE_IMPORT_ID, carOverwriteImportStrategy);
+        carStrategies.put(Constants.CAR_IGNORE_IMPORT_ID, carIgnoreImportStrategy);
+        carStrategies.put(Constants.CAR_CONFLICT_IMPORT_ID, carConflictImportStrategy);
 
         return carStrategies.get(strategyId);
     }
