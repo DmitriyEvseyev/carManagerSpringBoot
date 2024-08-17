@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +32,11 @@ public class DealerController {
     private ExportService exportService;
     private ImportService importService;
 
-    @RequestMapping(value = "/getAllDealer", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/getDealers", method = {RequestMethod.GET, RequestMethod.POST})
     public String getDealersList(Model model) {
         List<CarDealership> dealersList = dealerService.getDealersList();
         model.addAttribute("carDealerships", dealersList);
-        return "dealer/getDealers";
+        return "dealer/dealers";
     }
 
     @GetMapping("/create")
@@ -92,7 +93,7 @@ public class DealerController {
         System.out.println("SEARCH - " + dealersList);
 
         model.addAttribute("carDealerships", dealersList);
-        return "dealer/getDealers";
+        return "dealer/dealers";
     }
 
     @GetMapping("/sort")
@@ -103,8 +104,9 @@ public class DealerController {
         System.out.println("SORT - " + dealersList);
 
         model.addAttribute("carDealerships", dealersList);
-        return "dealer/getDealers";
+        return "dealer/dealers";
     }
+
     @GetMapping("/export")
     public @ResponseBody ResponseEntity<ExportDTO> exportDealer
             (@RequestParam("dealerId") String dealerId,
@@ -122,6 +124,7 @@ public class DealerController {
             throw new RuntimeException(e);
         }
     }
+
     @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String importDealer(@RequestParam("importFile") MultipartFile importFile) throws IOException, JSONValidatorExeption, ImportExeption {
         String json = new String(importFile.getBytes());

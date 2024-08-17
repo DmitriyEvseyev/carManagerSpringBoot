@@ -38,6 +38,7 @@ public class DealerService {
 
     @Transactional
     public void updateDealer(CarDealership dealer) {
+        System.out.println("upd - " + dealer);
         dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
     }
 

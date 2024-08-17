@@ -32,7 +32,7 @@ public class UserController {
                             @RequestParam("password") String userPassword) {
         boolean isCorrect = false;
         String password = passwordHashGenerator.getHashPassword(userPassword);
-        String passwordServer = userService.getPassword(userName);
+        String passwordServer = userService.getUserPassword(userName);
         if (passwordServer != null) {
             String passwordServerHash = passwordHashGenerator.getHashPassword(passwordServer);
             if (password.equals(passwordServerHash)) {
@@ -40,25 +40,24 @@ public class UserController {
             }
         }
         if (isCorrect == true) {
-            return "forward:/dealer/getAllDealer";
+            return "forward:/dealer/getDealers";
         }
         return "user/error";
     }
 
     @PostMapping("/create")
-    public String regUser(@RequestParam("name") String userName,
+    public String addUser(@RequestParam("name") String userName,
                           @RequestParam("password") String userPassword,
                           @RequestParam("password2") String userPassword2) {
-        System.out.println(111 + " - /create");
         System.out.println("USERNAME - " + userName);
 
         if (!userPassword.equals(userPassword2)) {
             return "user/passError";
-        } else if (userService.isUserExistServer(userName)) {
+        } else if (userService.getUserName(userName)) {
             return "user/userExistError";
         } else {
             userService.addUser(userName, userPassword);
-            return "forward:/dealer/getAllDealer";
+            return "forward:/dealer/getDealers";
         }
     }
 }
