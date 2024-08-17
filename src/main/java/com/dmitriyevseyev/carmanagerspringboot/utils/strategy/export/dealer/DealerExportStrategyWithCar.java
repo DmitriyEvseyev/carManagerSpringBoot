@@ -1,5 +1,7 @@
 package com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.dealer;
 
+import com.dmitriyevseyev.carmanagerspringboot.models.Car;
+import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
 import com.dmitriyevseyev.carmanagerspringboot.services.CarService;
@@ -23,19 +25,17 @@ public class DealerExportStrategyWithCar implements ExportStrategy {
 
     @Override
     public void collectExportIds(ExportDTO exportList, List<Integer> ids) throws ExportExeption {
-        List<CarDealershipEntity> dealerEntityList = new ArrayList<>();
+        List<CarDealership> dealersList = new ArrayList<>();
         for (Integer id : ids) {
-            dealerEntityList.add(dealerService.getDealerEntity(id));
+            dealersList.add(dealerService.getDealer(id));
         }
-        exportList.addDelers(converterDTO.convertDealerEntityListToDealerDTOList(dealerEntityList));
+        exportList.addDelers(converterDTO.convertDealersListToDealersDTOList(dealersList));
 
-        List<CarEntity> carEntityList = new ArrayList<>();
+        List<Car> carsList = new ArrayList<>();
         for (Integer id : ids) {
-            carEntityList.addAll(carEntityList.size(), carService.getCarEntityList(id));
+            carsList.addAll(carsList.size(), carService.getCarsListByDealerId(id));
         }
-
-
-        exportList.addCars(converterDTO.convertCarEntityListToCarDTOList(carEntityList));
+        exportList.addCars(converterDTO.convertCarsListToCarsDTOList(carsList));
 
 
         System.out.println("DealerExportStrategyWithCar - " + exportList);

@@ -20,10 +20,15 @@ public class DealerService {
     private DealerRepository dealerRepository;
     private ConverterEntity converterEntity;
 
-    public List<CarDealership> getAllDealer() {
-        List<CarDealership> dealerList;
-        dealerList = converterEntity.convertDealerEntityLisToDealerList(dealerRepository.findAll());
-        return dealerList;
+    public List<CarDealership> getDealersList() {
+        List<CarDealership> dealersList;
+        dealersList = converterEntity.convertDealerEntitiesListToDealersList(dealerRepository.findAll());
+        return dealersList;
+    }
+
+    public CarDealership getDealer(Integer id) {
+        Optional<CarDealershipEntity> dealerEntity = dealerRepository.findById(id);
+        return converterEntity.convertDealerEntityToDealer(dealerEntity.orElse(null));
     }
 
     @Transactional
@@ -32,59 +37,37 @@ public class DealerService {
     }
 
     @Transactional
-    public void addDealerEntity(CarDealershipEntity dealerEntity) {
-        dealerRepository.save(dealerEntity);
-    }
-
-
-    @Transactional
-    public void delDealer(String idDealerString) {
-        List<Integer> idDealerList = new ArrayList<>();
-        String idDealerArr[] = idDealerString.split(",");
-        for (int i = 0; i < idDealerArr.length; i++) {
-            idDealerList.add(Integer.parseInt(idDealerArr[i]));
-        }
-        for (Integer idDealer : idDealerList) {
-            dealerRepository.deleteById(idDealer);
-        }
-    }
-
-    public CarDealership getDealer(Integer id) {
-        Optional<CarDealershipEntity> dealerEntity = dealerRepository.findById(id);
-        return converterEntity.convertDealerEntityToDealer(dealerEntity.orElse(null));
-    }
-
-    public CarDealershipEntity getDealerEntity(Integer id) {
-        return dealerRepository.findById(id).orElse(null);
-    }
-    public CarDealershipEntity getDealerEntityByName (String dealerName){
-        return dealerRepository.getCarDealershipEntityByName(dealerName);
-    }
-
-    @Transactional
     public void updateDealer(CarDealership dealer) {
         dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
     }
 
-    public List<Car> getAllCars(String idDealer) {
+    @Transactional
+    public void delDealer(String dealerId) {
+        List<Integer> dealerIdArrList = new ArrayList<>();
+        String dealerIdArr[] = dealerId.split(",");
+        for (int i = 0; i < dealerIdArr.length; i++) {
+            dealerIdArrList.add(Integer.parseInt(dealerIdArr[i]));
+        }
+        for (Integer id : dealerIdArrList) {
+            dealerRepository.deleteById(id);
+        }
+    }
+
+    public List<Car> getCarsList(String idDealer) {
 
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));
         CarDealershipEntity dealer = dealerOptional.orElse(null);
-        List<Car> carList = converterEntity.convertCarListEntityToCarList(dealer.getCarEntities());
-
-        System.out.println("CARLIST service - " + carList);
-
-
-        return carList;
+        List<Car> carsList = converterEntity.convertCarEntitiesListToCarsList(dealer.getCarEntities());
+        return carsList;
     }
 
     public List<CarDealership> findCarDealershipEntities(String column, String pattern) {
         List<CarDealership> dealerList = new ArrayList<>();
         if (column.equals("name")) {
-            dealerList = converterEntity.convertDealerEntityLisToDealerList
+            dealerList = converterEntity.convertDealerEntitiesListToDealersList
                     (dealerRepository.findByNameStartingWith(pattern));
         } else if (column.equals("address")) {
-            dealerList = converterEntity.convertDealerEntityLisToDealerList
+            dealerList = converterEntity.convertDealerEntitiesListToDealersList
                     (dealerRepository.findByAddressStartingWith(pattern));
         }
         return dealerList;
@@ -94,21 +77,19 @@ public class DealerService {
         List<CarDealership> dealerList = new ArrayList<>();
         switch (criteria) {
             case ("nameDesc"):
-                dealerList = converterEntity.convertDealerEntityLisToDealerList(dealerRepository.findByOrderByNameDesc());
+                dealerList = converterEntity.convertDealerEntitiesListToDealersList(dealerRepository.findByOrderByNameDesc());
                 break;
             case ("nameAsc"):
-                dealerList = converterEntity.convertDealerEntityLisToDealerList(dealerRepository.findByOrderByNameAsc());
+                dealerList = converterEntity.convertDealerEntitiesListToDealersList(dealerRepository.findByOrderByNameAsc());
                 break;
             case ("addressDesc"):
-                dealerList = converterEntity.convertDealerEntityLisToDealerList(dealerRepository.findByOrderByAddressDesc());
+                dealerList = converterEntity.convertDealerEntitiesListToDealersList(dealerRepository.findByOrderByAddressDesc());
                 break;
             case ("addressAsc"):
-                dealerList = converterEntity.convertDealerEntityLisToDealerList(dealerRepository.findByOrderByAddressAsc());
+                dealerList = converterEntity.convertDealerEntitiesListToDealersList(dealerRepository.findByOrderByAddressAsc());
                 break;
         }
         return dealerList;
     }
-
-
 }
 

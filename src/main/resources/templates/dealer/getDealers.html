@@ -83,13 +83,13 @@
         </tr>
         <div th:each="CarDealership : ${carDealerships}">
             <tr>
-                <td><input type="checkbox" name="idDealer"  th:value="${CarDealership.getId()}"/></td>
+                <td><input type="checkbox" name="dealerId"  th:value="${CarDealership.getId()}"/></td>
                 <td th:text="${CarDealership.getName()}"></td>
                 <td th:text="${CarDealership.getAddress()}"></td>
             </tr>
         </div>
         <script>
-            checks = document.getElementsByName("idDealer");
+            checks = document.getElementsByName("dealerId");
             console.log("checks" + checks);
 
             function selectedCheckBox() {
@@ -102,19 +102,19 @@
                 }
                 if (count === 0) {
                     document.getElementById("del").disabled = true;
-                    document.getElementById("edit").disabled = true;
+                    document.getElementById("update").disabled = true;
                     document.getElementById("sel").disabled = true;
                     document.getElementById("exp").disabled = true;
                 }
                 if (count === 1) {
                     document.getElementById("del").disabled = false;
-                    document.getElementById("edit").disabled = false;
+                    document.getElementById("update").disabled = false;
                     document.getElementById("sel").disabled = false;
                     document.getElementById("exp").disabled = false;
                 }
                 if (count > 1) {
                     document.getElementById("del").disabled = false;
-                    document.getElementById("edit").disabled = true;
+                    document.getElementById("update").disabled = true;
                     document.getElementById("sel").disabled = true;
                     document.getElementById("exp").disabled = false;
                 }
@@ -128,10 +128,10 @@
     <br/>
     <div class="buttons">
         <input type="submit" formmethod="get" formaction="/dealer/select" id="sel" disabled value="Select"/>
-        <input type="submit" formmethod="get" formaction="/dealer/del" id="del" disabled value="Delete"
+        <input type="submit" formmethod="get" formaction="/dealer/delete" id="del" disabled value="Delete"
                onclick="return delCar()"/>
-        <input type="submit" formmethod="get" formaction="/dealer/edit" id="edit" disabled value="Edit"/>
-        <input type="submit" formmethod="get" formaction="/dealer/new" id="add" value="Add"/>
+        <input type="submit" formmethod="get" formaction="/dealer/update" id="update" disabled value="Update"/>
+        <input type="submit" formmethod="get" formaction="/dealer/create" id="add" value="Add"/>
         <input type="submit" formmethod="post" formaction="/dealer/getAllDealer" value="Reset"/>
     </div>
     <div class="exp">

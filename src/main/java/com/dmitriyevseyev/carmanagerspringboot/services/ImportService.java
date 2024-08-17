@@ -1,11 +1,7 @@
 package com.dmitriyevseyev.carmanagerspringboot.services;
 
-import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDTO;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
-import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
-import com.dmitriyevseyev.carmanagerspringboot.repositories.CarRepository;
-import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
 import com.dmitriyevseyev.carmanagerspringboot.utils.*;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.ExportConfigStrategy;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.PropertyFileException;
@@ -37,6 +33,7 @@ public class ImportService {
         JsonValidator jsonValidator = JsonValidator.getInstance();
 
         if (!jsonValidator.isValidImport(json).isEmpty()) {
+            System.out.println("NOT VALID");
             throw new JSONValidatorExeption(Constants.VALIDATION_EXEPTION +
                     jsonValidator.isValidImport(json));
         } else {
@@ -86,6 +83,5 @@ public class ImportService {
         } catch (StrategyNotFoundException e) {
             throw new ImportExeption(Constants.IMPORT_EXCEPTION_MESSAGE + e.getMessage());
         }
-
     }
 }

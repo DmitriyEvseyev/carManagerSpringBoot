@@ -1,5 +1,7 @@
 package com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.car;
 
+import com.dmitriyevseyev.carmanagerspringboot.exceptions.car.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
 import com.dmitriyevseyev.carmanagerspringboot.services.CarService;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterDTO;
@@ -19,13 +21,13 @@ public class CarExportStrategy implements ExportStrategy {
     private CarService carService;
 
     @Override
-    public void collectExportIds(ExportDTO exportList, List<Integer> ids) throws ExportExeption {
+    public void collectExportIds(ExportDTO exportList, List<Integer> ids) throws ExportExeption, NotFoundException {
 
-        List<CarEntity> carListEntity = new ArrayList<>();
+        List<Car> carsList = new ArrayList<>();
         for (Integer id : ids) {
-            carListEntity.add(carService.getCarEntity(id));
+            carsList.add(carService.getCarById(id));
         }
-        exportList.addCars(converterDTO.convertCarEntityListToCarDTOList(carListEntity));
+        exportList.addCars(converterDTO.convertCarsListToCarsDTOList(carsList));
 
 
         System.out.println("CarExportStrategy without dealer - " + exportList);

@@ -1,5 +1,6 @@
 package com.dmitriyevseyev.carmanagerspringboot.services;
 
+import com.dmitriyevseyev.carmanagerspringboot.exceptions.car.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
@@ -26,105 +27,71 @@ public class CarService {
     private DealerRepository dealerRepository;
     private ConverterEntity converterEntity;
 
-    public List<Car> getCarList(Integer idDealer) {
-        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(idDealer);
+    public List<Car> getCarsListByDealerId(Integer dealerId) {
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(dealerId);
         CarDealershipEntity dealerEntity = dealerOptional.orElse(null);
-        List<Car> carList = converterEntity.convertCarListEntityToCarList(carRepository.getCarEntitiesByDealer(dealerEntity));
+        List<Car> carList = converterEntity.convertCarEntitiesListToCarsList(carRepository.getCarEntitiesByDealer(dealerEntity));
 
         return carList;
     }
 
-    public List<CarEntity> getCarEntityList(Integer idDealer) {
-        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(idDealer);
-        CarDealershipEntity dealerEntity = dealerOptional.orElse(null);
-
-        List<CarEntity> carEntityList = carRepository.getCarEntitiesByDealer(dealerEntity);
-
-        return carEntityList;
-    }
-
-    public Car getCar(Integer idCar) {
-        Optional<CarEntity> carEntity = carRepository.findById(idCar);
-        return converterEntity.converterCarEntityToCar(carEntity.orElse(null));
-    }
-
-    public CarEntity getCarEntity(Integer idCar) {
-        return carRepository.findById(idCar).orElse(null);
-    }
-
-
-    public CarDealership getDealer(Integer idDealer) {
-        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(idDealer);
-        CarDealershipEntity dealerEntity = dealerOptional.orElse(null);
-        return converterEntity.convertDealerEntityToDealer(dealerEntity);
+    public Car getCarById(Integer carId) throws NotFoundException {
+        Optional<CarEntity> carEntity = carRepository.findById(carId);
+        return converterEntity.converterCarEntityToCar(carEntity.orElseThrow(NotFoundException ::new));
     }
 
     @Transactional
     public void addCar(Car car) {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(car.getIdDealer());
         CarDealershipEntity dealer = dealerOptional.orElse(null);
-
-        System.out.println("public void addCar service - " + car);
-
         carRepository.save(converterEntity.converterCarToCarEntity(car, dealer));
     }
-
 
     @Transactional
     public void updateCar(Car car) {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(car.getIdDealer());
         CarDealershipEntity dealer = dealerOptional.orElse(null);
-
-
-        System.out.println("public void updateCar service - " + car);
-
-
-        System.out.println(dealer);
         CarEntity carEntity = converterEntity.converterCarToCarEntity(car, dealer);
-
-
-        System.out.println("carEntity EDIT + " + carEntity);
-
         carRepository.save(carEntity);
     }
 
     @Transactional
-    public void delCar(String idCarString) {
-        List<Integer> idCarsList = new ArrayList<>();
-        String idCarsArr[] = idCarString.split(",");
-        for (int i = 0; i < idCarsArr.length; i++) {
-            idCarsList.add(Integer.parseInt(idCarsArr[i]));
+    public void deleteCar(String carId) {
+        List<Integer> carIdsList = new ArrayList<>();
+        String carIdsArr[] = carId.split(",");
+        for (int i = 0; i < carIdsArr.length; i++) {
+            carIdsList.add(Integer.parseInt(carIdsArr[i]));
         }
-        for (Integer idCar : idCarsList) {
-            carRepository.deleteById(idCar);
+        for (Integer id : carIdsList) {
+            carRepository.deleteById(id);
         }
     }
 
-    public List<Car> searchCar(String idDealer, String column, String pattern) {
-        List<Car> carList = new ArrayList<>();
-        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));
+    public List<Car> searchCar(String dealerId, String column, String pattern) {
+        List<Car> carsList = new ArrayList<>();
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(dealerId));
         CarDealershipEntity dealer = dealerOptional.orElse(null);
 
         switch (column) {
             case ("name"):
-                carList = converterEntity.convertCarListEntityToCarList
+                carsList = converterEntity.convertCarEntitiesListToCarsList
                         (carRepository.findByDealerAndNameStartingWith(dealer, pattern));
                 break;
             case ("color"):
-                carList = converterEntity.convertCarListEntityToCarList
+                carsList = converterEntity.convertCarEntitiesListToCarsList
                         (carRepository.findByDealerAndColorStartingWith(dealer, pattern));
                 break;
             case ("isAfterCrash"):
-                carList = converterEntity.convertCarListEntityToCarList
+                carsList = converterEntity.convertCarEntitiesListToCarsList
                         (carRepository.getCarEntitiesByDealerAndIsAfterCrash(dealer, Boolean.parseBoolean(pattern)));
                 break;
         }
-        return carList;
+        return carsList;
     }
 
-    public List<Car> searchDateCar(String idDealer, String startDate, String endDate) {
-        List<Car> carList = new ArrayList<>();
-        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));
+    public List<Car> searchDateCar(String dealerId, String startDate, String endDate) {
+        List<Car> carsList = new ArrayList<>();
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(dealerId));
         CarDealershipEntity dealer = dealerOptional.orElse(null);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -137,43 +104,43 @@ public class CarService {
             System.out.println(" formatter.parse. " + e.getMessage());
         }
 
-        carList = converterEntity.convertCarListEntityToCarList
+        carsList = converterEntity.convertCarEntitiesListToCarsList
                 (carRepository.findByDealerAndDateBetween(dealer, startD, endD));
 
-        return carList;
+        return carsList;
     }
 
-    public List<Car> sortCars(String idDealer, String criteria) {
-        List<Car> carList = new ArrayList<>();
-        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));
+    public List<Car> sortCars(String dealerId, String criteria) {
+        List<Car> carsList = new ArrayList<>();
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(dealerId));
         CarDealershipEntity dealer = dealerOptional.orElse(null);
 
         switch (criteria) {
             case ("nameAsc"):
-                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByNameAsc(dealer));
+                carsList = converterEntity.convertCarEntitiesListToCarsList(carRepository.findByDealerOrderByNameAsc(dealer));
                 break;
             case ("nameDesc"):
-                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByNameDesc(dealer));
+                carsList = converterEntity.convertCarEntitiesListToCarsList(carRepository.findByDealerOrderByNameDesc(dealer));
                 break;
             case ("dateAsc"):
-                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByDateAsc(dealer));
+                carsList = converterEntity.convertCarEntitiesListToCarsList(carRepository.findByDealerOrderByDateAsc(dealer));
                 break;
             case ("dateDesc"):
-                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByDateDesc(dealer));
+                carsList = converterEntity.convertCarEntitiesListToCarsList(carRepository.findByDealerOrderByDateDesc(dealer));
                 break;
             case ("colorAsc"):
-                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByColorAsc(dealer));
+                carsList = converterEntity.convertCarEntitiesListToCarsList(carRepository.findByDealerOrderByColorAsc(dealer));
                 break;
             case ("colorDesc"):
-                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByColorDesc(dealer));
+                carsList = converterEntity.convertCarEntitiesListToCarsList(carRepository.findByDealerOrderByColorDesc(dealer));
                 break;
             case ("crashAsc"):
-                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByIsAfterCrashAsc(dealer));
+                carsList = converterEntity.convertCarEntitiesListToCarsList(carRepository.findByDealerOrderByIsAfterCrashAsc(dealer));
                 break;
             case ("crashDesc"):
-                carList = converterEntity.convertCarListEntityToCarList(carRepository.findByDealerOrderByIsAfterCrashDesc(dealer));
+                carsList = converterEntity.convertCarEntitiesListToCarsList(carRepository.findByDealerOrderByIsAfterCrashDesc(dealer));
                 break;
         }
-        return carList;
+        return carsList;
     }
 }

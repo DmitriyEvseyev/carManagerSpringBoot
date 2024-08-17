@@ -1,36 +1,27 @@
 package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
+import com.dmitriyevseyev.carmanagerspringboot.exceptions.car.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
 import com.dmitriyevseyev.carmanagerspringboot.services.ExportService;
 import com.dmitriyevseyev.carmanagerspringboot.services.ImportService;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
-import com.dmitriyevseyev.carmanagerspringboot.utils.JsonValidator;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.JSONValidatorExeption;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.SerializationUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -41,13 +32,13 @@ public class DealerController {
     private ImportService importService;
 
     @RequestMapping(value = "/getAllDealer", method = {RequestMethod.GET, RequestMethod.POST})
-    public String getAllDealer(Model model) {
-        List<CarDealership> dealerList = dealerService.getAllDealer();
-        model.addAttribute("carDealerships", dealerList);
+    public String getDealersList(Model model) {
+        List<CarDealership> dealersList = dealerService.getDealersList();
+        model.addAttribute("carDealerships", dealersList);
         return "dealer/getDealers";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/create")
     public String newDealer(Model model) {
         model.addAttribute("dealer", new CarDealership());
         return "dealer/newDealer";
@@ -56,38 +47,38 @@ public class DealerController {
     @PostMapping("/create")
     public String addDealer(@ModelAttribute("dealer") CarDealership dealer) {
         dealerService.addDealer(dealer);
-        return "redirect:/dealer/getAllDealer";
+        return "redirect:/dealer/getDealers";
     }
 
-    @GetMapping("/edit")
-    public String editDealer(@RequestParam("idDealer") String idDealerString, Model model) {
-        model.addAttribute("dealer", dealerService.getDealer(Integer.parseInt(idDealerString)));
+    @GetMapping("/update")
+    public String updateDealer(@RequestParam("dealerId") String dealerId, Model model) {
+        model.addAttribute("dealer", dealerService.getDealer(Integer.parseInt(dealerId)));
         return "dealer/updateDealer";
     }
 
-    @PostMapping("/edit")
-    public String updateDealer(@ModelAttribute("dealer") CarDealership dealer) {
-        System.out.println("dealer EDIT - " + dealer);
+    @PostMapping("/update")
+    public String updateDealer(@ModelAttribute("dealerId") CarDealership dealer) {
+
+        System.out.println("dealer update - " + dealer);
 
         dealerService.updateDealer(dealer);
-        return "redirect:/dealer/getAllDealer";
+        return "redirect:/dealer/getDealers";
     }
 
-    @GetMapping("/del")
-    public String delDealer(@RequestParam("idDealer") String idDealerString) {
-        dealerService.delDealer(idDealerString);
-        return "redirect:/dealer/getAllDealer";
+    @GetMapping("/delete")
+    public String delDealer(@RequestParam("dealerId") String dealerId) {
+        dealerService.delDealer(dealerId);
+        return "redirect:/dealer/getDealers";
     }
 
     @GetMapping("/select")
-    public String getAllCars(@RequestParam("idDealer") String idDealerString, Model model) {
-        List<Car> carList = dealerService.getAllCars(idDealerString);
+    public String getAllCars(@RequestParam("dealerId") String dealerId, Model model) {
+        List<Car> carsList = dealerService.getCarsList(dealerId);
 
-        System.out.println("CaRLIST - " + carList);
+        System.out.println("CarsList - " + carsList);
 
-
-        model.addAttribute("carList", carList);
-        model.addAttribute("dealer", dealerService.getDealer(Integer.parseInt(idDealerString)));
+        model.addAttribute("carsList", carsList);
+        model.addAttribute("dealerId", dealerId);
         return "car/cars";
     }
 
@@ -95,42 +86,42 @@ public class DealerController {
     public String searchDealer(@RequestParam("column") String column,
                                @RequestParam("pattern") String pattern,
                                Model model) {
-        List<CarDealership> dealerList = new ArrayList<>();
-        dealerList = dealerService.findCarDealershipEntities(column, pattern);
+        List<CarDealership> dealersList = new ArrayList<>();
+        dealersList = dealerService.findCarDealershipEntities(column, pattern);
 
-        System.out.println("SEARCH - " + dealerList);
+        System.out.println("SEARCH - " + dealersList);
 
-        model.addAttribute("carDealerships", dealerList);
+        model.addAttribute("carDealerships", dealersList);
         return "dealer/getDealers";
     }
 
     @GetMapping("/sort")
     public String sortDealers(@RequestParam("sort") String criteria,
                               Model model) {
-        List<CarDealership> dealerList = dealerService.sortDealer(criteria);
+        List<CarDealership> dealersList = dealerService.sortDealer(criteria);
 
+        System.out.println("SORT - " + dealersList);
 
-        System.out.println("SORT - " + dealerList);
-
-
-        model.addAttribute("carDealerships", dealerList);
+        model.addAttribute("carDealerships", dealersList);
         return "dealer/getDealers";
     }
-
     @GetMapping("/export")
     public @ResponseBody ResponseEntity<ExportDTO> exportDealer
-            (@RequestParam("idDealer") String idDealerString,
+            (@RequestParam("dealerId") String dealerId,
              @RequestParam("fileName") String fileName) throws ExportExeption, StrategyNotFoundException {
 
-        String idCarsString = null;
+        String carId = null;
 
-        return ResponseEntity
-                .ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename= " + fileName + ".json")
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(exportService.create(idDealerString, idCarsString));
+        try {
+            return ResponseEntity
+                    .ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename= " + fileName + ".json")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(exportService.create(dealerId, carId));
+        } catch (NotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
-
     @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String importDealer(@RequestParam("importFile") MultipartFile importFile) throws IOException, JSONValidatorExeption, ImportExeption {
         String json = new String(importFile.getBytes());
@@ -140,6 +131,6 @@ public class DealerController {
 
 
         importService.importFile(json);
-        return "redirect:/dealer/getAllDealer";
+        return "redirect:/dealer/getDealers";
     }
 }

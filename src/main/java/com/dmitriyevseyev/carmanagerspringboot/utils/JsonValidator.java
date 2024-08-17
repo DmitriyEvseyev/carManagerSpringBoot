@@ -29,10 +29,13 @@ public class JsonValidator {
         JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V4);
         String schema = Files.readString(Path.of(Constants.PATH_TO_SCHEMA_JSON));
 
-  //      System.out.println("SCHEMA - " + schema);
+        System.out.println("111 isValidImport");
 
         JsonNode jsonNode = objectMapper.readTree(json);
         JsonSchema jsonSchema = schemaFactory.getSchema(schema);
+
+
+
         Set<ValidationMessage> validationResult = jsonSchema.validate(jsonNode);
 
         StringBuilder error = new StringBuilder();

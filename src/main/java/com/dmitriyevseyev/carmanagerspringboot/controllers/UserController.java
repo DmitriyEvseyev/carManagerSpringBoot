@@ -24,7 +24,7 @@ public class UserController {
 
     @GetMapping("/new")
     public String reistration() {
-                return "user/newUser";
+        return "user/newUser";
     }
 
     @PostMapping("/log")
@@ -40,9 +40,6 @@ public class UserController {
             }
         }
         if (isCorrect == true) {
-
-            System.out.println("forward:/dealer");
-
             return "forward:/dealer/getAllDealer";
         }
         return "user/error";
@@ -56,24 +53,13 @@ public class UserController {
         System.out.println("USERNAME - " + userName);
 
         if (!userPassword.equals(userPassword2)) {
-          return "user/passError";
+            return "user/passError";
         } else if (userService.isUserExistServer(userName)) {
             return "user/userExistError";
         } else {
             userService.addUser(userName, userPassword);
             return "forward:/dealer/getAllDealer";
         }
-    }
-
-//
-//    public boolean isUserNameExistServer(String userName) throws UserNotFoundExeption {
-//        boolean isNameExist = false;
-//        isNameExist = postgreSQLUserDAO.isUserExist(userName);
-//        return isNameExist;
-//    }
-
-    public void addUser(User user) {
-        userService.createUser(user);
     }
 }
 

@@ -9,8 +9,8 @@
         <link th:href="@{/dealercss/editDealer.css}" rel="stylesheet"/>
     </head>
 <body>
-<h2> Edit dealer </h2>
-<form th:method="POST" th:action="@{/dealer/edit}" th:object="${dealer}">
+<h2> Update dealer </h2>
+<form th:method="POST" th:action="@{/dealer/update}" th:object="${dealer}">
     <input type="hidden" th:field="*{id}">
     <table class="tab">
         <tr>

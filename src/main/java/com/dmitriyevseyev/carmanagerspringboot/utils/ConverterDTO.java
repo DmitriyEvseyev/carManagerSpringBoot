@@ -1,5 +1,7 @@
 package com.dmitriyevseyev.carmanagerspringboot.utils;
 
+import com.dmitriyevseyev.carmanagerspringboot.models.Car;
+import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDTO;
 import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDealershipDTO;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
@@ -13,38 +15,38 @@ import java.util.List;
 @Component
 public class ConverterDTO {
 
-    public List<CarDTO> convertCarEntityListToCarDTOList(List<CarEntity> carList) {
-        List<CarDTO> carDTOList = new ArrayList<>();
+    public List<CarDTO> convertCarsListToCarsDTOList(List<Car> carsList) {
+        List<CarDTO> carsDTOList = new ArrayList<>();
 
-        for (CarEntity carEntity : carList) {
+        for (Car car : carsList) {
             CarDTO carDTO = CarDTO.builder().
-                    id(carEntity.getId()).
-                    idDealer(carEntity.getDealer().getId()).
-                    name(carEntity.getName()).
-                    date(carEntity.getDate()).
-                    color(carEntity.getColor()).
-                    isAfterCrash(carEntity.isAfterCrash()).
+                    id(car.getId()).
+                    idDealer(car.getIdDealer()).
+                    name(car.getName()).
+                    date(car.getDate()).
+                    color(car.getColor()).
+                    isAfterCrash(car.isAfterCrash()).
                     build();
-            carDTOList.add(carDTO);
+            carsDTOList.add(carDTO);
         }
 
 
-        System.out.println("convertCarEntityListToCarDTOList - " + carDTOList);
+        System.out.println("convertCarsListToCarsDTOList - " + carsDTOList);
 
-        return carDTOList;
+        return carsDTOList;
     }
 
-    public List<CarDealershipDTO> convertDealerEntityListToDealerDTOList(List<CarDealershipEntity> dealerList) {
-        List<CarDealershipDTO> dealerDTOList = new ArrayList<>();
+    public List<CarDealershipDTO> convertDealersListToDealersDTOList(List<CarDealership> dealersList) {
+        List<CarDealershipDTO> dealersDTOList = new ArrayList<>();
 
-        for (CarDealershipEntity dealerEntity : dealerList) {
+        for (CarDealership dealer : dealersList) {
             CarDealershipDTO dealerDTO = CarDealershipDTO.builder().
-                    id(dealerEntity.getId()).
-                    name(dealerEntity.getName()).
-                    address(dealerEntity.getAddress()).build();
-            dealerDTOList.add(dealerDTO);
+                    id(dealer.getId()).
+                    name(dealer.getName()).
+                    address(dealer.getAddress()).build();
+            dealersDTOList.add(dealerDTO);
         }
-        return dealerDTOList;
+        return dealersDTOList;
     }
 
     public List<CarDealershipEntity> convertetDealerDTOListToDealerEntityList(List<CarDealershipDTO> dealerDTOList) {

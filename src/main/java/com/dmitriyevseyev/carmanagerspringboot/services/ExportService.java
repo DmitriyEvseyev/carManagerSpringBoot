@@ -1,5 +1,6 @@
 package com.dmitriyevseyev.carmanagerspringboot.services;
 
+import com.dmitriyevseyev.carmanagerspringboot.exceptions.car.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.ExportConfigStrategy;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.PropertyFileException;
@@ -22,7 +23,7 @@ public class ExportService {
     private ExportConfigStrategy exportConfigStrategy;
     private ExportStrategyHelper exportStrategyHelper;
 
-    public ExportDTO create(String dealersIdString, String carIdString) throws StrategyNotFoundException, ExportExeption {
+    public ExportDTO create(String dealersIdString, String carIdString) throws StrategyNotFoundException, ExportExeption, NotFoundException {
         List<Integer> dealersIds = createIdList(dealersIdString);
         List<Integer> carsIds = createIdList(carIdString);
 
@@ -43,15 +44,10 @@ public class ExportService {
         return idList;
     }
 
-    private void fillExportDealer(ExportDTO exportList, List<Integer> dealersIds) throws StrategyNotFoundException, ExportExeption {
+    private void fillExportDealer(ExportDTO exportList, List<Integer> dealersIds) throws StrategyNotFoundException, ExportExeption, NotFoundException {
         int dealerExpIdStrategy;
         try {
             dealerExpIdStrategy = exportConfigStrategy.getExportConfig().get(Constants.DEALER_TYPE);
-
-
-            System.out.println("dealerExpIdStrategy - " + dealerExpIdStrategy);
-
-
         } catch (PropertyFileException e) {
             throw new ExportExeption(Constants.EXPORT_EXCEPTION_MESSAGE + e.getMessage());
         }
@@ -63,7 +59,7 @@ public class ExportService {
         }
     }
 
-    private void fillExportCar(ExportDTO exportList, List<Integer> carIds) throws StrategyNotFoundException, ExportExeption {
+    private void fillExportCar(ExportDTO exportList, List<Integer> carIds) throws StrategyNotFoundException, ExportExeption, NotFoundException {
 
         int carExpIdStrategy;
         try {

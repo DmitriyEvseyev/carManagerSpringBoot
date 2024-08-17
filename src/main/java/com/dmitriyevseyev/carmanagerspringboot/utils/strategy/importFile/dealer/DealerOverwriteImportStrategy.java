@@ -14,8 +14,8 @@ public class DealerOverwriteImportStrategy implements ImportStrategy<CarDealersh
 
     @Override
     public void store(CarDealershipEntity dealer) throws ImportExeption {
-        System.out.println("DealerOverwriteImportStrategy 111 - " + dealer);
 
+        System.out.println("DealerOverwriteImportStrategy 111 - " + dealer);
 
         dealerRepository.save(dealer);
     }

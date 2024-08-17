@@ -25,7 +25,7 @@ public class CarDealershipEntity implements Serializable {
     @Column(name = "dealer_address")
     private String address;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "dealer",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+            cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<CarEntity> carEntities;
 
     public CarDealershipEntity(Integer id, String name, String address) {
