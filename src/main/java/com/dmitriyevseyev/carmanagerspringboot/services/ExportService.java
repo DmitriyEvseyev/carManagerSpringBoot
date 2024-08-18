@@ -9,7 +9,7 @@ import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundEx
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportStrategy;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportStrategyHelper;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +18,15 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-@AllArgsConstructor
 public class ExportService {
     private ExportConfigStrategy exportConfigStrategy;
     private ExportStrategyHelper exportStrategyHelper;
+
+    @Autowired
+    public ExportService(ExportConfigStrategy exportConfigStrategy, ExportStrategyHelper exportStrategyHelper) {
+        this.exportConfigStrategy = exportConfigStrategy;
+        this.exportStrategyHelper = exportStrategyHelper;
+    }
 
     public ExportDTO create(String dealersIdString, String carIdString) throws StrategyNotFoundException, ExportExeption, NotFoundException {
         List<Integer> dealersIds = createIdList(dealersIdString);

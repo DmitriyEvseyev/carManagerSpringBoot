@@ -11,7 +11,7 @@ import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundEx
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.JSONValidatorExeption;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +25,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@AllArgsConstructor
 @RequestMapping("/dealer")
 public class DealerController {
     private DealerService dealerService;
     private ExportService exportService;
     private ImportService importService;
+
+    @Autowired
+    public DealerController(DealerService dealerService, ExportService exportService, ImportService importService) {
+        this.dealerService = dealerService;
+        this.exportService = exportService;
+        this.importService = importService;
+    }
 
     @RequestMapping(value = "/getDealers", method = {RequestMethod.GET, RequestMethod.POST})
     public String getDealersList(Model model) {

@@ -56,7 +56,7 @@ public class ConverterEntity {
         for (CarEntity carEntity : carEntityList) {
             Car car = Car.builder().
                     id(carEntity.getId()).
-                    idDealer(carEntity.getDealer().getId()).
+                    dealerId(carEntity.getDealer().getId()).
                     name(carEntity.getName()).
                     date(carEntity.getDate()).
                     color(carEntity.getColor()).
@@ -82,7 +82,7 @@ public class ConverterEntity {
     public Car converterCarEntityToCar(CarEntity carEntity) {
         Car car = Car.builder().
                 id(carEntity.getId()).
-                idDealer(carEntity.getDealer().getId()).
+                dealerId(carEntity.getDealer().getId()).
                 name(carEntity.getName()).
                 date(carEntity.getDate()).
                 color(carEntity.getColor()).

@@ -12,9 +12,10 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CarDTO implements Serializable {
     private Integer id;
-    private Integer idDealer;
+    private Integer dealerId;
     private String name;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date;
@@ -28,7 +29,7 @@ public class CarDTO implements Serializable {
         CarDTO carDTO = (CarDTO) o;
         return isAfterCrash == carDTO.isAfterCrash &&
                 Objects.equals(id, carDTO.id) &&
-                Objects.equals(idDealer, carDTO.idDealer) &&
+                Objects.equals(dealerId, carDTO.dealerId) &&
                 Objects.equals(name, carDTO.name) &&
                 Objects.equals(date, carDTO.date) &&
                 Objects.equals(color, carDTO.color);
@@ -36,69 +37,7 @@ public class CarDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idDealer, name, date, color, isAfterCrash);
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private Integer id;
-        private Integer idDealer;
-        private String name;
-        private Date date;
-        private String color;
-        private boolean isAfterCrash;
-
-        Builder() {
-        }
-
-        public Builder id(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder idDealer(Integer idDealer) {
-            this.idDealer = idDealer;
-
-            return this;
-        }
-
-        public Builder name(String name) {
-            this.name = name;
-
-            return this;
-        }
-
-        public Builder date(Date date) {
-            this.date = date;
-
-            return this;
-        }
-
-        public Builder color(String color) {
-            this.color = color;
-
-            return this;
-        }
-
-        public Builder isAfterCrash(boolean isAfterCrash) {
-            this.isAfterCrash = isAfterCrash;
-
-            return this;
-        }
-
-        public CarDTO build() {
-            return new CarDTO(
-                    id,
-                    idDealer,
-                    name,
-                    date,
-                    color,
-                    isAfterCrash
-            );
-        }
+        return Objects.hash(id, dealerId, name, date, color, isAfterCrash);
     }
 }
 

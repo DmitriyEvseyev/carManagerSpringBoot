@@ -33,7 +33,7 @@ public class CarExportStrategyWithDealer implements ExportStrategy {
         exportList.addCars(converterDTO.convertCarsListToCarsDTOList(carsList));
 
         List<CarDealership> dealersList = new ArrayList<>();
-        dealersList.add(dealerService.getDealer(carsList.get(0).getIdDealer()));
+        dealersList.add(dealerService.getDealer(carsList.get(0).getDealerId()));
 
         exportList.addDelers(converterDTO.convertDealersListToDealersDTOList(dealersList));
 

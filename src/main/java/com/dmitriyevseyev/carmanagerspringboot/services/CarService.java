@@ -2,13 +2,12 @@ package com.dmitriyevseyev.carmanagerspringboot.services;
 
 import com.dmitriyevseyev.carmanagerspringboot.exceptions.car.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
-import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.CarRepository;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterEntity;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +20,17 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-@AllArgsConstructor
 public class CarService {
     private CarRepository carRepository;
     private DealerRepository dealerRepository;
     private ConverterEntity converterEntity;
+
+    @Autowired
+    public CarService(CarRepository carRepository, DealerRepository dealerRepository, ConverterEntity converterEntity) {
+        this.carRepository = carRepository;
+        this.dealerRepository = dealerRepository;
+        this.converterEntity = converterEntity;
+    }
 
     public List<Car> getCarsListByDealerId(Integer dealerId) {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(dealerId);
@@ -42,14 +47,14 @@ public class CarService {
 
     @Transactional
     public void addCar(Car car) {
-        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(car.getIdDealer());
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(car.getDealerId());
         CarDealershipEntity dealer = dealerOptional.orElse(null);
         carRepository.save(converterEntity.converterCarToCarEntity(car, dealer));
     }
 
     @Transactional
     public void updateCar(Car car) {
-        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(car.getIdDealer());
+        Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(car.getDealerId());
         CarDealershipEntity dealer = dealerOptional.orElse(null);
         CarEntity carEntity = converterEntity.converterCarToCarEntity(car, dealer);
         carRepository.save(carEntity);

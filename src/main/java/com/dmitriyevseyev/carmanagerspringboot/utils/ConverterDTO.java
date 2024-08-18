@@ -21,7 +21,7 @@ public class ConverterDTO {
         for (Car car : carsList) {
             CarDTO carDTO = CarDTO.builder().
                     id(car.getId()).
-                    idDealer(car.getIdDealer()).
+                    dealerId(car.getDealerId()).
                     name(car.getName()).
                     date(car.getDate()).
                     color(car.getColor()).

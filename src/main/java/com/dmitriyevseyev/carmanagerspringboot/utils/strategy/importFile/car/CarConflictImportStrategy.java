@@ -29,7 +29,7 @@ public class CarConflictImportStrategy implements ImportStrategy<CarDTO> {
                 throw new ImportExeption(e.getMessage());
             }
         } else {
-            carEntity.setDealer(dealerRepository.getCarDealershipEntityById(carDTO.getIdDealer()));
+            carEntity.setDealer(dealerRepository.getCarDealershipEntityById(carDTO.getDealerId()));
 
 
             System.out.println("CarConflictImportStrategy 333 - " + carEntity);

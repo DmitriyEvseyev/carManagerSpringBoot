@@ -11,7 +11,7 @@ import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundEx
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.JSONValidatorExeption;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -29,12 +29,18 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@AllArgsConstructor
 @RequestMapping("/car")
 public class CarController {
     private CarService carService;
     private ExportService exportService;
     private ImportService importService;
+
+    @Autowired
+    public CarController(CarService carService, ExportService exportService, ImportService importService) {
+        this.carService = carService;
+        this.exportService = exportService;
+        this.importService = importService;
+    }
 
     public void getCarsList(Integer dealerId, Model model) {
         List<Car> carsList = carService.getCarsListByDealerId(dealerId);
@@ -65,7 +71,7 @@ public class CarController {
         System.out.println("CAR NEW 222 - " + car);
 
         carService.addCar(car);
-        getCarsList(car.getIdDealer(), model);
+        getCarsList(car.getDealerId(), model);
         return "car/cars";
     }
 
@@ -100,7 +106,7 @@ public class CarController {
         System.out.println("CAR EDIT 222 - " + car);
 
         carService.updateCar(car);
-        getCarsList(car.getIdDealer(), model);
+        getCarsList(car.getDealerId(), model);
         return "car/cars";
     }
 

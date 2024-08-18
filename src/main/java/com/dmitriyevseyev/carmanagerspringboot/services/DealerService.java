@@ -5,7 +5,7 @@ import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterEntity;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +15,15 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-@AllArgsConstructor
 public class DealerService {
     private DealerRepository dealerRepository;
     private ConverterEntity converterEntity;
+
+    @Autowired
+    public DealerService(DealerRepository dealerRepository, ConverterEntity converterEntity) {
+        this.dealerRepository = dealerRepository;
+        this.converterEntity = converterEntity;
+    }
 
     public List<CarDealership> getDealersList() {
         List<CarDealership> dealersList;

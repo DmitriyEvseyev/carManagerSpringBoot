@@ -4,8 +4,6 @@ package com.dmitriyevseyev.carmanagerspringboot.models.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -16,6 +14,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CarEntity implements Serializable {
     @Id
     @Column(name = "car_id")
@@ -63,69 +62,6 @@ public class CarEntity implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, dealer.getId(), name, date, color, isAfterCrash);
-    }
-
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private Integer id;
-        private CarDealershipEntity dealer;
-        private String name;
-        private Date date;
-        private String color;
-        private boolean isAfterCrash;
-
-        Builder() {
-        }
-
-        public Builder id(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder dealer(CarDealershipEntity dealer) {
-            this.dealer = dealer;
-
-            return this;
-        }
-
-        public Builder name(String name) {
-            this.name = name;
-
-            return this;
-        }
-
-        public Builder date(Date date) {
-            this.date = date;
-
-            return this;
-        }
-
-        public Builder color(String color) {
-            this.color = color;
-
-            return this;
-        }
-
-        public Builder isAfterCrash(boolean isAfterCrash) {
-            this.isAfterCrash = isAfterCrash;
-
-            return this;
-        }
-
-        public CarEntity build() {
-            return new CarEntity(
-                    id,
-                    dealer,
-                    name,
-                    date,
-                    color,
-                    isAfterCrash
-            );
-        }
     }
 }
 

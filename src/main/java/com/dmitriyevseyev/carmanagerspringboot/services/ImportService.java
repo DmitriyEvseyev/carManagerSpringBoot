@@ -11,7 +11,7 @@ import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportS
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportStrategyHelper;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.JSONValidatorExeption;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,17 +21,23 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-@AllArgsConstructor
 public class ImportService {
     private ConverterDTO converterDTO;
-    private ObjectMapper objectMapper;
+ // private ObjectMapper objectMapper;
     private ExportConfigStrategy exportConfigStrategy;
     private ImportStrategyHelper importStrategyHelper;
+
+    @Autowired
+    public ImportService(ConverterDTO converterDTO, ExportConfigStrategy exportConfigStrategy, ImportStrategyHelper importStrategyHelper) {
+        this.converterDTO = converterDTO;
+        this.exportConfigStrategy = exportConfigStrategy;
+        this.importStrategyHelper = importStrategyHelper;
+    }
 
     @Transactional
     public void importFile(String json) throws IOException, JSONValidatorExeption, ImportExeption {
         JsonValidator jsonValidator = JsonValidator.getInstance();
-
+        ObjectMapper objectMapper = new ObjectMapper();
         if (!jsonValidator.isValidImport(json).isEmpty()) {
             System.out.println("NOT VALID");
             throw new JSONValidatorExeption(Constants.VALIDATION_EXEPTION +

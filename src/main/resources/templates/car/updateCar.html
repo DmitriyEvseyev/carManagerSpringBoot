@@ -9,7 +9,7 @@
 <h2> Edit car </h2>
 <form th:method="POST" th:action="@{/car/update}" th:object="${car}">
     <input type="hidden" name="id" th:value="${car.id}"/>
-    <input type="hidden" name="dealerId" th:field="*{idDealer}"/>
+    <input type="hidden" name="dealerId" th:field="*{dealerId}"/>
     <table class="tab">
         <tr>
             <td> Name</td>

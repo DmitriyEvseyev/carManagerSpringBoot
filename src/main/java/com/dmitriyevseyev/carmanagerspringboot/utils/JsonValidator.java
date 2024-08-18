@@ -6,6 +6,7 @@ import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,7 +34,6 @@ public class JsonValidator {
 
         JsonNode jsonNode = objectMapper.readTree(json);
         JsonSchema jsonSchema = schemaFactory.getSchema(schema);
-
 
 
         Set<ValidationMessage> validationResult = jsonSchema.validate(jsonNode);

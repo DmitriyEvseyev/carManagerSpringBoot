@@ -1,6 +1,7 @@
 package com.dmitriyevseyev.carmanagerspringboot.models.dto;
 
 import lombok.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,6 +10,7 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CarDealershipDTO implements Serializable {
     private Integer id;
     private String name;
@@ -27,41 +29,5 @@ public class CarDealershipDTO implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, address);
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private Integer id;
-        private String name;
-        private String address;
-
-        Builder() {
-        }
-
-        public Builder id(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder address(String address) {
-            this.address = address;
-            return this;
-        }
-
-        public CarDealershipDTO build() {
-            return new CarDealershipDTO(
-                    id,
-                    name,
-                    address
-            );
-        }
     }
 }

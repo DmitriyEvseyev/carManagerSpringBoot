@@ -22,7 +22,7 @@ public class CarIgnoreImportStrategy implements ImportStrategy<CarDTO> {
     public void store(CarDTO carDTO) throws ImportExeption {
         CarEntity carEntity = converterDTO.converterCarDTOToCarEntity(carDTO);
         if (carRepository.getCarEntitiyById(carEntity.getId()) == null) {
-            carEntity.setDealer(dealerRepository.getCarDealershipEntityById(carDTO.getIdDealer()));
+            carEntity.setDealer(dealerRepository.getCarDealershipEntityById(carDTO.getDealerId()));
 
 
             System.out.println("CarIgnoreImportStrategy 222 - " + carEntity);

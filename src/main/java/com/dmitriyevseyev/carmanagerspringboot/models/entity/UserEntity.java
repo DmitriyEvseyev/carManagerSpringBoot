@@ -2,7 +2,6 @@ package com.dmitriyevseyev.carmanagerspringboot.models.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,6 +12,7 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserEntity implements Serializable {
     @Id
     @Column(name = "user_id")
@@ -34,43 +34,6 @@ public class UserEntity implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, userName, password);
-    }
-
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private Integer id;
-        private String userName;
-        private String password;
-
-        Builder() {
-        }
-
-        public Builder id(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder userName(String userName) {
-            this.userName = userName;
-            return this;
-        }
-
-        public Builder password (String password) {
-            this.password = password;
-            return this;
-        }
-
-        public UserEntity build() {
-            return new UserEntity(
-                    id,
-                    userName,
-                    password
-            );
-        }
     }
 }
 

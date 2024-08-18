@@ -1,21 +1,23 @@
 package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
-import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
-import com.dmitriyevseyev.carmanagerspringboot.models.User;
 import com.dmitriyevseyev.carmanagerspringboot.services.UserService;
 import com.dmitriyevseyev.carmanagerspringboot.utils.PasswordHashGenerator;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@AllArgsConstructor
 @RequestMapping("/")
 public class UserController {
     private UserService userService;
     private PasswordHashGenerator passwordHashGenerator;
+
+    @Autowired
+    public UserController(UserService userService, PasswordHashGenerator passwordHashGenerator) {
+        this.userService = userService;
+        this.passwordHashGenerator = passwordHashGenerator;
+    }
 
     @GetMapping
     public String start() {
