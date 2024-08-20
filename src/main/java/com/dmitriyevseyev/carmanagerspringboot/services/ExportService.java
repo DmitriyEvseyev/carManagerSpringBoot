@@ -1,6 +1,6 @@
 package com.dmitriyevseyev.carmanagerspringboot.services;
 
-import com.dmitriyevseyev.carmanagerspringboot.exceptions.car.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.ExportConfigStrategy;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.PropertyFileException;

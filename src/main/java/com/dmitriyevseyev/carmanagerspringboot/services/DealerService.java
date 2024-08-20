@@ -4,7 +4,9 @@ import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
+import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterEntity;
+import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +18,8 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class DealerService {
-    private DealerRepository dealerRepository;
-    private ConverterEntity converterEntity;
+    private final DealerRepository dealerRepository;
+    private final ConverterEntity converterEntity;
 
     @Autowired
     public DealerService(DealerRepository dealerRepository, ConverterEntity converterEntity) {
@@ -31,9 +33,10 @@ public class DealerService {
         return dealersList;
     }
 
-    public CarDealership getDealer(Integer id) {
+    public CarDealership getDealer(Integer id) throws NotFoundException {
         Optional<CarDealershipEntity> dealerEntity = dealerRepository.findById(id);
-        return converterEntity.convertDealerEntityToDealer(dealerEntity.orElse(null));
+        return converterEntity.convertDealerEntityToDealer(dealerEntity.orElseThrow(
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE)));
     }
 
     @Transactional
@@ -43,7 +46,6 @@ public class DealerService {
 
     @Transactional
     public void updateDealer(CarDealership dealer) {
-        System.out.println("upd - " + dealer);
         dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
     }
 
@@ -59,10 +61,10 @@ public class DealerService {
         }
     }
 
-    public List<Car> getCarsList(String idDealer) {
-
+    public List<Car> getCarsList(String idDealer) throws NotFoundException {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));
-        CarDealershipEntity dealer = dealerOptional.orElse(null);
+        CarDealershipEntity dealer = dealerOptional.orElseThrow(
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE));
         List<Car> carsList = converterEntity.convertCarEntitiesListToCarsList(dealer.getCarEntities());
         return carsList;
     }

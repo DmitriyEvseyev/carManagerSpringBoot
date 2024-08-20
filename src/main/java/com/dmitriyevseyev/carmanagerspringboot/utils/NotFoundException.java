@@ -1,4 +1,4 @@
-package com.dmitriyevseyev.carmanagerspringboot.exceptions.car;
+package com.dmitriyevseyev.carmanagerspringboot.utils;
 
 public class NotFoundException extends Exception {
 

@@ -1,10 +1,8 @@
 package com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.car;
 
-import com.dmitriyevseyev.carmanagerspringboot.exceptions.car.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
-import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
-import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
 import com.dmitriyevseyev.carmanagerspringboot.services.CarService;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterDTO;

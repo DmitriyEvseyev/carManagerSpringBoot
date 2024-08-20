@@ -1,6 +1,6 @@
 package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
-import com.dmitriyevseyev.carmanagerspringboot.exceptions.car.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.services.CarService;
 import com.dmitriyevseyev.carmanagerspringboot.services.ExportService;
@@ -42,7 +42,7 @@ public class CarController {
         this.importService = importService;
     }
 
-    public void getCarsList(Integer dealerId, Model model) {
+    public void getCarsList(Integer dealerId, Model model) throws NotFoundException {
         List<Car> carsList = carService.getCarsListByDealerId(dealerId);
         model.addAttribute("dealerId", dealerId);
         model.addAttribute("carsList", carsList);
@@ -70,21 +70,26 @@ public class CarController {
         car.setAfterCrash(isAfterCrash);
         System.out.println("CAR NEW 222 - " + car);
 
-        carService.addCar(car);
-        getCarsList(car.getDealerId(), model);
+        try {
+            carService.addCar(car);
+            getCarsList(car.getDealerId(), model);
+        } catch (NotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
         return "car/cars";
     }
 
     @GetMapping("/update")
     public String updateCar(@RequestParam("check") String carId,
-                          Model model) {
+                            Model model) {
 
         System.out.println("Update check - " + carId);
 
         try {
             model.addAttribute("car", carService.getCarById(Integer.parseInt(carId)));
         } catch (NotFoundException e) {
-            model.addAttribute("error", Constants.NOT_FOUND_EXCEPTION_MESSAGE);
+            model.addAttribute("error", e.getMessage());
             return "error";
         }
         return "car/updateCar";
@@ -105,8 +110,13 @@ public class CarController {
         car.setAfterCrash(isAfterCrash);
         System.out.println("CAR EDIT 222 - " + car);
 
-        carService.updateCar(car);
-        getCarsList(car.getDealerId(), model);
+        try {
+            carService.updateCar(car);
+            getCarsList(car.getDealerId(), model);
+        } catch (NotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
         return "car/cars";
     }
 
@@ -118,7 +128,12 @@ public class CarController {
         System.out.println("carId del - " + carId);
 
         carService.deleteCar(carId);
-        getCarsList(Integer.parseInt(dealerId), model);
+        try {
+            getCarsList(Integer.parseInt(dealerId), model);
+        } catch (NotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
         return "car/cars";
     }
 
@@ -132,7 +147,12 @@ public class CarController {
         System.out.println("String pattern - " + pattern);
 
         List<Car> carsList = new ArrayList<>();
-        carsList = carService.searchCar(dealerId, column, pattern);
+        try {
+            carsList = carService.searchCar(dealerId, column, pattern);
+        } catch (NotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
 
         System.out.println("SEARCH CAR - " + carsList);
 
@@ -151,7 +171,12 @@ public class CarController {
         System.out.println("endDate - " + endDate);
 
         List<Car> carsList = new ArrayList<>();
-        carsList = carService.searchDateCar(dealerId, startDate, endDate);
+        try {
+            carsList = carService.searchDateCar(dealerId, startDate, endDate);
+        } catch (NotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
 
         System.out.println("SEARCH CAR DATE - " + carsList);
 
@@ -169,7 +194,12 @@ public class CarController {
         System.out.println("dealerId - " + dealerId);
         System.out.println("String criteria - " + criteria);
 
-        carsList = carService.sortCars(dealerId, criteria);
+        try {
+            carsList = carService.sortCars(dealerId, criteria);
+        } catch (NotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
 
         System.out.println("SORT CARS - " + carsList);
 
@@ -214,7 +244,12 @@ public class CarController {
 
         importService.importFile(json);
 
-        getCarsList(Integer.parseInt(dealerId), model);
+        try {
+            getCarsList(Integer.parseInt(dealerId), model);
+        } catch (NotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
         return "car/cars";
     }
 

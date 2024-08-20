@@ -1,6 +1,7 @@
 package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
-import com.dmitriyevseyev.carmanagerspringboot.exceptions.car.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
+import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
@@ -59,7 +60,12 @@ public class DealerController {
 
     @GetMapping("/update")
     public String updateDealer(@RequestParam("dealerId") String dealerId, Model model) {
-        model.addAttribute("dealer", dealerService.getDealer(Integer.parseInt(dealerId)));
+        try {
+            model.addAttribute("dealer", dealerService.getDealer(Integer.parseInt(dealerId)));
+        } catch (NotFoundException e) {
+            model.addAttribute("error", Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE);
+            return "error";
+        }
         return "dealer/updateDealer";
     }
 
@@ -80,7 +86,13 @@ public class DealerController {
 
     @GetMapping("/select")
     public String getAllCars(@RequestParam("dealerId") String dealerId, Model model) {
-        List<Car> carsList = dealerService.getCarsList(dealerId);
+        List<Car> carsList = null;
+        try {
+            carsList = dealerService.getCarsList(dealerId);
+        } catch (NotFoundException e) {
+            model.addAttribute("error", Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE);
+            return "error";
+        }
 
         System.out.println("CarsList - " + carsList);
 
