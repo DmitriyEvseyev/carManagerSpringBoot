@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -51,14 +53,20 @@ public class DealerService {
 
     @Transactional
     public void delDealer(String dealerId) {
-        List<Integer> dealerIdArrList = new ArrayList<>();
-        String dealerIdArr[] = dealerId.split(",");
-        for (int i = 0; i < dealerIdArr.length; i++) {
-            dealerIdArrList.add(Integer.parseInt(dealerIdArr[i]));
-        }
+        List<Integer> dealerIdArrList = Arrays.stream(dealerId.split(",")).
+                map(Integer::parseInt).
+                toList();
+
+        System.out.println("dealerIdArrList - " + dealerIdArrList);
+
         for (Integer id : dealerIdArrList) {
             dealerRepository.deleteById(id);
         }
+    }
+
+    @Transactional
+    public void delOnlyOneDealer(Integer dealerId) {
+        dealerRepository.deleteById(dealerId);
     }
 
     public List<Car> getCarsList(String idDealer) throws NotFoundException {

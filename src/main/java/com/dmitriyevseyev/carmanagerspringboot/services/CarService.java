@@ -13,10 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -41,7 +38,7 @@ public class CarService {
     public Car getCarById(Integer carId) throws NotFoundException {
         Optional<CarEntity> carEntity = carRepository.findById(carId);
         return converterEntity.converterCarEntityToCar(carEntity.orElseThrow(
-                ()-> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE)));
+                () -> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE)));
     }
 
     @Transactional
@@ -59,11 +56,9 @@ public class CarService {
 
     @Transactional
     public void deleteCar(String carId) {
-        List<Integer> carIdsList = new ArrayList<>();
-        String carIdsArr[] = carId.split(",");
-        for (int i = 0; i < carIdsArr.length; i++) {
-            carIdsList.add(Integer.parseInt(carIdsArr[i]));
-        }
+        List<Integer> carIdsList = Arrays.stream(carId.split(",")).
+                map(Integer::parseInt).
+                toList();
         for (Integer id : carIdsList) {
             carRepository.deleteById(id);
         }
