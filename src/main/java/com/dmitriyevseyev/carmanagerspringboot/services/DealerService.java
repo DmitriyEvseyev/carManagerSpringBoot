@@ -6,7 +6,7 @@ import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity
 import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
 import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterEntity;
-import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -48,7 +47,16 @@ public class DealerService {
 
     @Transactional
     public void updateDealer(CarDealership dealer) {
+        converterEntity.convertDealerEntityToDealer(dealerRepository.findById(dealer.getId()).orElseThrow(
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + " id - " + dealer.getId())));
         dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
+    }
+
+    @Transactional
+    public void delOnlyOneDealer(Integer dealerId) throws NotFoundException {
+        converterEntity.convertDealerEntityToDealer(dealerRepository.findById(dealerId).orElseThrow(
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + " id - " + dealerId)));
+        dealerRepository.deleteById(dealerId);
     }
 
     @Transactional
@@ -64,10 +72,9 @@ public class DealerService {
         }
     }
 
-    @Transactional
-    public void delOnlyOneDealer(Integer dealerId) {
-        dealerRepository.deleteById(dealerId);
-    }
+
+
+
 
     public List<Car> getCarsList(String idDealer) throws NotFoundException {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));

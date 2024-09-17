@@ -1,25 +1,12 @@
 package com.dmitriyevseyev.carmanagerspringboot.restControllers;
 
-import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
-import com.dmitriyevseyev.carmanagerspringboot.services.ExportService;
-import com.dmitriyevseyev.carmanagerspringboot.services.ImportService;
-import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
-import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
-import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.JSONValidatorExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -42,11 +29,6 @@ public class DealerRESTController {
         return dealerService.getDealer(dealerId);
     }
 
-    @ExceptionHandler
-    private ResponseEntity<String> handleExeption(NotFoundException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
     @PostMapping("/create")
     public ResponseEntity<HttpStatus> addDealer(@RequestBody CarDealership dealer) {
 
@@ -56,7 +38,7 @@ public class DealerRESTController {
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<HttpStatus> updateDealer(@RequestBody CarDealership dealer) {
 
         System.out.println("REST dealer update - " + dealer);
@@ -114,37 +96,5 @@ public class DealerRESTController {
 //        model.addAttribute("carDealerships", dealersList);
 //        return "dealer/dealers";
 //    }
-//
-//    @GetMapping("/export")
-//    public @ResponseBody ResponseEntity<ExportDTO> exportDealer
-//            (@RequestParam("dealerId") String dealerId,
-//             @RequestParam("fileName") String fileName) throws ExportExeption, StrategyNotFoundException {
-//
-//        String carId = null;
-//
-//        try {
-//            return ResponseEntity
-//                    .ok()
-//                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename= " + fileName + ".json")
-//                    .contentType(MediaType.APPLICATION_JSON)
-//                    .body(exportService.create(dealerId, carId));
-//        } catch (NotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-//    public String importDealer(@RequestParam("importFile") MultipartFile importFile) throws IOException, JSONValidatorExeption, ImportExeption {
-//        String json = new String(importFile.getBytes());
-//
-//
-//        System.out.println(json);
-//
-//
-//        importService.importFile(json);
-//        return "redirect:/dealer/getDealers";
-//    }
-//}
-
 
 }

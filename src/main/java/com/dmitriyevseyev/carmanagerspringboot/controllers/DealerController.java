@@ -1,7 +1,7 @@
 package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
 import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
-import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
