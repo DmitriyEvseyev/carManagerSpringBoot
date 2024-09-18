@@ -42,13 +42,13 @@ public class CarService {
     }
 
     @Transactional
-    public void addCar(Car car) throws NotFoundException {
+    public void addCar(Car car) {
         CarDealershipEntity dealerEntity = converterEntity.convertDealerToDealerEntity(dealerService.getDealer(car.getDealerId()));
         carRepository.save(converterEntity.converterCarToCarEntity(car, dealerEntity));
     }
 
     @Transactional
-    public void updateCar(Car car) throws NotFoundException {
+    public void updateCar(Car car) {
         CarDealershipEntity dealerEntity = converterEntity.convertDealerToDealerEntity(dealerService.getDealer(car.getDealerId()));
         CarEntity carEntity = converterEntity.converterCarToCarEntity(car, dealerEntity);
         carRepository.save(carEntity);
@@ -62,6 +62,13 @@ public class CarService {
         for (Integer id : carIdsList) {
             carRepository.deleteById(id);
         }
+    }
+
+    @Transactional
+    public void delOnlyOneCar(Integer carId) {
+       carRepository.findById(carId).orElseThrow(
+               () -> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE + " id - " + carId));
+        carRepository.deleteById(carId);
     }
 
     public List<Car> searchCar(String dealerId, String column, String pattern) throws NotFoundException {

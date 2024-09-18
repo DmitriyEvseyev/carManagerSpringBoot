@@ -95,7 +95,7 @@ public class CarController {
     }
 
     @PostMapping("/update")
-    public String updateDealer(@ModelAttribute("car") Car car,
+    public String updateCar(@ModelAttribute("car") Car car,
                                @RequestParam(value = "isAfterCrash", required = false) String isAfterCrashString,
                                Model model) {
 

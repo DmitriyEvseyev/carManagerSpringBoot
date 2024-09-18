@@ -47,15 +47,15 @@ public class DealerService {
 
     @Transactional
     public void updateDealer(CarDealership dealer) {
-        converterEntity.convertDealerEntityToDealer(dealerRepository.findById(dealer.getId()).orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + " id - " + dealer.getId())));
+        dealerRepository.findById(dealer.getId()).orElseThrow(
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + " id - " + dealer.getId()));
         dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
     }
 
     @Transactional
     public void delOnlyOneDealer(Integer dealerId) throws NotFoundException {
-        converterEntity.convertDealerEntityToDealer(dealerRepository.findById(dealerId).orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + " id - " + dealerId)));
+        dealerRepository.findById(dealerId).orElseThrow(
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + " id - " + dealerId));
         dealerRepository.deleteById(dealerId);
     }
 
