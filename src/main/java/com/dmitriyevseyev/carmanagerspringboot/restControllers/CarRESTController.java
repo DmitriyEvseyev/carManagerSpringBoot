@@ -1,7 +1,6 @@
 package com.dmitriyevseyev.carmanagerspringboot.restControllers;
 
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
-import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,136 +52,46 @@ public class CarRESTController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> delCar (@PathVariable("id") Integer carId) {
+    public ResponseEntity<HttpStatus> delCar(@PathVariable("id") Integer carId) {
 
         System.out.println("REST del car - " + carId);
 
         carService.delOnlyOneCar(carId);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-//
-//    @GetMapping("/search")
-//    public String searchCar(@RequestParam("column") String column,
-//                            @RequestParam("pattern") String pattern,
-//                            @RequestParam("dealerId") String dealerId,
-//                            Model model) {
-//        System.out.println("dealerId - " + dealerId);
-//        System.out.println("String column - " + column);
-//        System.out.println("String pattern - " + pattern);
-//
-//        List<Car> carsList = new ArrayList<>();
-//        try {
-//            carsList = carService.searchCar(dealerId, column, pattern);
-//        } catch (NotFoundException e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "error";
-//        }
-//
-//        System.out.println("SEARCH CAR - " + carsList);
-//
-//        model.addAttribute("carsList", carsList);
-//        model.addAttribute("dealerId", dealerId);
-//        return "car/cars";
-//    }
-//
-//    @GetMapping("/searchDate")
-//    public String searchDateCar(@RequestParam("startDate") String startDate,
-//                                @RequestParam("endDate") String endDate,
-//                                @RequestParam("dealerId") String dealerId,
-//                                Model model) {
-//        System.out.println("dealerId - " + dealerId);
-//        System.out.println("startDate - " + startDate);
-//        System.out.println("endDate - " + endDate);
-//
-//        List<Car> carsList = new ArrayList<>();
-//        try {
-//            carsList = carService.searchDateCar(dealerId, startDate, endDate);
-//        } catch (NotFoundException e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "error";
-//        }
-//
-//        System.out.println("SEARCH CAR DATE - " + carsList);
-//
-//        model.addAttribute("carsList", carsList);
-//        model.addAttribute("dealerId", dealerId);
-//        return "car/cars";
-//    }
-//
-//    @GetMapping("/sort")
-//    public String sortCars(@RequestParam("sort") String criteria,
-//                           @RequestParam("dealerId") String dealerId,
-//                           Model model) {
-//        List<Car> carsList = new ArrayList<>();
-//
-//        System.out.println("dealerId - " + dealerId);
-//        System.out.println("String criteria - " + criteria);
-//
-//        try {
-//            carsList = carService.sortCars(dealerId, criteria);
-//        } catch (NotFoundException e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "error";
-//        }
-//
-//        System.out.println("SORT CARS - " + carsList);
-//
-//        model.addAttribute("carsList", carsList);
-//        model.addAttribute("dealerId", dealerId);
-//        return "car/cars";
-//    }
-//
-//    @GetMapping("/export")
-//    public @ResponseBody ResponseEntity<ExportDTO> exportCars
-//            (@RequestParam("dealerId") String dealerId,
-//             @RequestParam("check") String carId,
-//             @RequestParam("fileName") String fileName) throws ExportExeption, StrategyNotFoundException {
-//
-//        String idDealerString = null;
-//
-//        System.out.println("idDealer - " + dealerId);
-//        System.out.println("check - " + carId);
-//
-//        try {
-//            return ResponseEntity
-//                    .ok()
-//                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename= " + fileName + ".json")
-//                    .contentType(MediaType.APPLICATION_JSON)
-//                    .body(exportService.create(dealerId, carId));
-//        } catch (NotFoundException e) {
-//            return (ResponseEntity<ExportDTO>) ResponseEntity.status(404);
-//        }
-//    }
-//
-//    @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-//    public String importCar(@RequestParam("importFile") MultipartFile importFile,
-//                            @RequestParam("dealerId") String dealerId,
-//                            Model model) throws IOException, JSONValidatorExeption, ImportExeption {
-//        String json = new String(importFile.getBytes());
-//        System.out.println(json);
-//        System.out.println("String dealerId - " + dealerId);
-//
-////        ObjectMapper objectMapper = new ObjectMapper();
-////        ExportDTO exportDTO = objectMapper.readValue(json, ExportDTO.class);
-////        System.out.println("exportDTO - " + exportDTO);
-//
-//        importService.importFile(json);
-//
-//        try {
-//            getCarsList(Integer.parseInt(dealerId), model);
-//        } catch (NotFoundException e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "error";
-//        }
-//        return "car/cars";
-//    }
-//
-//    @InitBinder
-//    public void initBinder(WebDataBinder binder) {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        dateFormat.setLenient(false);
-//        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-//    }
+
+    @GetMapping("/search")
+    public List<Car> searchCar(@RequestParam("column") String column,
+                               @RequestParam("pattern") String pattern,
+                               @RequestParam("dealerId") String dealerId) {
+        List<Car> carsList = carService.searchCar(dealerId, column, pattern);
+
+        System.out.println("SEARCH CAR - " + carsList);
+
+        return carsList;
+    }
+
+    @GetMapping("/searchDate")
+    public List<Car> searchDateCar(@RequestParam("startDate") String startDate,
+                                   @RequestParam("endDate") String endDate,
+                                   @RequestParam("dealerId") String dealerId) {
+
+        List<Car> carsList = carService.searchDateCar(dealerId, startDate, endDate);
+
+        System.out.println("SEARCH DATE CAR - " + carsList);
+
+        return carsList;
+    }
+
+    @GetMapping("/sort")
+    public List<Car> sortCars(@RequestParam("criteria") String criteria,
+                              @RequestParam("dealerId") String dealerId) {
+        List<Car> carsList = carService.sortCars(dealerId, criteria);
+
+        System.out.println("SORT CARS - " + carsList);
+
+        return carsList;
+    }
 }
 
 
