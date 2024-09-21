@@ -1,5 +1,6 @@
 package com.dmitriyevseyev.carmanagerspringboot.services;
 
+import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
 import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,10 +31,18 @@ public class CarService {
         this.converterEntity = converterEntity;
     }
 
+    public List<Car> getAllCarsList() {
+        return dealerService.getDealersList().stream().
+                flatMap(carDealership -> converterEntity.convertCarEntitiesListToCarsList(
+                                carRepository.getCarEntitiesByDealer(
+                                        converterEntity.convertDealerToDealerEntity(carDealership))).
+                        stream()).
+                collect(Collectors.toList());
+    }
+
     public List<Car> getCarsListByDealerId(Integer dealerId) throws NotFoundException {
         CarDealershipEntity dealerEntity = converterEntity.convertDealerToDealerEntity(dealerService.getDealer(dealerId));
-        List<Car> carList = converterEntity.convertCarEntitiesListToCarsList(carRepository.getCarEntitiesByDealer(dealerEntity));
-        return carList;
+        return converterEntity.convertCarEntitiesListToCarsList(carRepository.getCarEntitiesByDealer(dealerEntity));
     }
 
     public Car getCarById(Integer carId) throws NotFoundException {
@@ -66,8 +76,8 @@ public class CarService {
 
     @Transactional
     public void delOnlyOneCar(Integer carId) {
-       carRepository.findById(carId).orElseThrow(
-               () -> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE + " id - " + carId));
+        carRepository.findById(carId).orElseThrow(
+                () -> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE + " id - " + carId));
         carRepository.deleteById(carId);
     }
 

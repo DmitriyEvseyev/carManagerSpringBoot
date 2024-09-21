@@ -32,7 +32,7 @@
           "id": {
             "type": "integer"
           },
-          "idDealer": {
+          "dealerId": {
             "type": "integer"
           },
           "name": {
@@ -50,7 +50,7 @@
         },
         "required": [
           "id",
-          "idDealer",
+          "dealerId",
           "name",
           "date",
           "color",

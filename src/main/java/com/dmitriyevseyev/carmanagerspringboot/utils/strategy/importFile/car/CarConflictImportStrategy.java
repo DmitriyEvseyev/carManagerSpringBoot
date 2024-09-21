@@ -21,7 +21,7 @@ public class CarConflictImportStrategy implements ImportStrategy<CarDTO> {
 
     @Override
     public void store(CarDTO carDTO) throws ImportExeption {
-        CarEntity carEntity = converterDTO.converterCarDTOToCarEntity(carDTO);
+        CarEntity carEntity = converterDTO.convertCarDTOToCarEntity(carDTO);
         if (carRepository.getCarEntitiyById(carEntity.getId()) != null) {
             try {
                 throw new CarIdAlreadyExistException("Car with this id already exist: id = " + carDTO.getId());

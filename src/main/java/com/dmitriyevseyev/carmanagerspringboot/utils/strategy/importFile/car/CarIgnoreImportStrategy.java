@@ -20,7 +20,7 @@ public class CarIgnoreImportStrategy implements ImportStrategy<CarDTO> {
 
     @Override
     public void store(CarDTO carDTO) throws ImportExeption {
-        CarEntity carEntity = converterDTO.converterCarDTOToCarEntity(carDTO);
+        CarEntity carEntity = converterDTO.convertCarDTOToCarEntity(carDTO);
         if (carRepository.getCarEntitiyById(carEntity.getId()) == null) {
             carEntity.setDealer(dealerRepository.getCarDealershipEntityById(carDTO.getDealerId()));
 

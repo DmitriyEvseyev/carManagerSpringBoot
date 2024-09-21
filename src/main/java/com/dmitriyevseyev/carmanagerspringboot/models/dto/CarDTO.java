@@ -12,6 +12,7 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Builder
 public class CarDTO implements Serializable {
     private Integer id;
@@ -21,24 +22,6 @@ public class CarDTO implements Serializable {
     private Date date;
     private String color;
     private boolean isAfterCrash;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CarDTO carDTO = (CarDTO) o;
-        return isAfterCrash == carDTO.isAfterCrash &&
-                Objects.equals(id, carDTO.id) &&
-                Objects.equals(dealerId, carDTO.dealerId) &&
-                Objects.equals(name, carDTO.name) &&
-                Objects.equals(date, carDTO.date) &&
-                Objects.equals(color, carDTO.color);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, dealerId, name, date, color, isAfterCrash);
-    }
 }
 
 

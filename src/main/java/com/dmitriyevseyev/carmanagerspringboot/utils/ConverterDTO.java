@@ -49,7 +49,7 @@ public class ConverterDTO {
         return dealersDTOList;
     }
 
-    public List<CarDealershipEntity> convertetDealerDTOListToDealerEntityList(List<CarDealershipDTO> dealerDTOList) {
+    public List<CarDealershipEntity> convertDealerDTOListToDealerEntityList(List<CarDealershipDTO> dealerDTOList) {
         List<CarDealershipEntity> dealerEntityList = new ArrayList<>();
         for (CarDealershipDTO dealerDTO : dealerDTOList) {
             CarDealershipEntity dealerEntity = CarDealershipEntity.builder().
@@ -62,9 +62,48 @@ public class ConverterDTO {
         return dealerEntityList;
     }
 
-    public CarEntity converterCarDTOToCarEntity(CarDTO carDTO) {
+    public CarEntity convertCarDTOToCarEntity(CarDTO carDTO) {
         CarEntity car = CarEntity.builder().
                 id(carDTO.getId()).
+                name(carDTO.getName()).
+                date(carDTO.getDate()).
+                color(carDTO.getColor()).
+                isAfterCrash(carDTO.isAfterCrash()).
+                build();
+        return car;
+    }
+    public CarDealershipDTO convertDealerToDealerDTO (CarDealership dealer) {
+        CarDealershipDTO dealerDTO = CarDealershipDTO.builder().
+                id(dealer.getId()).
+                name(dealer.getName()).
+                address(dealer.getAddress()).
+                build();
+        return dealerDTO;
+    }
+    public CarDealership convertDealerDTOToDealer (CarDealershipDTO dealerDTO) {
+        CarDealership dealer = CarDealership.builder().
+                id(dealerDTO.getId()).
+                name(dealerDTO.getName()).
+                address(dealerDTO.getAddress()).
+                build();
+        return dealer;
+    }
+
+    public CarDTO convertCarToCarDTO (Car car) {
+        CarDTO carDTO = CarDTO.builder().
+                id(car.getId()).
+                dealerId(car.getDealerId()).
+                name(car.getName()).
+                date(car.getDate()).
+                color(car.getColor()).
+                isAfterCrash(car.isAfterCrash()).
+                build();
+        return carDTO;
+    }
+    public Car convertCarDTOToCar (CarDTO carDTO) {
+        Car car = Car.builder().
+                id(carDTO.getId()).
+                dealerId(carDTO.getDealerId()).
                 name(carDTO.getName()).
                 date(carDTO.getDate()).
                 color(carDTO.getColor()).

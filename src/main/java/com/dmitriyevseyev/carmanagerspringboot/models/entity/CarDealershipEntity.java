@@ -5,7 +5,6 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "DEALERS")
@@ -13,6 +12,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @NoArgsConstructor
+@EqualsAndHashCode
 public class CarDealershipEntity implements Serializable {
     @Id
     @Column(name = "dealer_id")
@@ -31,19 +31,6 @@ public class CarDealershipEntity implements Serializable {
         this.name = name;
         this.address = address;
         this.carEntities = new ArrayList<>();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CarDealershipEntity that = (CarDealershipEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, address);
     }
 
     public static Builder builder() {

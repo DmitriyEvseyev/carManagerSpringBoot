@@ -6,8 +6,10 @@ import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity
 import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
 import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterEntity;
+
 import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +39,7 @@ public class DealerService {
     public CarDealership getDealer(Integer id) throws NotFoundException {
         Optional<CarDealershipEntity> dealerEntity = dealerRepository.findById(id);
         return converterEntity.convertDealerEntityToDealer(dealerEntity.orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE)));
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + " id - " + id)));
     }
 
     @Transactional
@@ -46,7 +48,7 @@ public class DealerService {
     }
 
     @Transactional
-    public void updateDealer(CarDealership dealer) {
+    public void updateDealer(CarDealership dealer) throws NotFoundException  {
         dealerRepository.findById(dealer.getId()).orElseThrow(
                 () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + " id - " + dealer.getId()));
         dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));

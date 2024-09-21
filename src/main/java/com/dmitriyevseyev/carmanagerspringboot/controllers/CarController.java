@@ -30,9 +30,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/car")
 public class CarController {
-    private CarService carService;
-    private ExportService exportService;
-    private ImportService importService;
+    final private CarService carService;
+    final private ExportService exportService;
+    final private ImportService importService;
 
     @Autowired
     public CarController(CarService carService, ExportService exportService, ImportService importService) {
@@ -96,8 +96,8 @@ public class CarController {
 
     @PostMapping("/update")
     public String updateCar(@ModelAttribute("car") Car car,
-                               @RequestParam(value = "isAfterCrash", required = false) String isAfterCrashString,
-                               Model model) {
+                            @RequestParam(value = "isAfterCrash", required = false) String isAfterCrashString,
+                            Model model) {
 
         System.out.println("isAfterCrashString - " + isAfterCrashString);
 

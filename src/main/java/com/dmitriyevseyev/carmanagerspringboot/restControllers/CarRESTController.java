@@ -1,53 +1,58 @@
 package com.dmitriyevseyev.carmanagerspringboot.restControllers;
 
+import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDTO;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.services.CarService;
+import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/carREST")
+@RequestMapping("/cars")
 public class CarRESTController {
     final private CarService carService;
     final private DealerService dealerService;
+    final private ConverterDTO converterDTO;
 
     @Autowired
-    public CarRESTController(CarService carService, DealerService dealerService) {
+    public CarRESTController(CarService carService, DealerService dealerService, ConverterDTO converterDTO) {
         this.carService = carService;
         this.dealerService = dealerService;
+        this.converterDTO = converterDTO;
+    }
+
+    @GetMapping()
+    public List<CarDTO> getCarsList() {
+        return converterDTO.convertCarsListToCarsDTOList(carService.getAllCarsList());
     }
 
     @GetMapping("/{id}")
-    public List<Car> getCarsList(@PathVariable("id") Integer dealerId) {
-        return carService.getCarsListByDealerId(dealerId);
+    public CarDTO getCar(@PathVariable("id") Integer carId) {
+        return converterDTO.convertCarToCarDTO(carService.getCarById(carId));
     }
 
-    @GetMapping("/getCar/{id}")
-    public Car getCar(@PathVariable("id") Integer carId) {
-        return carService.getCarById(carId);
-    }
+    @PostMapping()
+    public ResponseEntity<HttpStatus> newCar(@RequestBody CarDTO carDTO) {
 
-    @PostMapping("/create")
-    public ResponseEntity<HttpStatus> newCar(@RequestBody Car car) {
+        System.out.println("NEW REST carDTO - " + carDTO);
 
-        System.out.println("NEW REST CAR - " + car);
-
-        dealerService.getDealer(car.getDealerId());
-        carService.addCar(car);
+        dealerService.getDealer(carDTO.getDealerId());
+        carService.addCar(converterDTO.convertCarDTOToCar(carDTO));
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<HttpStatus> updateCar(@RequestBody Car car) {
+    @PutMapping()
+    public ResponseEntity<HttpStatus> updateCar(@RequestBody CarDTO carDTO) {
 
-        System.out.println("REST car update - " + car);
+        System.out.println("REST carDTO update - " + carDTO);
 
-        carService.updateCar(car);
+        carService.updateCar(converterDTO.convertCarDTOToCar(carDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -61,36 +66,34 @@ public class CarRESTController {
     }
 
     @GetMapping("/search")
-    public List<Car> searchCar(@RequestParam("column") String column,
+    public List<CarDTO> searchCar(@RequestParam("column") String column,
                                @RequestParam("pattern") String pattern,
+                               @RequestParam("startDate") String startDate,
+                               @RequestParam("endDate") String endDate,
                                @RequestParam("dealerId") String dealerId) {
-        List<Car> carsList = carService.searchCar(dealerId, column, pattern);
+        List<CarDTO> carsDTOList = new ArrayList<>();
+        if (column.equals("date")) {
+            carsDTOList = converterDTO.convertCarsListToCarsDTOList(
+                    carService.searchDateCar(dealerId, startDate, endDate));
+        } else {
+            carsDTOList = converterDTO.convertCarsListToCarsDTOList(
+                    carService.searchCar(dealerId, column, pattern));
+        }
 
-        System.out.println("SEARCH CAR - " + carsList);
+        System.out.println("SEARCH CARDTO - " + carsDTOList);
 
-        return carsList;
-    }
-
-    @GetMapping("/searchDate")
-    public List<Car> searchDateCar(@RequestParam("startDate") String startDate,
-                                   @RequestParam("endDate") String endDate,
-                                   @RequestParam("dealerId") String dealerId) {
-
-        List<Car> carsList = carService.searchDateCar(dealerId, startDate, endDate);
-
-        System.out.println("SEARCH DATE CAR - " + carsList);
-
-        return carsList;
+        return carsDTOList;
     }
 
     @GetMapping("/sort")
-    public List<Car> sortCars(@RequestParam("criteria") String criteria,
+    public List<CarDTO> sortCars(@RequestParam("criteria") String criteria,
                               @RequestParam("dealerId") String dealerId) {
-        List<Car> carsList = carService.sortCars(dealerId, criteria);
+        List<CarDTO> carsDTOList = converterDTO.convertCarsListToCarsDTOList(
+                carService.sortCars(dealerId, criteria));
 
-        System.out.println("SORT CARS - " + carsList);
+        System.out.println("SORT CARSDTO - " + carsDTOList);
 
-        return carsList;
+        return carsDTOList;
     }
 }
 

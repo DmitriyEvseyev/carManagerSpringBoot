@@ -51,7 +51,7 @@ public class ImportService {
         List<CarDealershipEntity> dealerEntityList = new ArrayList<>();
         List<CarDTO> carDTOList = new ArrayList<>();
 
-        dealerEntityList.addAll(converterDTO.convertetDealerDTOListToDealerEntityList(exportDTO.getDealers()));
+        dealerEntityList.addAll(converterDTO.convertDealerDTOListToDealerEntityList(exportDTO.getDealers()));
         carDTOList.addAll(exportDTO.getCars());
 
         int dealerImpIdStrategy;
