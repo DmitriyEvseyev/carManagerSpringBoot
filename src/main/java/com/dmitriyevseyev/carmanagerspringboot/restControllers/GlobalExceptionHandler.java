@@ -1,8 +1,6 @@
 package com.dmitriyevseyev.carmanagerspringboot.restControllers;
 
-import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.CreatedExeption;
-import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.ErrorResponse;
-import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -34,6 +32,20 @@ public class GlobalExceptionHandler {
         log.error("HttpMessageNotReadableException. {}", ex.getMessage());
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(),
                 "Incorrect JSON! " + ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(SignInExeption.class)
+    protected ErrorResponse handleSignInExeption(SignInExeption ex) {
+        log.error("SignInExeption. {}", ex.getMessage());
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserExistExeption.class)
+    protected ErrorResponse handleUserExistExeption(UserExistExeption ex) {
+        log.error("UserExistExeption. {}", ex.getMessage());
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
     }
 }
 

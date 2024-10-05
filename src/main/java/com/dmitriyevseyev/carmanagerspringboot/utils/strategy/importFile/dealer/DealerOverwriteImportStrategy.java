@@ -2,7 +2,7 @@ package com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.dealer
 
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.ImportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportStrategy;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

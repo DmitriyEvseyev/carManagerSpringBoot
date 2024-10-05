@@ -710,3 +710,346 @@ java.lang.IllegalArgumentException: The given id must not be null
 2024-10-05T22:07:26.384+04:00  INFO 29652 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-10-05T22:07:26.391+04:00  INFO 29652 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-10-05T22:07:26.411+04:00  INFO 29652 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-05T23:00:17.655+04:00  INFO 4064 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Starting CarManagerSpringBootApplication using Java 22 with PID 4064 (C:\Users\VivoB\IdeaProjects\carManagerSpringBoot\build\classes\java\main started by VivoB in C:\Users\VivoB\IdeaProjects\carManagerSpringBoot)
+2024-10-05T23:00:17.661+04:00  INFO 4064 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : No active profile set, falling back to 1 default profile: "default"
+2024-10-05T23:00:18.998+04:00  INFO 4064 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-05T23:00:19.145+04:00  INFO 4064 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 130 ms. Found 3 JPA repository interfaces.
+2024-10-05T23:00:19.969+04:00  INFO 4064 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-05T23:00:19.994+04:00  INFO 4064 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-05T23:00:19.994+04:00  INFO 4064 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-10-05T23:00:20.088+04:00  INFO 4064 --- [carManagerSpringBoot] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-05T23:00:20.089+04:00  INFO 4064 --- [carManagerSpringBoot] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2325 ms
+2024-10-05T23:00:20.310+04:00  INFO 4064 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-05T23:00:20.606+04:00  INFO 4064 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@67bb4dcd
+2024-10-05T23:00:20.608+04:00  INFO 4064 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-05T23:00:20.659+04:00  INFO 4064 --- [carManagerSpringBoot] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-05T23:00:20.819+04:00  INFO 4064 --- [carManagerSpringBoot] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-05T23:00:20.915+04:00  INFO 4064 --- [carManagerSpringBoot] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-05T23:00:21.464+04:00  INFO 4064 --- [carManagerSpringBoot] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-05T23:00:21.633+04:00  WARN 4064 --- [carManagerSpringBoot] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-05T23:00:23.066+04:00  INFO 4064 --- [carManagerSpringBoot] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-05T23:00:23.072+04:00  INFO 4064 --- [carManagerSpringBoot] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:00:23.839+04:00  WARN 4064 --- [carManagerSpringBoot] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-05T23:00:24.477+04:00  INFO 4064 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-10-05T23:00:24.486+04:00  INFO 4064 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Started CarManagerSpringBootApplication in 7.554 seconds (process running for 9.076)
+2024-10-05T23:00:24.490+04:00  INFO 4064 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Application start!
+2024-10-05T23:02:37.579+04:00  INFO 4064 --- [carManagerSpringBoot] [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-05T23:02:37.580+04:00  INFO 4064 --- [carManagerSpringBoot] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-10-05T23:02:37.583+04:00  INFO 4064 --- [carManagerSpringBoot] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-10-05T23:02:37.697+04:00  WARN 4064 --- [carManagerSpringBoot] [http-nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'name' for method parameter type String is not present]
+2024-10-05T23:04:36.306+04:00  INFO 4064 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:04:36.317+04:00  INFO 4064 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-05T23:04:36.329+04:00  INFO 4064 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-05T23:04:55.857+04:00  INFO 28768 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Starting CarManagerSpringBootApplication using Java 22 with PID 28768 (C:\Users\VivoB\IdeaProjects\carManagerSpringBoot\build\classes\java\main started by VivoB in C:\Users\VivoB\IdeaProjects\carManagerSpringBoot)
+2024-10-05T23:04:55.859+04:00  INFO 28768 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : No active profile set, falling back to 1 default profile: "default"
+2024-10-05T23:04:56.801+04:00  INFO 28768 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-05T23:04:56.917+04:00  INFO 28768 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 95 ms. Found 3 JPA repository interfaces.
+2024-10-05T23:04:57.553+04:00  INFO 28768 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-05T23:04:57.569+04:00  INFO 28768 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-05T23:04:57.570+04:00  INFO 28768 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-10-05T23:04:57.734+04:00  INFO 28768 --- [carManagerSpringBoot] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-05T23:04:57.735+04:00  INFO 28768 --- [carManagerSpringBoot] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1794 ms
+2024-10-05T23:04:57.911+04:00  INFO 28768 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-05T23:04:58.124+04:00  INFO 28768 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@603cabc4
+2024-10-05T23:04:58.126+04:00  INFO 28768 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-05T23:04:58.225+04:00  INFO 28768 --- [carManagerSpringBoot] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-05T23:04:58.476+04:00  INFO 28768 --- [carManagerSpringBoot] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-05T23:04:58.582+04:00  INFO 28768 --- [carManagerSpringBoot] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-05T23:04:59.182+04:00  INFO 28768 --- [carManagerSpringBoot] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-05T23:04:59.266+04:00  WARN 28768 --- [carManagerSpringBoot] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-05T23:05:00.539+04:00  INFO 28768 --- [carManagerSpringBoot] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-05T23:05:00.543+04:00  INFO 28768 --- [carManagerSpringBoot] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:05:01.040+04:00  WARN 28768 --- [carManagerSpringBoot] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-05T23:05:01.476+04:00  INFO 28768 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-10-05T23:05:01.484+04:00  INFO 28768 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Started CarManagerSpringBootApplication in 6.208 seconds (process running for 7.103)
+2024-10-05T23:05:01.488+04:00  INFO 28768 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Application start!
+2024-10-05T23:05:07.550+04:00  INFO 28768 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-05T23:05:07.550+04:00  INFO 28768 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-10-05T23:05:07.551+04:00  INFO 28768 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-10-05T23:05:07.603+04:00  WARN 28768 --- [carManagerSpringBoot] [http-nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'name' for method parameter type String is not present]
+2024-10-05T23:06:49.620+04:00  INFO 28768 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:06:49.622+04:00  INFO 28768 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-05T23:06:49.633+04:00  INFO 28768 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-05T23:06:55.368+04:00  INFO 13508 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Starting CarManagerSpringBootApplication using Java 22 with PID 13508 (C:\Users\VivoB\IdeaProjects\carManagerSpringBoot\build\classes\java\main started by VivoB in C:\Users\VivoB\IdeaProjects\carManagerSpringBoot)
+2024-10-05T23:06:55.370+04:00  INFO 13508 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : No active profile set, falling back to 1 default profile: "default"
+2024-10-05T23:06:56.373+04:00  INFO 13508 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-05T23:06:56.460+04:00  INFO 13508 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 71 ms. Found 3 JPA repository interfaces.
+2024-10-05T23:06:56.964+04:00  INFO 13508 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-05T23:06:56.977+04:00  INFO 13508 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-05T23:06:56.978+04:00  INFO 13508 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-10-05T23:06:57.049+04:00  INFO 13508 --- [carManagerSpringBoot] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-05T23:06:57.049+04:00  INFO 13508 --- [carManagerSpringBoot] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1595 ms
+2024-10-05T23:06:57.161+04:00  INFO 13508 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-05T23:06:57.287+04:00  INFO 13508 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@684e8c9d
+2024-10-05T23:06:57.289+04:00  INFO 13508 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-05T23:06:57.320+04:00  INFO 13508 --- [carManagerSpringBoot] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-05T23:06:57.360+04:00  INFO 13508 --- [carManagerSpringBoot] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-05T23:06:57.393+04:00  INFO 13508 --- [carManagerSpringBoot] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-05T23:06:57.703+04:00  INFO 13508 --- [carManagerSpringBoot] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-05T23:06:57.751+04:00  WARN 13508 --- [carManagerSpringBoot] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-05T23:06:58.661+04:00  INFO 13508 --- [carManagerSpringBoot] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-05T23:06:58.664+04:00  INFO 13508 --- [carManagerSpringBoot] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:06:59.185+04:00  WARN 13508 --- [carManagerSpringBoot] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-05T23:06:59.561+04:00  INFO 13508 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-10-05T23:06:59.572+04:00  INFO 13508 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Started CarManagerSpringBootApplication in 4.689 seconds (process running for 5.467)
+2024-10-05T23:06:59.578+04:00  INFO 13508 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Application start!
+2024-10-05T23:07:13.660+04:00  INFO 13508 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-05T23:07:13.660+04:00  INFO 13508 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-10-05T23:07:13.662+04:00  INFO 13508 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-10-05T23:07:13.705+04:00  WARN 13508 --- [carManagerSpringBoot] [http-nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'name' for method parameter type String is not present]
+2024-10-05T23:09:43.279+04:00  INFO 13508 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:09:43.284+04:00  INFO 13508 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-05T23:09:43.297+04:00  INFO 13508 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-05T23:09:55.333+04:00  INFO 13260 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Starting CarManagerSpringBootApplication using Java 22 with PID 13260 (C:\Users\VivoB\IdeaProjects\carManagerSpringBoot\build\classes\java\main started by VivoB in C:\Users\VivoB\IdeaProjects\carManagerSpringBoot)
+2024-10-05T23:09:55.337+04:00  INFO 13260 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : No active profile set, falling back to 1 default profile: "default"
+2024-10-05T23:09:56.475+04:00  INFO 13260 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-05T23:09:56.581+04:00  INFO 13260 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 91 ms. Found 3 JPA repository interfaces.
+2024-10-05T23:09:57.326+04:00  INFO 13260 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-05T23:09:57.345+04:00  INFO 13260 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-05T23:09:57.346+04:00  INFO 13260 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-10-05T23:09:57.433+04:00  INFO 13260 --- [carManagerSpringBoot] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-05T23:09:57.433+04:00  INFO 13260 --- [carManagerSpringBoot] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2022 ms
+2024-10-05T23:09:57.619+04:00  INFO 13260 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-05T23:09:57.773+04:00  INFO 13260 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@41b64020
+2024-10-05T23:09:57.775+04:00  INFO 13260 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-05T23:09:57.830+04:00  INFO 13260 --- [carManagerSpringBoot] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-05T23:09:57.940+04:00  INFO 13260 --- [carManagerSpringBoot] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-05T23:09:58.025+04:00  INFO 13260 --- [carManagerSpringBoot] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-05T23:09:58.484+04:00  INFO 13260 --- [carManagerSpringBoot] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-05T23:09:58.586+04:00  WARN 13260 --- [carManagerSpringBoot] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-05T23:10:00.821+04:00  INFO 13260 --- [carManagerSpringBoot] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-05T23:10:00.828+04:00  INFO 13260 --- [carManagerSpringBoot] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:10:01.435+04:00  WARN 13260 --- [carManagerSpringBoot] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-05T23:10:01.956+04:00  INFO 13260 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-10-05T23:10:01.964+04:00  INFO 13260 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Started CarManagerSpringBootApplication in 8.024 seconds (process running for 8.944)
+2024-10-05T23:10:01.968+04:00  INFO 13260 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Application start!
+2024-10-05T23:10:04.425+04:00  INFO 13260 --- [carManagerSpringBoot] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-05T23:10:04.425+04:00  INFO 13260 --- [carManagerSpringBoot] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-10-05T23:10:04.427+04:00  INFO 13260 --- [carManagerSpringBoot] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-10-05T23:10:04.501+04:00  WARN 13260 --- [carManagerSpringBoot] [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'name' for method parameter type String is not present]
+2024-10-05T23:10:40.094+04:00  INFO 13260 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:10:40.102+04:00  INFO 13260 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-05T23:10:40.116+04:00  INFO 13260 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-05T23:14:33.054+04:00  INFO 1992 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Starting CarManagerSpringBootApplication using Java 22 with PID 1992 (C:\Users\VivoB\IdeaProjects\carManagerSpringBoot\build\classes\java\main started by VivoB in C:\Users\VivoB\IdeaProjects\carManagerSpringBoot)
+2024-10-05T23:14:33.057+04:00  INFO 1992 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : No active profile set, falling back to 1 default profile: "default"
+2024-10-05T23:14:34.008+04:00  INFO 1992 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-05T23:14:34.084+04:00  INFO 1992 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 67 ms. Found 3 JPA repository interfaces.
+2024-10-05T23:14:34.632+04:00  INFO 1992 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-05T23:14:34.649+04:00  INFO 1992 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-05T23:14:34.649+04:00  INFO 1992 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-10-05T23:14:34.727+04:00  INFO 1992 --- [carManagerSpringBoot] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-05T23:14:34.728+04:00  INFO 1992 --- [carManagerSpringBoot] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1597 ms
+2024-10-05T23:14:34.862+04:00  INFO 1992 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-05T23:14:35.003+04:00  INFO 1992 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@51e754e1
+2024-10-05T23:14:35.004+04:00  INFO 1992 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-05T23:14:35.061+04:00  INFO 1992 --- [carManagerSpringBoot] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-05T23:14:35.194+04:00  INFO 1992 --- [carManagerSpringBoot] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-05T23:14:35.279+04:00  INFO 1992 --- [carManagerSpringBoot] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-05T23:14:35.744+04:00  INFO 1992 --- [carManagerSpringBoot] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-05T23:14:35.834+04:00  WARN 1992 --- [carManagerSpringBoot] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-05T23:14:37.419+04:00  INFO 1992 --- [carManagerSpringBoot] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-05T23:14:37.425+04:00  INFO 1992 --- [carManagerSpringBoot] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:14:38.157+04:00  WARN 1992 --- [carManagerSpringBoot] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-05T23:14:38.851+04:00  INFO 1992 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-10-05T23:14:38.859+04:00  INFO 1992 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Started CarManagerSpringBootApplication in 6.4 seconds (process running for 7.337)
+2024-10-05T23:14:38.865+04:00  INFO 1992 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Application start!
+2024-10-05T23:14:46.018+04:00  INFO 1992 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-05T23:14:46.018+04:00  INFO 1992 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-10-05T23:14:46.020+04:00  INFO 1992 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-10-05T23:14:46.213+04:00  INFO 1992 --- [carManagerSpringBoot] [http-nio-8080-exec-1] c.d.c.r.UserRESTController               : Name - null.
+2024-10-05T23:14:46.215+04:00 ERROR 1992 --- [carManagerSpringBoot] [http-nio-8080-exec-1] c.d.c.r.GlobalExceptionHandler           : CreatedExeption. -Password should be between 2 and 30 characters.; -Name should be empty.; 
+2024-10-05T23:15:18.017+04:00  INFO 1992 --- [carManagerSpringBoot] [http-nio-8080-exec-5] c.d.c.r.UserRESTController               : Name - d.
+2024-10-05T23:15:18.018+04:00 ERROR 1992 --- [carManagerSpringBoot] [http-nio-8080-exec-5] c.d.c.r.GlobalExceptionHandler           : CreatedExeption. -UserName should be between 2 and 30 characters.; -Password should be between 2 and 30 characters.; 
+2024-10-05T23:15:29.799+04:00  INFO 1992 --- [carManagerSpringBoot] [http-nio-8080-exec-6] c.d.c.r.UserRESTController               : Name - d.
+2024-10-05T23:15:29.800+04:00 ERROR 1992 --- [carManagerSpringBoot] [http-nio-8080-exec-6] c.d.c.r.GlobalExceptionHandler           : CreatedExeption. -UserName should be between 2 and 30 characters.; 
+2024-10-05T23:15:36.885+04:00  INFO 1992 --- [carManagerSpringBoot] [http-nio-8080-exec-8] c.d.c.r.UserRESTController               : Name - ds.
+2024-10-05T23:15:37.112+04:00 ERROR 1992 --- [carManagerSpringBoot] [http-nio-8080-exec-8] c.d.c.r.GlobalExceptionHandler           : SignInExeption. Invalid Username or Password!
+2024-10-05T23:15:51.221+04:00  INFO 1992 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:15:51.224+04:00  INFO 1992 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-05T23:15:51.233+04:00  INFO 1992 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-05T23:16:39.268+04:00  INFO 7672 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Starting CarManagerSpringBootApplication using Java 22 with PID 7672 (C:\Users\VivoB\IdeaProjects\carManagerSpringBoot\build\classes\java\main started by VivoB in C:\Users\VivoB\IdeaProjects\carManagerSpringBoot)
+2024-10-05T23:16:39.268+04:00  INFO 7672 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : No active profile set, falling back to 1 default profile: "default"
+2024-10-05T23:16:40.127+04:00  INFO 7672 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-05T23:16:40.212+04:00  INFO 7672 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 76 ms. Found 3 JPA repository interfaces.
+2024-10-05T23:16:40.670+04:00  INFO 7672 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-05T23:16:40.686+04:00  INFO 7672 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-05T23:16:40.686+04:00  INFO 7672 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-10-05T23:16:40.734+04:00  INFO 7672 --- [carManagerSpringBoot] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-05T23:16:40.734+04:00  INFO 7672 --- [carManagerSpringBoot] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1387 ms
+2024-10-05T23:16:40.887+04:00  INFO 7672 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-05T23:16:40.990+04:00  INFO 7672 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@51e754e1
+2024-10-05T23:16:40.990+04:00  INFO 7672 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-05T23:16:41.025+04:00  INFO 7672 --- [carManagerSpringBoot] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-05T23:16:41.052+04:00  INFO 7672 --- [carManagerSpringBoot] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-05T23:16:41.086+04:00  INFO 7672 --- [carManagerSpringBoot] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-05T23:16:41.402+04:00  INFO 7672 --- [carManagerSpringBoot] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-05T23:16:41.447+04:00  WARN 7672 --- [carManagerSpringBoot] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-05T23:16:42.402+04:00  INFO 7672 --- [carManagerSpringBoot] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-05T23:16:42.407+04:00  INFO 7672 --- [carManagerSpringBoot] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:16:42.874+04:00  WARN 7672 --- [carManagerSpringBoot] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-05T23:16:43.294+04:00  INFO 7672 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-10-05T23:16:43.303+04:00  INFO 7672 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Started CarManagerSpringBootApplication in 4.526 seconds (process running for 5.313)
+2024-10-05T23:16:43.306+04:00  INFO 7672 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Application start!
+2024-10-05T23:16:53.787+04:00  INFO 7672 --- [carManagerSpringBoot] [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-05T23:16:53.787+04:00  INFO 7672 --- [carManagerSpringBoot] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-10-05T23:16:53.789+04:00  INFO 7672 --- [carManagerSpringBoot] [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-10-05T23:16:53.964+04:00  INFO 7672 --- [carManagerSpringBoot] [http-nio-8080-exec-3] c.d.c.r.UserRESTController               : UserName - d.
+2024-10-05T23:16:54.213+04:00  INFO 7672 --- [carManagerSpringBoot] [http-nio-8080-exec-3] c.d.c.r.UserRESTController               : DealerDTOList - [CarDealershipDTO(id=66, name=QQQQQQQ, address=fffkkk), CarDealershipDTO(id=67, name=aaa, address=fffkkk), CarDealershipDTO(id=76, name=32, address=zzz), CarDealershipDTO(id=63, name=gkjh, address=svd), CarDealershipDTO(id=77, name=gkjh, address=svd), CarDealershipDTO(id=78, name=gkjh, address=jk), CarDealershipDTO(id=79, name=gkjh, address=wxww), CarDealershipDTO(id=80, name=gkjh, address=678), CarDealershipDTO(id=81, name=gkjh, address=ed), CarDealershipDTO(id=82, name=gkjh, address=ed), CarDealershipDTO(id=64, name=gkjh, address=ed), CarDealershipDTO(id=65, name=llllll, address=lllll), CarDealershipDTO(id=83, name=llllll, address=lllll)]
+2024-10-05T23:17:06.902+04:00  INFO 7672 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:17:06.904+04:00  INFO 7672 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-05T23:17:06.910+04:00  INFO 7672 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-05T23:33:05.431+04:00  INFO 17752 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Starting CarManagerSpringBootApplication using Java 22 with PID 17752 (C:\Users\VivoB\IdeaProjects\carManagerSpringBoot\build\classes\java\main started by VivoB in C:\Users\VivoB\IdeaProjects\carManagerSpringBoot)
+2024-10-05T23:33:05.434+04:00  INFO 17752 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : No active profile set, falling back to 1 default profile: "default"
+2024-10-05T23:33:07.490+04:00  INFO 17752 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-05T23:33:07.620+04:00  INFO 17752 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 104 ms. Found 3 JPA repository interfaces.
+2024-10-05T23:33:08.392+04:00  INFO 17752 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-05T23:33:08.413+04:00  INFO 17752 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-05T23:33:08.413+04:00  INFO 17752 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-10-05T23:33:08.518+04:00  INFO 17752 --- [carManagerSpringBoot] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-05T23:33:08.518+04:00  INFO 17752 --- [carManagerSpringBoot] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2982 ms
+2024-10-05T23:33:08.690+04:00  INFO 17752 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-05T23:33:08.975+04:00  INFO 17752 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@51e754e1
+2024-10-05T23:33:08.975+04:00  INFO 17752 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-05T23:33:09.053+04:00  INFO 17752 --- [carManagerSpringBoot] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-05T23:33:09.199+04:00  INFO 17752 --- [carManagerSpringBoot] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-05T23:33:09.284+04:00  INFO 17752 --- [carManagerSpringBoot] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-05T23:33:09.856+04:00  INFO 17752 --- [carManagerSpringBoot] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-05T23:33:10.048+04:00  WARN 17752 --- [carManagerSpringBoot] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-05T23:33:11.477+04:00  INFO 17752 --- [carManagerSpringBoot] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-05T23:33:11.483+04:00  INFO 17752 --- [carManagerSpringBoot] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:33:12.191+04:00  WARN 17752 --- [carManagerSpringBoot] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-05T23:33:12.808+04:00  INFO 17752 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-10-05T23:33:12.818+04:00  INFO 17752 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Started CarManagerSpringBootApplication in 8.5 seconds (process running for 9.41)
+2024-10-05T23:33:12.823+04:00  INFO 17752 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Application start!
+2024-10-05T23:33:17.365+04:00  INFO 17752 --- [carManagerSpringBoot] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-05T23:33:17.366+04:00  INFO 17752 --- [carManagerSpringBoot] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-10-05T23:33:17.368+04:00  INFO 17752 --- [carManagerSpringBoot] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-10-05T23:33:17.543+04:00  INFO 17752 --- [carManagerSpringBoot] [http-nio-8080-exec-2] c.d.c.r.UserRESTController               : UserName - d.
+2024-10-05T23:33:17.789+04:00 ERROR 17752 --- [carManagerSpringBoot] [http-nio-8080-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.UserExistExeption: A user with that name already exists!] with root cause
+
+com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.UserExistExeption: A user with that name already exists!
+	at com.dmitriyevseyev.carmanagerspringboot.restControllers.UserRESTController.signUp(UserRESTController.java:93) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.11.jar:6.1.11]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:91) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.11.jar:6.1.11]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.26.jar:10.1.26]
+	at java.base/java.lang.Thread.run(Thread.java:1570) ~[na:na]
+
+2024-10-05T23:33:30.815+04:00  INFO 17752 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:33:30.818+04:00  INFO 17752 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-05T23:33:30.829+04:00  INFO 17752 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-05T23:34:52.834+04:00  INFO 25272 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Starting CarManagerSpringBootApplication using Java 22 with PID 25272 (C:\Users\VivoB\IdeaProjects\carManagerSpringBoot\build\classes\java\main started by VivoB in C:\Users\VivoB\IdeaProjects\carManagerSpringBoot)
+2024-10-05T23:34:52.836+04:00  INFO 25272 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : No active profile set, falling back to 1 default profile: "default"
+2024-10-05T23:34:53.710+04:00  INFO 25272 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-05T23:34:53.817+04:00  INFO 25272 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 98 ms. Found 3 JPA repository interfaces.
+2024-10-05T23:34:54.474+04:00  INFO 25272 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-05T23:34:54.498+04:00  INFO 25272 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-05T23:34:54.498+04:00  INFO 25272 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-10-05T23:34:54.605+04:00  INFO 25272 --- [carManagerSpringBoot] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-05T23:34:54.605+04:00  INFO 25272 --- [carManagerSpringBoot] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1706 ms
+2024-10-05T23:34:54.737+04:00  INFO 25272 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-05T23:34:54.899+04:00  INFO 25272 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@738d37fc
+2024-10-05T23:34:54.901+04:00  INFO 25272 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-05T23:34:54.948+04:00  INFO 25272 --- [carManagerSpringBoot] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-05T23:34:55.100+04:00  INFO 25272 --- [carManagerSpringBoot] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-05T23:34:55.185+04:00  INFO 25272 --- [carManagerSpringBoot] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-05T23:34:55.641+04:00  INFO 25272 --- [carManagerSpringBoot] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-05T23:34:55.729+04:00  WARN 25272 --- [carManagerSpringBoot] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-05T23:34:56.904+04:00  INFO 25272 --- [carManagerSpringBoot] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-05T23:34:56.910+04:00  INFO 25272 --- [carManagerSpringBoot] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:34:57.455+04:00  WARN 25272 --- [carManagerSpringBoot] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-05T23:34:57.938+04:00  INFO 25272 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-10-05T23:34:57.951+04:00  INFO 25272 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Started CarManagerSpringBootApplication in 5.597 seconds (process running for 6.437)
+2024-10-05T23:34:57.968+04:00  INFO 25272 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Application start!
+2024-10-05T23:35:02.250+04:00  INFO 25272 --- [carManagerSpringBoot] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-05T23:35:02.250+04:00  INFO 25272 --- [carManagerSpringBoot] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-10-05T23:35:02.251+04:00  INFO 25272 --- [carManagerSpringBoot] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-10-05T23:35:02.503+04:00  INFO 25272 --- [carManagerSpringBoot] [http-nio-8080-exec-2] c.d.c.r.UserRESTController               : UserName - d.
+2024-10-05T23:35:02.732+04:00 ERROR 25272 --- [carManagerSpringBoot] [http-nio-8080-exec-2] c.d.c.r.GlobalExceptionHandler           : UserExistExeption. A user with that name already exists!
+2024-10-05T23:35:11.238+04:00  INFO 25272 --- [carManagerSpringBoot] [http-nio-8080-exec-6] c.d.c.r.UserRESTController               : UserName - null.
+2024-10-05T23:35:11.238+04:00 ERROR 25272 --- [carManagerSpringBoot] [http-nio-8080-exec-6] c.d.c.r.GlobalExceptionHandler           : CreatedExeption. -Name should be empty.; 
+2024-10-05T23:35:21.510+04:00  INFO 25272 --- [carManagerSpringBoot] [http-nio-8080-exec-4] c.d.c.r.UserRESTController               : UserName - d.
+2024-10-05T23:35:21.510+04:00 ERROR 25272 --- [carManagerSpringBoot] [http-nio-8080-exec-4] c.d.c.r.GlobalExceptionHandler           : CreatedExeption. -Password should be empty.; 
+2024-10-05T23:35:47.606+04:00  INFO 25272 --- [carManagerSpringBoot] [http-nio-8080-exec-8] c.d.c.r.UserRESTController               : UserName - de.
+2024-10-05T23:35:47.794+04:00  INFO 25272 --- [carManagerSpringBoot] [http-nio-8080-exec-8] c.d.c.r.UserRESTController               : DealerDTOList - [CarDealershipDTO(id=66, name=QQQQQQQ, address=fffkkk), CarDealershipDTO(id=67, name=aaa, address=fffkkk), CarDealershipDTO(id=76, name=32, address=zzz), CarDealershipDTO(id=63, name=gkjh, address=svd), CarDealershipDTO(id=77, name=gkjh, address=svd), CarDealershipDTO(id=78, name=gkjh, address=jk), CarDealershipDTO(id=79, name=gkjh, address=wxww), CarDealershipDTO(id=80, name=gkjh, address=678), CarDealershipDTO(id=81, name=gkjh, address=ed), CarDealershipDTO(id=82, name=gkjh, address=ed), CarDealershipDTO(id=64, name=gkjh, address=ed), CarDealershipDTO(id=65, name=llllll, address=lllll), CarDealershipDTO(id=83, name=llllll, address=lllll)]
+2024-10-05T23:45:21.725+04:00  INFO 25272 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:45:21.725+04:00  INFO 25272 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-05T23:45:21.742+04:00  INFO 25272 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-10-05T23:45:29.969+04:00  INFO 11696 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Starting CarManagerSpringBootApplication using Java 22 with PID 11696 (C:\Users\VivoB\IdeaProjects\carManagerSpringBoot\build\classes\java\main started by VivoB in C:\Users\VivoB\IdeaProjects\carManagerSpringBoot)
+2024-10-05T23:45:29.969+04:00  INFO 11696 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : No active profile set, falling back to 1 default profile: "default"
+2024-10-05T23:45:30.918+04:00  INFO 11696 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-05T23:45:30.996+04:00  INFO 11696 --- [carManagerSpringBoot] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 80 ms. Found 3 JPA repository interfaces.
+2024-10-05T23:45:31.584+04:00  INFO 11696 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-05T23:45:31.632+04:00  INFO 11696 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-05T23:45:31.632+04:00  INFO 11696 --- [carManagerSpringBoot] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-10-05T23:45:31.701+04:00  INFO 11696 --- [carManagerSpringBoot] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-10-05T23:45:31.701+04:00  INFO 11696 --- [carManagerSpringBoot] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1655 ms
+2024-10-05T23:45:31.831+04:00  INFO 11696 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-05T23:45:31.966+04:00  INFO 11696 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3b009e7b
+2024-10-05T23:45:31.976+04:00  INFO 11696 --- [carManagerSpringBoot] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-05T23:45:32.012+04:00  INFO 11696 --- [carManagerSpringBoot] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-05T23:45:32.156+04:00  INFO 11696 --- [carManagerSpringBoot] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-05T23:45:32.235+04:00  INFO 11696 --- [carManagerSpringBoot] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-05T23:45:32.679+04:00  INFO 11696 --- [carManagerSpringBoot] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-05T23:45:32.790+04:00  WARN 11696 --- [carManagerSpringBoot] [main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-05T23:45:34.006+04:00  INFO 11696 --- [carManagerSpringBoot] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-05T23:45:34.006+04:00  INFO 11696 --- [carManagerSpringBoot] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:45:34.587+04:00  WARN 11696 --- [carManagerSpringBoot] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-05T23:45:35.036+04:00  INFO 11696 --- [carManagerSpringBoot] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-10-05T23:45:35.052+04:00  INFO 11696 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Started CarManagerSpringBootApplication in 5.612 seconds (process running for 6.365)
+2024-10-05T23:45:35.052+04:00  INFO 11696 --- [carManagerSpringBoot] [main] c.d.c.CarManagerSpringBootApplication    : Application start!
+2024-10-05T23:45:45.688+04:00  INFO 11696 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-05T23:45:45.688+04:00  INFO 11696 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-10-05T23:45:45.691+04:00  INFO 11696 --- [carManagerSpringBoot] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2024-10-05T23:45:45.835+04:00  INFO 11696 --- [carManagerSpringBoot] [http-nio-8080-exec-1] c.d.c.r.UserRESTController               : UserName - de.
+2024-10-05T23:45:46.019+04:00 ERROR 11696 --- [carManagerSpringBoot] [http-nio-8080-exec-1] c.d.c.r.GlobalExceptionHandler           : UserExistExeption. A user with that name already exists!
+2024-10-05T23:45:55.765+04:00  INFO 11696 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-05T23:45:55.771+04:00  INFO 11696 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-10-05T23:45:55.778+04:00  INFO 11696 --- [carManagerSpringBoot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

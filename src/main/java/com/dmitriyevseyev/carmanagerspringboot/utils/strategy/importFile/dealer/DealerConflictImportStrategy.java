@@ -1,9 +1,9 @@
 package com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.dealer;
 
-import com.dmitriyevseyev.carmanagerspringboot.exceptions.dealer.DealerIdAlreadyExistException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.DealerIdAlreadyExistException;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.ImportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportStrategy;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.DealerNameAlreadyExistException;
 import lombok.AllArgsConstructor;

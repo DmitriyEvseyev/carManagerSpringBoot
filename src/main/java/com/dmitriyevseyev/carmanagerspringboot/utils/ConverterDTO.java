@@ -14,7 +14,6 @@ import java.util.List;
 
 @Component
 public class ConverterDTO {
-
     public List<CarDTO> convertCarsListToCarsDTOList(List<Car> carsList) {
         List<CarDTO> carsDTOList = new ArrayList<>();
 
@@ -68,7 +67,8 @@ public class ConverterDTO {
                 build();
         return car;
     }
-    public CarDealershipDTO convertDealerToDealerDTO (CarDealership dealer) {
+
+    public CarDealershipDTO convertDealerToDealerDTO(CarDealership dealer) {
         CarDealershipDTO dealerDTO = CarDealershipDTO.builder().
                 id(dealer.getId()).
                 name(dealer.getName()).
@@ -76,7 +76,8 @@ public class ConverterDTO {
                 build();
         return dealerDTO;
     }
-    public CarDealership convertDealerDTOToDealer (CarDealershipDTO dealerDTO) {
+
+    public CarDealership convertDealerDTOToDealer(CarDealershipDTO dealerDTO) {
         CarDealership dealer = CarDealership.builder().
                 id(dealerDTO.getId()).
                 name(dealerDTO.getName()).
@@ -85,7 +86,7 @@ public class ConverterDTO {
         return dealer;
     }
 
-    public CarDTO convertCarToCarDTO (Car car) {
+    public CarDTO convertCarToCarDTO(Car car) {
         CarDTO carDTO = CarDTO.builder().
                 id(car.getId()).
                 dealerId(car.getDealerId()).
@@ -96,7 +97,8 @@ public class ConverterDTO {
                 build();
         return carDTO;
     }
-    public Car convertCarDTOToCar (CarDTO carDTO) {
+
+    public Car convertCarDTOToCar(CarDTO carDTO) {
         Car car = Car.builder().
                 id(carDTO.getId()).
                 dealerId(carDTO.getDealerId()).

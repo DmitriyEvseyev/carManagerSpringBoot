@@ -4,12 +4,12 @@ import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDTO;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.utils.*;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.ExportConfigStrategy;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.PropertyFileException;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.PropertyFileException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.StrategyNotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.ImportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportStrategy;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportStrategyHelper;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.JSONValidatorExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.JSONValidatorExeption;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +22,10 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class ImportService {
-    private ConverterDTO converterDTO;
+    private final ConverterDTO converterDTO;
  // private ObjectMapper objectMapper;
-    private ExportConfigStrategy exportConfigStrategy;
-    private ImportStrategyHelper importStrategyHelper;
+    private final ExportConfigStrategy exportConfigStrategy;
+    private final ImportStrategyHelper importStrategyHelper;
 
     @Autowired
     public ImportService(ConverterDTO converterDTO, ExportConfigStrategy exportConfigStrategy, ImportStrategyHelper importStrategyHelper) {
