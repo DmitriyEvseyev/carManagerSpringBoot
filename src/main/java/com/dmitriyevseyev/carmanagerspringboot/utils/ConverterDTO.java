@@ -29,10 +29,6 @@ public class ConverterDTO {
                     build();
             carsDTOList.add(carDTO);
         }
-
-
-        System.out.println("convertCarsListToCarsDTOList - " + carsDTOList);
-
         return carsDTOList;
     }
 

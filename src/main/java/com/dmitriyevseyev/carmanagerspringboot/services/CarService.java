@@ -8,6 +8,7 @@ import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.CarRepository;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 public class CarService {
     private final CarRepository carRepository;
     private final DealerService dealerService;
@@ -48,7 +50,7 @@ public class CarService {
     public Car getCarById(Integer carId) throws NotFoundException {
         Optional<CarEntity> carEntity = carRepository.findById(carId);
         return converterEntity.converterCarEntityToCar(carEntity.orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE)));
+                () -> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE + carId)));
     }
 
     @Transactional
@@ -77,7 +79,7 @@ public class CarService {
     @Transactional
     public void delOnlyOneCar(Integer carId) {
         carRepository.findById(carId).orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE + " id - " + carId));
+                () -> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE + carId));
         carRepository.deleteById(carId);
     }
 

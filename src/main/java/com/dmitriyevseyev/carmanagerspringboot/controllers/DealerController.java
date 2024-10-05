@@ -28,9 +28,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/dealer")
 public class DealerController {
-    private DealerService dealerService;
-    private ExportService exportService;
-    private ImportService importService;
+    final private DealerService dealerService;
+    final private ExportService exportService;
+    final private ImportService importService;
 
     @Autowired
     public DealerController(DealerService dealerService, ExportService exportService, ImportService importService) {

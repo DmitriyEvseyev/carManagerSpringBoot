@@ -39,7 +39,7 @@ public class DealerService {
     public CarDealership getDealer(Integer id) throws NotFoundException {
         Optional<CarDealershipEntity> dealerEntity = dealerRepository.findById(id);
         return converterEntity.convertDealerEntityToDealer(dealerEntity.orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + " id - " + id)));
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + id)));
     }
 
     @Transactional
@@ -50,14 +50,14 @@ public class DealerService {
     @Transactional
     public void updateDealer(CarDealership dealer) throws NotFoundException  {
         dealerRepository.findById(dealer.getId()).orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + " id - " + dealer.getId()));
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + dealer.getId()));
         dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
     }
 
     @Transactional
     public void delOnlyOneDealer(Integer dealerId) throws NotFoundException {
         dealerRepository.findById(dealerId).orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + " id - " + dealerId));
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + dealerId));
         dealerRepository.deleteById(dealerId);
     }
 
@@ -75,13 +75,10 @@ public class DealerService {
     }
 
 
-
-
-
     public List<Car> getCarsList(String idDealer) throws NotFoundException {
         Optional<CarDealershipEntity> dealerOptional = dealerRepository.findById(Integer.parseInt(idDealer));
         CarDealershipEntity dealer = dealerOptional.orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE));
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + idDealer));
         List<Car> carsList = converterEntity.convertCarEntitiesListToCarsList(dealer.getCarEntities());
         return carsList;
     }
