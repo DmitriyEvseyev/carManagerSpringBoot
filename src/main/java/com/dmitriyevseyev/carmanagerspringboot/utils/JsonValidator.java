@@ -42,7 +42,7 @@ public class JsonValidator {
         validationResult.forEach(vm -> error.append(vm.getMessage()));
 
 
-        System.out.println("JJJJJJJKsonValidator" + error);
+        System.out.println("JJJJJJJKsonValidator" + error.toString());
 
 
         return error.toString();

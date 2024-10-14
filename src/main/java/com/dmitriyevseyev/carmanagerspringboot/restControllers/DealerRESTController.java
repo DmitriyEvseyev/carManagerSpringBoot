@@ -37,7 +37,7 @@ public class DealerRESTController {
     }
 
     @GetMapping("/{id}")
-    public CarDealershipDTO getDealer(@PathVariable("id") Integer dealerId) throws NotFoundException {
+    public CarDealershipDTO getDealer(@PathVariable("id") Integer dealerId)   {
         CarDealershipDTO dealerDTO = converterDTO.convertDealerToDealerDTO(dealerService.getDealer(dealerId));
         log.info("DealerDTO - {}", dealerDTO);
         return dealerDTO;

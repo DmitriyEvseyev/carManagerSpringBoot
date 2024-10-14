@@ -144,14 +144,19 @@ public class DealerController {
     }
 
     @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public String importDealer(@RequestParam("importFile") MultipartFile importFile) throws IOException, JSONValidatorExeption, ImportExeption {
-        String json = new String(importFile.getBytes());
+    public String importDealer(@RequestParam("importFile") MultipartFile importFile, Model model) {
 
 
-        System.out.println(json);
+        try {
+            String json = new String(importFile.getBytes());
 
+            System.out.println(json);
 
-        importService.importFile(json);
+            importService.importFile(json);
+        } catch (ImportExeption | JSONValidatorExeption | IOException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
         return "redirect:/dealer/getDealers";
     }
 }

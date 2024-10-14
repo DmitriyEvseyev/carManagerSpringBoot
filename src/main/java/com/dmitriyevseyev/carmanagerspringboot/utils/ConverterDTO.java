@@ -58,14 +58,15 @@ public class ConverterDTO {
     }
 
     public CarEntity convertCarDTOToCarEntity(CarDTO carDTO) {
-        CarEntity car = CarEntity.builder().
+        System.out.println("55555555555");
+        CarEntity carEntity = CarEntity.builder().
                 id(carDTO.getId()).
                 name(carDTO.getName()).
                 date(carDTO.getDate()).
                 color(carDTO.getColor()).
                 isAfterCrash(carDTO.isAfterCrash()).
                 build();
-        return car;
+        return carEntity;
     }
 
     public CarDealershipDTO convertDealerToDealerDTO(CarDealership dealer) {
@@ -108,5 +109,8 @@ public class ConverterDTO {
                 isAfterCrash(carDTO.isAfterCrash()).
                 build();
         return car;
+    }
+    public Integer sum (Integer a) {
+        return a+30;
     }
 }

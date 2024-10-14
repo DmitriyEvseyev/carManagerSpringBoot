@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -33,17 +34,21 @@ public class CarRESTController {
     }
 
     @GetMapping()
-    public List<CarDTO> getCarsList() {
+    public ResponseEntity<List<CarDTO>> getCarsList() {
         List<CarDTO> carDTOList = converterDTO.convertCarsListToCarsDTOList(carService.getAllCarsList());
         log.info("CarDTOList - {}", carDTOList);
-        return carDTOList;
+        return ResponseEntity.ok().
+                contentType(MediaType.APPLICATION_JSON).
+                body(carDTOList);
     }
 
     @GetMapping("/{id}")
-    public CarDTO getCar(@PathVariable("id") Integer carId) {
+    public ResponseEntity<CarDTO> getCarDTO(@PathVariable("id") Integer carId) {
         CarDTO carDTO = converterDTO.convertCarToCarDTO(carService.getCarById(carId));
         log.info("CarDTO - {}", carDTO);
-        return carDTO;
+        return ResponseEntity.ok().
+                contentType(MediaType.APPLICATION_JSON).
+                body(carDTO);
     }
 
     @PostMapping()

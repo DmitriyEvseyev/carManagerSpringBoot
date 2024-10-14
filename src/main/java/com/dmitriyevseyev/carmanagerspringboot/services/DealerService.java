@@ -42,6 +42,12 @@ public class DealerService {
                 () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + id)));
     }
 
+    public CarDealershipEntity getDealer2(Integer id) throws NotFoundException {
+        Optional<CarDealershipEntity> dealerEntity = dealerRepository.findById(id);
+        return dealerEntity.orElseThrow(
+                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + id));
+    }
+
     @Transactional
     public void addDealer(CarDealership dealer) {
         dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));

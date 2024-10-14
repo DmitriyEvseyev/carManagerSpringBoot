@@ -15,6 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Builder
+@ToString
 public class CarEntity implements Serializable {
     @Id
     @Column(name = "car_id")
@@ -34,17 +35,17 @@ public class CarEntity implements Serializable {
     @Column(name = "is_after_crash")
     private boolean isAfterCrash;
 
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", dealerId=" + dealer.getId() +
-                ", name='" + name + '\'' +
-                ", date=" + date +
-                ", color='" + color + '\'' +
-                ", isAfterCrash=" + isAfterCrash +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Car{" +
+//                "id=" + id +
+//                ", dealerId=" + dealer.getId() +
+//                ", name='" + name + '\'' +
+//                ", date=" + date +
+//                ", color='" + color + '\'' +
+//                ", isAfterCrash=" + isAfterCrash +
+//                '}';
+//    }
 }
 
 

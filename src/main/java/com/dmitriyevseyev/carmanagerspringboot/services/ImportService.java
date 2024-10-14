@@ -23,7 +23,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ImportService {
     private final ConverterDTO converterDTO;
- // private ObjectMapper objectMapper;
+    // private ObjectMapper objectMapper;
     private final ExportConfigStrategy exportConfigStrategy;
     private final ImportStrategyHelper importStrategyHelper;
 
@@ -35,9 +35,10 @@ public class ImportService {
     }
 
     @Transactional
-    public void importFile(String json) throws IOException, JSONValidatorExeption, ImportExeption {
+    public void importFile(String json) throws ImportExeption, IOException, JSONValidatorExeption {
         JsonValidator jsonValidator = JsonValidator.getInstance();
         ObjectMapper objectMapper = new ObjectMapper();
+
         if (!jsonValidator.isValidImport(json).isEmpty()) {
             System.out.println("NOT VALID");
             throw new JSONValidatorExeption(Constants.VALIDATION_EXEPTION +

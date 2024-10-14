@@ -34,7 +34,7 @@ public class Constants {
 
 
     public final static String PATH_TO_PROPERTIES_NOT_FOUND_EXCEPTION_MESSAGE = "Properties file not found!";
-    public final static String PATH_TO_SCHEMA_JSON = "C:\\Users\\VivoB\\IdeaProjects\\carWeb\\src\\main\\resources\\schema.json";
+    public final static String PATH_TO_SCHEMA_JSON = "C:\\Users\\VivoB\\IdeaProjects\\carManagerSpringBoot\\src\\main\\resources\\schema.json";
     public static final String VALIDATION_EXEPTION = "Validation failed! ";
 
     public final static String NOT_FOUND_CAR_EXCEPTION_MESSAGE = "The car was not found! carId = ";

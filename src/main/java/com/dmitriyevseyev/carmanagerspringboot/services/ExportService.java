@@ -19,8 +19,8 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class ExportService {
-    private ExportConfigStrategy exportConfigStrategy;
-    private ExportStrategyHelper exportStrategyHelper;
+    private final ExportConfigStrategy exportConfigStrategy;
+    private final ExportStrategyHelper exportStrategyHelper;
 
     @Autowired
     public ExportService(ExportConfigStrategy exportConfigStrategy, ExportStrategyHelper exportStrategyHelper) {
