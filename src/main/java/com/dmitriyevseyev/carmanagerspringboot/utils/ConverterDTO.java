@@ -110,7 +110,4 @@ public class ConverterDTO {
                 build();
         return car;
     }
-    public Integer sum (Integer a) {
-        return a+30;
-    }
 }

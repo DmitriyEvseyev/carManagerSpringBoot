@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Locale;
 
 class ConverterDTOTest {
-    ConverterDTO converterDTO;
+    private ConverterDTO converterDTO;
     private CarDTO carDTO;
     private Car car;
     private CarEntity carEntity;
@@ -96,7 +96,7 @@ class ConverterDTOTest {
         List<CarDealershipEntity> dealerEntityListReturn =
                 converterDTO.convertDealerDTOListToDealerEntityList(dealerDTOList);
         System.out.println(dealerEntityListReturn);
-        Assertions.assertEquals(dealerDTOList.size(), dealersEntityList.size());
+        Assertions.assertEquals(dealersEntityList.size(), dealerEntityListReturn.size());
         Assertions.assertEquals(dealersEntityList, dealerEntityListReturn);
     }
 
@@ -118,9 +118,9 @@ class ConverterDTOTest {
         CarDealershipDTO dealerDTOReturn = converterDTO.convertDealerToDealerDTO(dealer);
         System.out.println(dealerDTOReturn);
         Assertions.assertNotNull(dealerDTOReturn);
-        Assertions.assertEquals(dealer.getId(), dealerDTOReturn.getId());
-        Assertions.assertEquals(dealer.getName(), dealerDTOReturn.getName());
-        Assertions.assertEquals(dealer.getAddress(), dealerDTOReturn.getAddress());
+        Assertions.assertEquals(dealerDTO.getId(), dealerDTOReturn.getId());
+        Assertions.assertEquals(dealerDTO.getName(), dealerDTOReturn.getName());
+        Assertions.assertEquals(dealerDTO.getAddress(), dealerDTOReturn.getAddress());
         Assertions.assertInstanceOf(CarDealershipDTO.class, dealerDTOReturn);
     }
 
@@ -129,8 +129,8 @@ class ConverterDTOTest {
         CarDealership dealerReturn = converterDTO.convertDealerDTOToDealer(dealerDTO);
         System.out.println(dealerReturn);
         Assertions.assertNotNull(dealerReturn);
-        Assertions.assertEquals(dealerDTO.getId(), dealerReturn.getId());
-        Assertions.assertEquals(dealerDTO.getName(), dealerReturn.getName());
+        Assertions.assertEquals(dealer.getId(), dealerReturn.getId());
+        Assertions.assertEquals(dealer.getName(), dealerReturn.getName());
         Assertions.assertEquals(dealer.getAddress(), dealerReturn.getAddress());
         Assertions.assertInstanceOf(CarDealership.class, dealerReturn);
     }
