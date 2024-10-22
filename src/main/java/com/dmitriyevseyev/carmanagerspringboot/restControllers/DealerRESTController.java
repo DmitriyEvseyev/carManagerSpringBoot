@@ -2,6 +2,7 @@ package com.dmitriyevseyev.carmanagerspringboot.restControllers;
 
 import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDTO;
 import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDealershipDTO;
+import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterDTO;
 import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.CreatedExeption;
@@ -37,14 +38,14 @@ public class DealerRESTController {
     }
 
     @GetMapping("/{id}")
-    public CarDealershipDTO getDealer(@PathVariable("id") Integer dealerId)   {
+    public CarDealershipDTO getDealer(@PathVariable("id") Integer dealerId) {
         CarDealershipDTO dealerDTO = converterDTO.convertDealerToDealerDTO(dealerService.getDealer(dealerId));
         log.info("DealerDTO - {}", dealerDTO);
         return dealerDTO;
     }
 
     @PostMapping()
-    public ResponseEntity<HttpStatus> addDealer(@RequestBody @Valid CarDealershipDTO dealerDTO, BindingResult bindingResult) {
+    public ResponseEntity<HttpStatus> addDealer( @RequestBody  CarDealershipDTO dealerDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             StringBuilder errorMes = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();
@@ -73,7 +74,7 @@ public class DealerRESTController {
         log.info("DELETE, dealer.id - {}", dealerId);
 
         dealerService.delOnlyOneDealer(dealerId);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}/cars")

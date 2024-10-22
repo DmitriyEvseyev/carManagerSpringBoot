@@ -78,9 +78,10 @@ public class CarService {
 
     @Transactional
     public void delOnlyOneCar(Integer carId) {
-        carRepository.findById(carId).orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE + carId));
-        carRepository.deleteById(carId);
+        int deleteStatus = carRepository.deleteCarEntitiyById(carId);
+        System.out.println("delStatus - " + deleteStatus);
+        if (deleteStatus == 0)
+            throw new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE + carId);
     }
 
     public List<Car> searchCar(String dealerId, String column, String pattern) throws NotFoundException {

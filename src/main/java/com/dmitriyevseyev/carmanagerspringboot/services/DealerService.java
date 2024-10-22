@@ -7,27 +7,30 @@ import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
 import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterEntity;
 
+import com.dmitriyevseyev.carmanagerspringboot.utils.ValidationServiceREST;
 import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
 public class DealerService {
     private final DealerRepository dealerRepository;
     private final ConverterEntity converterEntity;
+    private final Validator validator;
 
     @Autowired
-    public DealerService(DealerRepository dealerRepository, ConverterEntity converterEntity) {
+    public DealerService(DealerRepository dealerRepository, ConverterEntity converterEntity, Validator validator) {
         this.dealerRepository = dealerRepository;
         this.converterEntity = converterEntity;
+        this.validator = validator;
     }
 
     public List<CarDealership> getDealersList() {
@@ -42,29 +45,29 @@ public class DealerService {
                 () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + id)));
     }
 
-    public CarDealershipEntity getDealer2(Integer id) throws NotFoundException {
-        Optional<CarDealershipEntity> dealerEntity = dealerRepository.findById(id);
-        return dealerEntity.orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + id));
-    }
-
     @Transactional
     public void addDealer(CarDealership dealer) {
+//        Set<ConstraintViolation<CarDealership>> violations = validator.validate(dealer);
+//        if (!violations.isEmpty()) {
+//            throw new ConstraintViolationException(violations);
+//        }
         dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
+
     }
 
     @Transactional
-    public void updateDealer(CarDealership dealer) throws NotFoundException  {
-        dealerRepository.findById(dealer.getId()).orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + dealer.getId()));
-        dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
+    public void updateDealer(CarDealership dealer) throws NotFoundException {
+        if (dealerRepository.existsById(dealer.getId())) {
+            dealerRepository.save(converterEntity.convertDealerToDealerEntity(dealer));
+        } else throw new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + dealer.getId());
     }
 
     @Transactional
     public void delOnlyOneDealer(Integer dealerId) throws NotFoundException {
-        dealerRepository.findById(dealerId).orElseThrow(
-                () -> new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + dealerId));
-        dealerRepository.deleteById(dealerId);
+        int deleteStatus = dealerRepository.deleteCarDealershipEntityById(dealerId);
+        System.out.println("delStatus - " + deleteStatus);
+        if (deleteStatus == 0)
+            throw new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + dealerId);
     }
 
     @Transactional
