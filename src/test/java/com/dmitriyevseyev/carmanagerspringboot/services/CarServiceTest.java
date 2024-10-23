@@ -5,7 +5,7 @@ import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.CarRepository;
-import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
+import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterEntity;
 import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
 import org.assertj.core.api.Assertions;
@@ -18,14 +18,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CarServiceTest {
@@ -33,12 +29,10 @@ class CarServiceTest {
     ConverterEntity converterEntity;
     @Mock
     CarRepository carRepository;
+    @Mock
+    DealerService dealerService;
     @InjectMocks
     CarService carService;
-    @Mock
-    DealerRepository dealerRepository;
-    @InjectMocks
-    DealerService dealerService;
 
     Car car;
     CarEntity carEntity;
@@ -78,13 +72,35 @@ class CarServiceTest {
     }
 
     @Test
-    void getAllCarsList() {
-        //  when(carRepository.getCarEntitiesByDealer(dealerEntity)).thenReturn()
+    public void getAllCarsList_ReturnsValidAllCarsList() {
+        when(dealerService.getDealersList()).thenReturn(Collections.singletonList(dealer));
+        when(converterEntity.convertDealerToDealerEntity(dealer)).thenReturn(dealerEntity);
+        when(carRepository.getCarEntitiesByDealer(dealerEntity)).thenReturn(carEntitiesList);
+        when(converterEntity.convertCarEntitiesListToCarsList(carEntitiesList)).thenReturn(carsList);
 
+        List<Car> returnCarsList = carService.getAllCarsList();
+
+        Assertions.assertThat(returnCarsList).isNotNull();
+        Assertions.assertThat(returnCarsList.size()).isEqualTo(carsList.size());
+        Assertions.assertThat(returnCarsList).isEqualTo(carsList);
     }
 
     @Test
-    void getCarById() {
+    public void getCarsListByDealerId_ReturnsSaveValidCarsList() throws NotFoundException {
+        when(dealerService.getDealer(dealer.getId())).thenReturn(dealer);
+        when(converterEntity.convertDealerToDealerEntity(dealer)).thenReturn(dealerEntity);
+        when(carRepository.getCarEntitiesByDealer(dealerEntity)).thenReturn(carEntitiesList);
+        when(converterEntity.convertCarEntitiesListToCarsList(carEntitiesList)).thenReturn(carsList);
+
+        List<Car> returnCarsList = carService.getCarsListByDealerId(dealer.getId());
+
+        Assertions.assertThat(returnCarsList).isNotNull();
+        Assertions.assertThat(returnCarsList.size()).isEqualTo(carsList.size());
+        Assertions.assertThat(returnCarsList).isEqualTo(carsList);
+    }
+
+    @Test
+    public void getCarById_ReturnsValidCar() {
         when(carRepository.findById(carEntity.getId())).thenReturn(Optional.of(carEntity));
         when(converterEntity.converterCarEntityToCar(carEntity)).thenReturn(car);
         Car carReturn = carService.getCarById(car.getId());
@@ -101,7 +117,7 @@ class CarServiceTest {
     }
 
     @Test
-    void getCarEntity_ReturnsNotfounExeption() {
+    public void getCarEntity_ReturnsNotfounExeption() {
         when(carRepository.findById(carEntity.getId())).
                 thenReturn(Optional.empty());
         NotFoundException e = assertThrows(NotFoundException.class,
@@ -112,25 +128,40 @@ class CarServiceTest {
     }
 
     @Test
-    void addCar() {
-        when(dealerRepository.findById(dealerEntity.getId())).
-                thenReturn(Optional.of(dealerEntity));
+    public void addCar_ReturnsSaveValidCar() {
+        when(dealerService.getDealer(car.getDealerId())).thenReturn(dealer);
         when(converterEntity.convertDealerToDealerEntity(dealer)).thenReturn(dealerEntity);
+        when(converterEntity.converterCarToCarEntity(car, dealerEntity)).thenReturn(new CarEntity());
+        when(carRepository.save(new CarEntity())).thenReturn(carEntity);
+
+        carService.addCar(car);
+        verify(carRepository).save(any(CarEntity.class));
+    }
+
+    @Test
+    public void UpdateCar_ReturnsUpdateCar() {
+        when(dealerService.getDealer(car.getDealerId())).thenReturn(dealer);
+        when(converterEntity.convertDealerToDealerEntity(dealer)).thenReturn(dealerEntity);
+        when(carRepository.existsById(car.getId())).thenReturn(true);
         when(converterEntity.converterCarToCarEntity(car, dealerEntity)).thenReturn(carEntity);
         when(carRepository.save(carEntity)).thenReturn(carEntity);
 
-        CarDealershipEntity dealerEntity = converterEntity.convertDealerToDealerEntity(dealerService.getDealer(car.getDealerId()));
-        carService.addCar(car);
+        carService.updateCar(car);
         verify(carRepository).save(carEntity);
-
     }
 
     @Test
-    void updateCar() {
+    public void UpdateCar_ReturnsNotFound() {
+        when(carRepository.existsById(car.getId())).thenReturn(false);
+        NotFoundException e = assertThrows(NotFoundException.class, () -> {
+            carService.updateCar(car);
+        });
+        Assertions.assertThat(e).isInstanceOf(NotFoundException.class);
+        assertEquals(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + car.getId(), e.getMessage());
     }
 
     @Test
-    void delOnlyOneCar_ReturnsDealeteCar() {
+    public void delOnlyOneCar_ReturnsDealeteCar() {
         when(carRepository.deleteCarEntitiyById(car.getId())).thenReturn(1);
         carService.delOnlyOneCar(car.getId());
 
@@ -148,7 +179,5 @@ class CarServiceTest {
         System.out.println(e.getMessage());
         Assertions.assertThat(e).isInstanceOf(NotFoundException.class);
         Assertions.assertThat(e.getMessage()).isNotNull();
-
     }
-
 }

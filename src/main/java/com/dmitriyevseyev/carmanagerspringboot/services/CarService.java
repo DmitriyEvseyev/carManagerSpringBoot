@@ -62,8 +62,10 @@ public class CarService {
     @Transactional
     public void updateCar(Car car) {
         CarDealershipEntity dealerEntity = converterEntity.convertDealerToDealerEntity(dealerService.getDealer(car.getDealerId()));
-        CarEntity carEntity = converterEntity.converterCarToCarEntity(car, dealerEntity);
-        carRepository.save(carEntity);
+        if (carRepository.existsById(car.getId())) {
+            CarEntity carEntity = converterEntity.converterCarToCarEntity(car, dealerEntity);
+            carRepository.save(carEntity);
+        } else throw new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + car.getId());
     }
 
     @Transactional
