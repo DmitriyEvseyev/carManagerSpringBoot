@@ -1,16 +1,15 @@
 package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
-import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.services.CarService;
 import com.dmitriyevseyev.carmanagerspringboot.services.ExportService;
 import com.dmitriyevseyev.carmanagerspringboot.services.ImportService;
-import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.StrategyNotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.JSONValidatorExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.ImportExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.JSONValidatorExeption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpHeaders;
@@ -31,9 +30,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/car")
 public class CarController {
-    private CarService carService;
-    private ExportService exportService;
-    private ImportService importService;
+    final private CarService carService;
+    final private ExportService exportService;
+    final private ImportService importService;
 
     @Autowired
     public CarController(CarService carService, ExportService exportService, ImportService importService) {
@@ -96,9 +95,9 @@ public class CarController {
     }
 
     @PostMapping("/update")
-    public String updateDealer(@ModelAttribute("car") Car car,
-                               @RequestParam(value = "isAfterCrash", required = false) String isAfterCrashString,
-                               Model model) {
+    public String updateCar(@ModelAttribute("car") Car car,
+                            @RequestParam(value = "isAfterCrash", required = false) String isAfterCrashString,
+                            Model model) {
 
         System.out.println("isAfterCrashString - " + isAfterCrashString);
 
@@ -210,11 +209,11 @@ public class CarController {
 
     @GetMapping("/export")
     public @ResponseBody ResponseEntity<ExportDTO> exportCars
-            (@RequestParam("dealerId") String dealerId,
-             @RequestParam("check") String carId,
-             @RequestParam("fileName") String fileName) throws ExportExeption, StrategyNotFoundException {
+            (
+                    @RequestParam("check") String carId,
+                    @RequestParam("fileName") String fileName) throws ExportExeption, StrategyNotFoundException {
 
-        String idDealerString = null;
+        String dealerId = null;
 
         System.out.println("idDealer - " + dealerId);
         System.out.println("check - " + carId);
@@ -233,16 +232,23 @@ public class CarController {
     @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public String importCar(@RequestParam("importFile") MultipartFile importFile,
                             @RequestParam("dealerId") String dealerId,
-                            Model model) throws IOException, JSONValidatorExeption, ImportExeption {
-        String json = new String(importFile.getBytes());
-        System.out.println(json);
-        System.out.println("String dealerId - " + dealerId);
+                            Model model) {
+        try {
+            String json = new String(importFile.getBytes());
+            System.out.println(json);
+            System.out.println("String dealerId - " + dealerId);
 
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        ExportDTO exportDTO = objectMapper.readValue(json, ExportDTO.class);
-//        System.out.println("exportDTO - " + exportDTO);
-
-        importService.importFile(json);
+            importService.importFile(json);
+        } catch (ImportExeption   e) {
+            model.addAttribute("error", "ImportExeption.  " + e.getMessage());
+            return "error";
+        } catch (IOException   e) {
+            model.addAttribute("error", "IOException. " + e.getMessage());
+            return "error";
+        } catch (JSONValidatorExeption e) {
+            model.addAttribute("error", "JSONValidatorExeption. " + e.getMessage());
+            return "error";
+        }
 
         try {
             getCarsList(Integer.parseInt(dealerId), model);

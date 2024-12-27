@@ -1,17 +1,17 @@
 package com.dmitriyevseyev.carmanagerspringboot.controllers;
 
 import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
-import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.services.DealerService;
 import com.dmitriyevseyev.carmanagerspringboot.services.ExportService;
 import com.dmitriyevseyev.carmanagerspringboot.services.ImportService;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.StrategyNotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.JSONValidatorExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.ImportExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.JSONValidatorExeption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -28,9 +28,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/dealer")
 public class DealerController {
-    private DealerService dealerService;
-    private ExportService exportService;
-    private ImportService importService;
+    final private DealerService dealerService;
+    final private ExportService exportService;
+    final private ImportService importService;
 
     @Autowired
     public DealerController(DealerService dealerService, ExportService exportService, ImportService importService) {
@@ -144,14 +144,19 @@ public class DealerController {
     }
 
     @PostMapping(value = "/import", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public String importDealer(@RequestParam("importFile") MultipartFile importFile) throws IOException, JSONValidatorExeption, ImportExeption {
-        String json = new String(importFile.getBytes());
+    public String importDealer(@RequestParam("importFile") MultipartFile importFile, Model model) {
 
 
-        System.out.println(json);
+        try {
+            String json = new String(importFile.getBytes());
 
+            System.out.println(json);
 
-        importService.importFile(json);
+            importService.importFile(json);
+        } catch (ImportExeption | JSONValidatorExeption | IOException e) {
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
         return "redirect:/dealer/getDealers";
     }
 }

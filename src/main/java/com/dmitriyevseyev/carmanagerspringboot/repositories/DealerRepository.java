@@ -19,7 +19,12 @@ public interface DealerRepository extends JpaRepository<CarDealershipEntity, Int
     List<CarDealershipEntity> findByOrderByAddressAsc();
 
     List<CarDealershipEntity> findByOrderByAddressDesc();
-    CarDealershipEntity getCarDealershipEntityByName(String dealerName);
-    CarDealershipEntity getCarDealershipEntityById(Integer id);
 
+    CarDealershipEntity getCarDealershipEntityByName(String dealerName);
+
+    CarDealershipEntity getCarDealershipEntityById(Integer id);
+    // Integer deleteById(Integer id);
+
+    //  long deleteById(String id);
+    int deleteCarDealershipEntityById(Integer id);
 }

@@ -1,11 +1,11 @@
 package com.dmitriyevseyev.carmanagerspringboot.services;
 
-import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ExportDTO;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.ExportConfigStrategy;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.PropertyFileException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.PropertyFileException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.StrategyNotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportStrategy;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.export.ExportStrategyHelper;
@@ -19,8 +19,8 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class ExportService {
-    private ExportConfigStrategy exportConfigStrategy;
-    private ExportStrategyHelper exportStrategyHelper;
+    private final ExportConfigStrategy exportConfigStrategy;
+    private final ExportStrategyHelper exportStrategyHelper;
 
     @Autowired
     public ExportService(ExportConfigStrategy exportConfigStrategy, ExportStrategyHelper exportStrategyHelper) {

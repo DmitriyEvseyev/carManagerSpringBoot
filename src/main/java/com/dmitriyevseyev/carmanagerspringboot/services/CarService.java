@@ -1,25 +1,26 @@
 package com.dmitriyevseyev.carmanagerspringboot.services;
 
+import com.dmitriyevseyev.carmanagerspringboot.models.CarDealership;
 import com.dmitriyevseyev.carmanagerspringboot.utils.Constants;
-import com.dmitriyevseyev.carmanagerspringboot.utils.NotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.exeptions.NotFoundException;
 import com.dmitriyevseyev.carmanagerspringboot.models.Car;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.CarRepository;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 public class CarService {
     private final CarRepository carRepository;
     private final DealerService dealerService;
@@ -32,41 +33,57 @@ public class CarService {
         this.converterEntity = converterEntity;
     }
 
+    public List<Car> getAllCarsList() {
+        return dealerService.getDealersList().stream().
+                flatMap(carDealership -> converterEntity.convertCarEntitiesListToCarsList(
+                                carRepository.getCarEntitiesByDealer(
+                                        converterEntity.convertDealerToDealerEntity(carDealership))).
+                        stream()).
+                collect(Collectors.toList());
+    }
+
     public List<Car> getCarsListByDealerId(Integer dealerId) throws NotFoundException {
         CarDealershipEntity dealerEntity = converterEntity.convertDealerToDealerEntity(dealerService.getDealer(dealerId));
-        List<Car> carList = converterEntity.convertCarEntitiesListToCarsList(carRepository.getCarEntitiesByDealer(dealerEntity));
-        return carList;
+        return converterEntity.convertCarEntitiesListToCarsList(carRepository.getCarEntitiesByDealer(dealerEntity));
     }
 
     public Car getCarById(Integer carId) throws NotFoundException {
         Optional<CarEntity> carEntity = carRepository.findById(carId);
         return converterEntity.converterCarEntityToCar(carEntity.orElseThrow(
-                ()-> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE)));
+                () -> new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE + carId)));
     }
 
     @Transactional
-    public void addCar(Car car) throws NotFoundException {
+    public void addCar(Car car) {
         CarDealershipEntity dealerEntity = converterEntity.convertDealerToDealerEntity(dealerService.getDealer(car.getDealerId()));
         carRepository.save(converterEntity.converterCarToCarEntity(car, dealerEntity));
     }
 
     @Transactional
-    public void updateCar(Car car) throws NotFoundException {
+    public void updateCar(Car car) {
         CarDealershipEntity dealerEntity = converterEntity.convertDealerToDealerEntity(dealerService.getDealer(car.getDealerId()));
-        CarEntity carEntity = converterEntity.converterCarToCarEntity(car, dealerEntity);
-        carRepository.save(carEntity);
+        if (carRepository.existsById(car.getId())) {
+            CarEntity carEntity = converterEntity.converterCarToCarEntity(car, dealerEntity);
+            carRepository.save(carEntity);
+        } else throw new NotFoundException(Constants.NOT_FOUND_DEALER_EXCEPTION_MESSAGE + car.getId());
     }
 
     @Transactional
     public void deleteCar(String carId) {
-        List<Integer> carIdsList = new ArrayList<>();
-        String carIdsArr[] = carId.split(",");
-        for (int i = 0; i < carIdsArr.length; i++) {
-            carIdsList.add(Integer.parseInt(carIdsArr[i]));
-        }
+        List<Integer> carIdsList = Arrays.stream(carId.split(",")).
+                map(Integer::parseInt).
+                toList();
         for (Integer id : carIdsList) {
             carRepository.deleteById(id);
         }
+    }
+
+    @Transactional
+    public void delOnlyOneCar(Integer carId) {
+        int deleteStatus = carRepository.deleteCarEntitiyById(carId);
+        System.out.println("delStatus - " + deleteStatus);
+        if (deleteStatus == 0)
+            throw new NotFoundException(Constants.NOT_FOUND_CAR_EXCEPTION_MESSAGE + carId);
     }
 
     public List<Car> searchCar(String dealerId, String column, String pattern) throws NotFoundException {

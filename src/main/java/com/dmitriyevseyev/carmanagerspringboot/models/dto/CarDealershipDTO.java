@@ -1,7 +1,9 @@
 package com.dmitriyevseyev.carmanagerspringboot.models.dto;
 
+import jakarta.validation.constraints.*;
 import lombok.*;
 
+import javax.xml.transform.Source;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -10,24 +12,20 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Builder
 public class CarDealershipDTO implements Serializable {
+
+    @Positive(message = "Id should be greater than 0.")
     private Integer id;
+
+    @NotBlank(message = "Name should be empty.")
+    @Size (min = 2, max = 30, message = "Name should be between 2 and 30 characters.")
     private String name;
+
+    @NotBlank(message = "Address should be empty.")
+    @Size (min = 2, max = 30, message = "Address should be between 2 and 30 characters.")
     private String address;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CarDealershipDTO that = (CarDealershipDTO) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(address, that.address);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, address);
-    }
 }

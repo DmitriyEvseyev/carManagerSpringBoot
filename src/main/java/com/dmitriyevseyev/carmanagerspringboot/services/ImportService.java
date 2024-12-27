@@ -4,12 +4,12 @@ import com.dmitriyevseyev.carmanagerspringboot.models.dto.CarDTO;
 import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarDealershipEntity;
 import com.dmitriyevseyev.carmanagerspringboot.utils.*;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.ExportConfigStrategy;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.PropertyFileException;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.StrategyNotFoundException;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.PropertyFileException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.StrategyNotFoundException;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.ImportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportStrategy;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportStrategyHelper;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.JSONValidatorExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.JSONValidatorExeption;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +22,10 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class ImportService {
-    private ConverterDTO converterDTO;
- // private ObjectMapper objectMapper;
-    private ExportConfigStrategy exportConfigStrategy;
-    private ImportStrategyHelper importStrategyHelper;
+    private final ConverterDTO converterDTO;
+    // private ObjectMapper objectMapper;
+    private final ExportConfigStrategy exportConfigStrategy;
+    private final ImportStrategyHelper importStrategyHelper;
 
     @Autowired
     public ImportService(ConverterDTO converterDTO, ExportConfigStrategy exportConfigStrategy, ImportStrategyHelper importStrategyHelper) {
@@ -35,9 +35,10 @@ public class ImportService {
     }
 
     @Transactional
-    public void importFile(String json) throws IOException, JSONValidatorExeption, ImportExeption {
+    public void importFile(String json) throws ImportExeption, IOException, JSONValidatorExeption {
         JsonValidator jsonValidator = JsonValidator.getInstance();
         ObjectMapper objectMapper = new ObjectMapper();
+
         if (!jsonValidator.isValidImport(json).isEmpty()) {
             System.out.println("NOT VALID");
             throw new JSONValidatorExeption(Constants.VALIDATION_EXEPTION +
@@ -51,7 +52,7 @@ public class ImportService {
         List<CarDealershipEntity> dealerEntityList = new ArrayList<>();
         List<CarDTO> carDTOList = new ArrayList<>();
 
-        dealerEntityList.addAll(converterDTO.convertetDealerDTOListToDealerEntityList(exportDTO.getDealers()));
+        dealerEntityList.addAll(converterDTO.convertDealerDTOListToDealerEntityList(exportDTO.getDealers()));
         carDTOList.addAll(exportDTO.getCars());
 
         int dealerImpIdStrategy;

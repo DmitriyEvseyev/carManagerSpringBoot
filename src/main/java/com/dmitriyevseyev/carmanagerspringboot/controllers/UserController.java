@@ -41,7 +41,7 @@ public class UserController {
                 isCorrect = true;
             }
         }
-        if (isCorrect == true) {
+        if (isCorrect) {
             return "forward:/dealer/getDealers";
         }
         return "user/error";

@@ -1,6 +1,6 @@
-package com.dmitriyevseyev.carmanagerspringboot.utils;
+package com.dmitriyevseyev.carmanagerspringboot.utils.exeptions;
 
-public class NotFoundException extends Exception {
+public class NotFoundException extends RuntimeException {
 
     public NotFoundException() {
         super();

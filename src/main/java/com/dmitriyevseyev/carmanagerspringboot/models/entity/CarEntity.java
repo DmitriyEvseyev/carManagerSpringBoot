@@ -6,7 +6,6 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "CARS")
@@ -14,7 +13,9 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Builder
+@ToString
 public class CarEntity implements Serializable {
     @Id
     @Column(name = "car_id")
@@ -34,35 +35,17 @@ public class CarEntity implements Serializable {
     @Column(name = "is_after_crash")
     private boolean isAfterCrash;
 
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", dealerId=" + dealer.getId() +
-                ", name='" + name + '\'' +
-                ", date=" + date +
-                ", color='" + color + '\'' +
-                ", isAfterCrash=" + isAfterCrash +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CarEntity carEntity = (CarEntity) o;
-        return isAfterCrash == carEntity.isAfterCrash &&
-                Objects.equals(id, carEntity.id) &&
-                Objects.equals(dealer.getId(), carEntity.dealer.getId()) &&
-                Objects.equals(name, carEntity.name) &&
-                Objects.equals(date, carEntity.date) &&
-                Objects.equals(color, carEntity.color);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, dealer.getId(), name, date, color, isAfterCrash);
-    }
+//    @Override
+//    public String toString() {
+//        return "Car{" +
+//                "id=" + id +
+//                ", dealerId=" + dealer.getId() +
+//                ", name='" + name + '\'' +
+//                ", date=" + date +
+//                ", color='" + color + '\'' +
+//                ", isAfterCrash=" + isAfterCrash +
+//                '}';
+//    }
 }
 
 

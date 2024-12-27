@@ -13,6 +13,9 @@ import java.util.List;
 
 @Component
 public class ConverterEntity {
+    public ConverterEntity() {
+    }
+
     public UserEntity convertUserToUserEntity(User user) {
         UserEntity userEntity = UserEntity.builder().
                 id(user.getId()).

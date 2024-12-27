@@ -5,7 +5,7 @@ import com.dmitriyevseyev.carmanagerspringboot.models.entity.CarEntity;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.CarRepository;
 import com.dmitriyevseyev.carmanagerspringboot.repositories.DealerRepository;
 import com.dmitriyevseyev.carmanagerspringboot.utils.ConverterDTO;
-import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportExeption;
+import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.exeption.ImportExeption;
 import com.dmitriyevseyev.carmanagerspringboot.utils.strategy.importFile.ImportStrategy;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class CarOverwriteImportStrategy implements ImportStrategy<CarDTO> {
     private ConverterDTO converterDTO;
     @Override
     public void store(CarDTO carDTO) throws ImportExeption {
-        CarEntity carEntity = converterDTO.converterCarDTOToCarEntity(carDTO);
+        CarEntity carEntity = converterDTO.convertCarDTOToCarEntity(carDTO);
         carEntity.setDealer(dealerRepository.getCarDealershipEntityById(carDTO.getDealerId()));
 
 

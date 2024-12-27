@@ -37,6 +37,7 @@ public interface CarRepository extends JpaRepository<CarEntity, Integer> {
     List<CarEntity> findByDealerOrderByIsAfterCrashDesc(CarDealershipEntity dealer);
 
     CarEntity getCarEntitiyById(Integer idCarEntity);
+    int deleteCarEntitiyById (Integer carIdEntity);
 
 
 }
